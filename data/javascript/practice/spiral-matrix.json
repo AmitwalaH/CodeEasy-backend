@@ -1,0 +1,12 @@
+{
+  "language": "javascript",
+  "type": "practice",
+  "slug": "spiral-matrix",
+  "title": "Spiral Matrix",
+  "docs": {
+    "instructions": "# Instructions\n\nYour task is to return a square matrix of a given size.\n\nThe matrix should be filled with natural numbers, starting from 1 in the top-left corner, increasing in an inward, clockwise spiral order, like these examples:\n\n## Examples\n\n### Spiral matrix of size 3\n\n```text\n1 2 3\n8 9 4\n7 6 5\n```\n\n### Spiral matrix of size 4\n\n```text\n 1  2  3 4\n12 13 14 5\n11 16 15 6\n10  9  8 7\n```\n",
+    "hints": ""
+  },
+  "starter_code": "//\n// This is only a SKELETON file for the 'Spiral Matrix' exercise. It's been provided as a\n// convenience to get you started writing code faster.\n//\n\nexport const spiralMatrix = () => {\n  throw new Error('Remove this line and implement the function');\n};\n",
+  "tests": "import { describe, expect, test, xtest } from '@jest/globals';\nimport { spiralMatrix } from './spiral-matrix';\n\ndescribe('Spiral Matrix', () => {\n  test('empty spiral', () => {\n    const expected = [];\n    const actual = spiralMatrix(0);\n\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('trivial spiral', () => {\n    const expected = [[1]];\n    const actual = spiralMatrix(1);\n\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('spiral of size 2', () => {\n    const expected = [\n      [1, 2],\n      [4, 3],\n    ];\n    const actual = spiralMatrix(2);\n\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('spiral of size 3', () => {\n    const expected = [\n      [1, 2, 3],\n      [8, 9, 4],\n      [7, 6, 5],\n    ];\n    const actual = spiralMatrix(3);\n\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('spiral of size 4', () => {\n    const expected = [\n      [1, 2, 3, 4],\n      [12, 13, 14, 5],\n      [11, 16, 15, 6],\n      [10, 9, 8, 7],\n    ];\n    const actual = spiralMatrix(4);\n\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('spiral of size 5', () => {\n    const expected = [\n      [1, 2, 3, 4, 5],\n      [16, 17, 18, 19, 6],\n      [15, 24, 25, 20, 7],\n      [14, 23, 22, 21, 8],\n      [13, 12, 11, 10, 9],\n    ];\n    const actual = spiralMatrix(5);\n\n    expect(expected).toEqual(actual);\n  });\n});\n"
+}

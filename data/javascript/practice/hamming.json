@@ -1,0 +1,12 @@
+{
+  "language": "javascript",
+  "type": "practice",
+  "slug": "hamming",
+  "title": "Hamming",
+  "docs": {
+    "instructions": "# Instructions\n\nCalculate the Hamming distance between two DNA strands.\n\nWe read DNA using the letters C, A, G and T.\nTwo strands might look like this:\n\n    GAGCCTACTAACGGGAT\n    CATCGTAATGACGGCCT\n    ^ ^ ^  ^ ^    ^^\n\nThey have 7 differences, and therefore the Hamming distance is 7.\n\n## Implementation notes\n\nThe Hamming distance is only defined for sequences of equal length, so an attempt to calculate it between sequences of different lengths should not work.\n",
+    "hints": ""
+  },
+  "starter_code": "//\n// This is only a SKELETON file for the 'Hamming' exercise. It's been provided as a\n// convenience to get you started writing code faster.\n//\n\nexport const compute = () => {\n  throw new Error('Remove this line and implement the function');\n};\n",
+  "tests": "import { describe, expect, test, xtest } from '@jest/globals';\nimport { compute } from './hamming';\n\ndescribe('Hamming', () => {\n  test('empty strands', () => {\n    expect(compute('', '')).toEqual(0);\n  });\n\n  xtest('single letter identical strands', () => {\n    expect(compute('A', 'A')).toEqual(0);\n  });\n\n  xtest('single letter different strands', () => {\n    expect(compute('G', 'T')).toEqual(1);\n  });\n\n  xtest('long identical strands', () => {\n    expect(compute('GGACTGAAATCTG', 'GGACTGAAATCTG')).toEqual(0);\n  });\n\n  xtest('long different strands', () => {\n    expect(compute('GGACGGATTCTG', 'AGGACGGATTCT')).toEqual(9);\n  });\n\n  xtest('disallow first strand longer', () => {\n    expect(() => compute('AATG', 'AAA')).toThrow(\n      new Error('strands must be of equal length'),\n    );\n  });\n\n  xtest('disallow second strand longer', () => {\n    expect(() => compute('ATA', 'AGTG')).toThrow(\n      new Error('strands must be of equal length'),\n    );\n  });\n\n  xtest('disallow empty first strand', () => {\n    expect(() => compute('', 'G')).toThrow(\n      new Error('strands must be of equal length'),\n    );\n  });\n\n  xtest('disallow empty second strand', () => {\n    expect(() => compute('G', '')).toThrow(\n      new Error('strands must be of equal length'),\n    );\n  });\n});\n"
+}

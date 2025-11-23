@@ -1,0 +1,16 @@
+{
+  "language": "c",
+  "slug": "square-root",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\nWe are launching a deep space exploration rocket and we need a way to make sure the navigation system stays on target.\r\n\r\nAs the first step in our calculation, we take a target number and find its square root (that is, the number that when multiplied by itself equals the target number).\r\n\r\nThe journey will be very long.\r\nTo make the batteries last as long as possible, we had to make our rocket's onboard computer very power efficient.\r\nUnfortunately that means that we can't rely on fancy math libraries and functions, as they use more power.\r\nInstead we want to implement our own square root calculation.\r\n",
+    "instructions": "# Instructions\r\n\r\nYour task is to calculate the square root of a given number.\r\n\r\n- Try to avoid using the pre-existing math libraries of your language.\r\n- As input you'll be given a positive whole number, i.e. 1, 2, 3, 4…\r\n- You are only required to handle cases where the result is a positive whole number.\r\n\r\nSome potential approaches:\r\n\r\n- Linear or binary search for a number that gives the input number when squared.\r\n- Successive approximation using Newton's or Heron's method.\r\n- Calculating one digit at a time or one bit at a time.\r\n\r\nYou can check out the Wikipedia pages on [integer square root][integer-square-root] and [methods of computing square roots][computing-square-roots] to help with choosing a method of calculation.\r\n\r\n[integer-square-root]: https://en.wikipedia.org/wiki/Integer_square_root\r\n[computing-square-roots]: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "square_root.c": "#include \"square_root.h\"\r\n",
+    "square_root.h": "#ifndef SQUARE_ROOT_H\r\n#define SQUARE_ROOT_H\r\n\r\n#endif\r\n"
+  },
+  "tests": {
+    "test_square_root.c": "#include \"test-framework/unity.h\"\r\n#include \"square_root.h\"\r\n\r\nvoid setUp(void)\r\n{\r\n}\r\n\r\nvoid tearDown(void)\r\n{\r\n}\r\n\r\nstatic void test_root_of_1(void)\r\n{\r\n   TEST_ASSERT_EQUAL_UINT16(1, square_root(1));\r\n}\r\n\r\nstatic void test_root_of_4(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT16(2, square_root(4));\r\n}\r\n\r\nstatic void test_root_of_25(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT16(5, square_root(25));\r\n}\r\n\r\nstatic void test_root_of_81(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT16(9, square_root(81));\r\n}\r\n\r\nstatic void test_root_of_196(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT16(14, square_root(196));\r\n}\r\n\r\nstatic void test_root_of_65025(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT16(255, square_root(65025));\r\n}\r\n\r\nint main(void)\r\n{\r\n   UNITY_BEGIN();\r\n\r\n   RUN_TEST(test_root_of_1);\r\n   RUN_TEST(test_root_of_4);\r\n   RUN_TEST(test_root_of_25);\r\n   RUN_TEST(test_root_of_81);\r\n   RUN_TEST(test_root_of_196);\r\n   RUN_TEST(test_root_of_65025);\r\n\r\n   return UNITY_END();\r\n}\r\n"
+  }
+}

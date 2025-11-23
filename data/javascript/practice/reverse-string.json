@@ -1,0 +1,12 @@
+{
+  "language": "javascript",
+  "type": "practice",
+  "slug": "reverse-string",
+  "title": "Reverse String",
+  "docs": {
+    "instructions": "# Instructions\n\nYour task is to reverse a given string.\n\nSome examples:\n\n- Turn `\"stressed\"` into `\"desserts\"`.\n- Turn `\"strops\"` into `\"sports\"`.\n- Turn `\"racecar\"` into `\"racecar\"`.\n",
+    "hints": ""
+  },
+  "starter_code": "//\n// This is only a SKELETON file for the 'Reverse String' exercise. It's been provided as a\n// convenience to get you started writing code faster.\n//\n\nexport const reverseString = () => {\n  throw new Error('Remove this line and implement the function');\n};\n",
+  "tests": "import { describe, expect, test, xtest } from '@jest/globals';\nimport { reverseString } from './reverse-string';\n\ndescribe('ReverseString', () => {\n  test('empty string', () => {\n    const expected = '';\n    const actual = reverseString('');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('a word', () => {\n    const expected = 'tobor';\n    const actual = reverseString('robot');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('a capitalized word', () => {\n    const expected = 'nemaR';\n    const actual = reverseString('Ramen');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('a sentence with punctuation', () => {\n    const expected = '!yrgnuh ma I';\n    const actual = reverseString('I am hungry!');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('a palindrome', () => {\n    const expected = 'racecar';\n    const actual = reverseString('racecar');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('an even-sized word', () => {\n    const expected = 'reward';\n    const actual = reverseString('drawer');\n    expect(actual).toEqual(expected);\n  });\n\n  xtest('wide characters', () => {\n    const expected = '猫子';\n    const actual = reverseString('子猫');\n    expect(actual).toEqual(expected);\n  });\n\n  // The following test cases deal with complex characters.\n  // You can optionally enable these tests by removing `.skip` from the test.\n\n  test.skip('grapheme cluster with pre-combined form', () => {\n    const expected = 'dnatsnehctsrüW';\n    const actual = reverseString('Würstchenstand');\n    expect(actual).toEqual(expected);\n  });\n\n  test.skip('grapheme clusters', () => {\n    const expected = 'มรกแรปโนยขีเผู้';\n    const actual = reverseString('ผู้เขียนโปรแกรม');\n    expect(actual).toEqual(expected);\n  });\n});\n"
+}

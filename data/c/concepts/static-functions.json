@@ -1,0 +1,11 @@
+{
+  "language": "c",
+  "slug": "static-functions",
+  "title": "Static Functions",
+  "docs": {
+    "about": "# About\r\n\r\nFunctions have external linkage by default and can be called from any other file in the project.\r\nFor more on linkage please see the [linkage concept](../linkage/introduction.md#Introduction).\r\nA `static` function can only be called within the source file where it is defined.\r\n\r\nFor example\r\n\r\n```c\r\n// file scope, internal linkage\r\n// can only be called from within this file\r\nstatic void some_function()\r\n{\r\n    // code snipped\r\n}\r\n\r\n// file scope, external linkage by default\r\n// can be called from any other file in the project\r\nint main()\r\n{\r\n    // code snipped\r\n}\r\n```\r\n\r\nEven if a function is declared in a header, if it is defined as `static` it will not be callable from outside of its source file.\r\nA source file could include the header, call the `static` function declared in the header, and compile, but the linker will fail to find the `static` function definition.\r\nA function marked as `static` in a source file should not be declared in its header file.\r\n",
+    "introduction": "# Introduction\r\n\r\nFunctions have external linkage by default and can be called from any other file in the project.\r\nFor more on linkage please see the [linkage concept](../linkage/introduction.md#Introduction).\r\nA `static` function can only be called within the source file where it is defined.\r\n\r\nFor example\r\n\r\n```c\r\n// file scope, internal linkage\r\n// can only be called from within this file\r\nstatic void some_function()\r\n{\r\n    // code snipped\r\n}\r\n\r\n// file scope, external linkage by default\r\n// can be called from any other file in the project\r\nint main()\r\n{\r\n    // code snipped\r\n}\r\n```\r\n"
+  },
+  "meta": {},
+  "links": []
+}

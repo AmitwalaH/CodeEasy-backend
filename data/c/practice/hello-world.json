@@ -1,0 +1,16 @@
+{
+  "language": "c",
+  "slug": "hello-world",
+  "docs": {
+    "introduction": "",
+    "instructions": "# Instructions\r\n\r\nThe classical introductory exercise.\r\nJust say \"Hello, World!\".\r\n\r\n[\"Hello, World!\"][hello-world] is the traditional first program for beginning programming in a new language or environment.\r\n\r\nThe objectives are simple:\r\n\r\n- Modify the provided code so that it produces the string \"Hello, World!\".\r\n- Run the test suite and make sure that it succeeds.\r\n- Submit your solution and check it at the website.\r\n\r\nIf everything goes well, you will be ready to fetch your first real exercise.\r\n\r\n[hello-world]: https://en.wikipedia.org/wiki/%22Hello,_world!%22_program\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "hello_world.c": "#include \"hello_world.h\"\r\n\r\n// Define the function itself.\r\nconst char *hello(void)\r\n{\r\n   return \"Goodbye, Mars!\";\r\n}\r\n",
+    "hello_world.h": "// This is called an include guard, which ensures that the header is only\r\n// included once. You could alternatively use '#pragma once'. See\r\n// https://en.wikipedia.org/wiki/Include_guard.\r\n#ifndef HELLO_WORLD_H\r\n#define HELLO_WORLD_H\r\n\r\n// Declare the 'hello()' function, which takes no arguments and returns a\r\n// 'const char *', i.e. a pointer to a character (in this case the first\r\n// character in a string). The function itself is defined in the hello_world.c\r\n// source file. This function is called by the test case(s) in the test source\r\n// file test_hello_world.c.\r\nconst char *hello(void);\r\n\r\n#endif\r\n"
+  },
+  "tests": {
+    "test_hello_world.c": "// Include the test framework.\r\n#include \"test-framework/unity.h\"\r\n\r\n// Include the header file with the declarations of the functions you create.\r\n#include \"hello_world.h\"\r\n\r\n// Runs before every test.\r\nvoid setUp(void)\r\n{\r\n}\r\n\r\n// Runs after every test.\r\nvoid tearDown(void)\r\n{\r\n}\r\n\r\n// Defines a single test.\r\nstatic void test_say_hi(void)\r\n{\r\n   // Check if the 'hello()' function returns \"Hello, World!\"\r\n   // This test is expected to fail after first downloading this exercise.\r\n   // To make this test pass, fix the 'hello()' function definition in the\r\n   // source file hello_world.c.\r\n   TEST_ASSERT_EQUAL_STRING(\"Hello, World!\", hello());\r\n}\r\n\r\n// Runs the test(s)\r\nint main(void)\r\n{\r\n   UNITY_BEGIN();\r\n\r\n   RUN_TEST(test_say_hi);\r\n\r\n   return UNITY_END();\r\n}\r\n"
+  }
+}

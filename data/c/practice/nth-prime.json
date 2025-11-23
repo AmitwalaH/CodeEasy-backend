@@ -1,0 +1,16 @@
+{
+  "language": "c",
+  "slug": "nth-prime",
+  "docs": {
+    "introduction": "",
+    "instructions": "# Instructions\r\n\r\nGiven a number n, determine what the nth prime is.\r\n\r\nBy listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.\r\n\r\nIf your language provides methods in the standard library to deal with prime numbers, pretend they don't exist and implement them yourself.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "nth_prime.c": "#include \"nth_prime.h\"\r\n",
+    "nth_prime.h": "#ifndef NTH_PRIME_H\r\n#define NTH_PRIME_H\r\n\r\n#include <stdint.h>\r\n\r\nuint32_t nth(uint32_t n);\r\n\r\n#endif\r\n"
+  },
+  "tests": {
+    "test_nth_prime.c": "#include \"test-framework/unity.h\"\r\n#include \"nth_prime.h\"\r\n\r\nvoid setUp(void)\r\n{\r\n}\r\n\r\nvoid tearDown(void)\r\n{\r\n}\r\n\r\nstatic void test_first_prime(void)\r\n{\r\n   TEST_ASSERT_EQUAL_UINT32(2, nth(1));\r\n}\r\n\r\nstatic void test_second_prime(void)\r\n{\r\n   TEST_IGNORE();   // delete this line to run test\r\n   TEST_ASSERT_EQUAL_UINT32(3, nth(2));\r\n}\r\n\r\nstatic void test_sixth_prime(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT32(13, nth(6));\r\n}\r\n\r\nstatic void test_big_prime(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT32(104743, nth(10001));\r\n}\r\n\r\nstatic void test_there_is_no_zeroth_prime(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_EQUAL_UINT32(0, nth(0));\r\n}\r\n\r\nint main(void)\r\n{\r\n   UNITY_BEGIN();\r\n\r\n   RUN_TEST(test_first_prime);\r\n   RUN_TEST(test_second_prime);\r\n   RUN_TEST(test_sixth_prime);\r\n   RUN_TEST(test_big_prime);\r\n   RUN_TEST(test_there_is_no_zeroth_prime);\r\n\r\n   return UNITY_END();\r\n}\r\n"
+  }
+}

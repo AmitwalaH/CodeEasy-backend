@@ -1,0 +1,16 @@
+{
+  "language": "c",
+  "slug": "leap",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\nA leap year (in the Gregorian calendar) occurs:\r\n\r\n- In every year that is evenly divisible by 4.\r\n- Unless the year is evenly divisible by 100, in which case it's only a leap year if the year is also evenly divisible by 400.\r\n\r\nSome examples:\r\n\r\n- 1997 was not a leap year as it's not divisible by 4.\r\n- 1900 was not a leap year as it's not divisible by 400.\r\n- 2000 was a leap year!\r\n\r\n~~~~exercism/note\r\nFor a delightful, four-minute explanation of the whole phenomenon of leap years, check out [this YouTube video](https://www.youtube.com/watch?v=xX96xng7sAE).\r\n~~~~\r\n",
+    "instructions": "# Instructions\r\n\r\nYour task is to determine whether a given year is a leap year.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "leap.c": "#include \"leap.h\"\r\n",
+    "leap.h": "#ifndef LEAP_H\r\n#define LEAP_H\r\n\r\n#include <stdbool.h>\r\n\r\nbool leap_year(int year);\r\n\r\n#endif\r\n"
+  },
+  "tests": {
+    "test_leap.c": "#include \"test-framework/unity.h\"\r\n#include \"leap.h\"\r\n\r\nvoid setUp(void)\r\n{\r\n}\r\n\r\nvoid tearDown(void)\r\n{\r\n}\r\n\r\nstatic void test_year_not_divisible_by_4_in_common_year(void)\r\n{\r\n   TEST_ASSERT_FALSE(leap_year(2015));\r\n}\r\n\r\nstatic void test_year_divisible_by_2_not_divisible_by_4_in_common_year(void)\r\n{\r\n   TEST_IGNORE();   // delete this line to run test\r\n   TEST_ASSERT_FALSE(leap_year(1970));\r\n}\r\n\r\nstatic void test_year_divisible_by_4_not_divisible_by_100_in_leap_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_TRUE(leap_year(1996));\r\n}\r\n\r\nstatic void test_year_divisible_by_4_and_5_is_still_a_leap_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_TRUE(leap_year(1960));\r\n}\r\n\r\nstatic void test_year_divisible_by_100_not_divisible_by_400_in_common_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_FALSE(leap_year(2100));\r\n}\r\n\r\nstatic void\r\ntest_year_divisible_by_100_but_not_by_3_is_still_not_a_leap_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_FALSE(leap_year(1900));\r\n}\r\n\r\nstatic void test_year_divisible_by_400_in_leap_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_TRUE(leap_year(2000));\r\n}\r\n\r\nstatic void test_year_divisible_by_400_but_not_by_125_is_still_a_leap_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_TRUE(leap_year(2400));\r\n}\r\n\r\nstatic void test_year_divisible_by_200_not_divisible_by_400_in_common_year(void)\r\n{\r\n   TEST_IGNORE();\r\n   TEST_ASSERT_FALSE(leap_year(1800));\r\n}\r\n\r\nint main(void)\r\n{\r\n   UNITY_BEGIN();\r\n\r\n   RUN_TEST(test_year_not_divisible_by_4_in_common_year);\r\n   RUN_TEST(test_year_divisible_by_2_not_divisible_by_4_in_common_year);\r\n   RUN_TEST(test_year_divisible_by_4_not_divisible_by_100_in_leap_year);\r\n   RUN_TEST(test_year_divisible_by_4_and_5_is_still_a_leap_year);\r\n   RUN_TEST(test_year_divisible_by_100_not_divisible_by_400_in_common_year);\r\n   RUN_TEST(test_year_divisible_by_100_but_not_by_3_is_still_not_a_leap_year);\r\n   RUN_TEST(test_year_divisible_by_400_in_leap_year);\r\n   RUN_TEST(test_year_divisible_by_400_but_not_by_125_is_still_a_leap_year);\r\n   RUN_TEST(test_year_divisible_by_200_not_divisible_by_400_in_common_year);\r\n\r\n   return UNITY_END();\r\n}\r\n"
+  }
+}

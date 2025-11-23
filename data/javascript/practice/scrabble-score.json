@@ -1,0 +1,12 @@
+{
+  "language": "javascript",
+  "type": "practice",
+  "slug": "scrabble-score",
+  "title": "Scrabble Score",
+  "docs": {
+    "instructions": "# Instructions\n\nYour task is to compute a word's Scrabble score by summing the values of its letters.\n\nThe letters are valued as follows:\n\n| Letter                       | Value |\n| ---------------------------- | ----- |\n| A, E, I, O, U, L, N, R, S, T | 1     |\n| D, G                         | 2     |\n| B, C, M, P                   | 3     |\n| F, H, V, W, Y                | 4     |\n| K                            | 5     |\n| J, X                         | 8     |\n| Q, Z                         | 10    |\n\nFor example, the word \"cabbage\" is worth 14 points:\n\n- 3 points for C\n- 1 point for A\n- 3 points for B\n- 3 points for B\n- 1 point for A\n- 2 points for G\n- 1 point for E\n",
+    "hints": ""
+  },
+  "starter_code": "//\n// This is only a SKELETON file for the 'Scrabble Score' exercise. It's been provided as a\n// convenience to get you started writing code faster.\n//\n\nexport const score = () => {\n  throw new Error('Remove this line and implement the function');\n};\n",
+  "tests": "import { describe, expect, test, xtest } from '@jest/globals';\nimport { score } from './scrabble-score';\n\ndescribe('Scrabble', () => {\n  test('lowercase letter', () => {\n    expect(score('a')).toEqual(1);\n  });\n\n  xtest('uppercase letter', () => {\n    expect(score('A')).toEqual(1);\n  });\n\n  xtest('valuable letter', () => {\n    expect(score('f')).toEqual(4);\n  });\n\n  xtest('short word', () => {\n    expect(score('at')).toEqual(2);\n  });\n\n  xtest('short, valuable word', () => {\n    expect(score('zoo')).toEqual(12);\n  });\n\n  xtest('medium word', () => {\n    expect(score('street')).toEqual(6);\n  });\n\n  xtest('medium, valuable word', () => {\n    expect(score('quirky')).toEqual(22);\n  });\n\n  xtest('long, mixed-case word', () => {\n    expect(score('OxyphenButazone')).toEqual(41);\n  });\n\n  xtest('english-like word', () => {\n    expect(score('pinata')).toEqual(8);\n  });\n\n  xtest('empty input', () => {\n    expect(score('')).toEqual(0);\n  });\n\n  xtest('entire alphabet available', () => {\n    expect(score('abcdefghijklmnopqrstuvwxyz')).toEqual(87);\n  });\n});\n"
+}
