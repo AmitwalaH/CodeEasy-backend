@@ -1,80 +1,46 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const UserSchema = new mongoose.Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true
-    },
-    password: {
-      type: String,
-      required: function () {
-        return !this.googleId && !this.githubId;
-      }
-    },
-    avatar: {
-      type: String,
-      default: ""
-    },
-    googleId: {
-      type: String,
-      default: null
-    },
-    githubId: {
-      type: String,
-      default: null
-    },
-    languagesCompleted: {
-      type: [String],
-      default: []
-    },
-    exercisesCompleted: {
-      type: [String],
-      default: []
-    },
-
-    // recommended additional fields
-    emailVerified: {
-      type: Boolean,
-      default: false
-    },
-    isBlocked: {
-      type: Boolean,
-      default: false
-    }
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
   },
-  { timestamps: true }
-);
-
-// HASH PASSWORD BEFORE SAVE
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+    select: false,
+  },
 });
 
-// CHECK PASSWORD (for login)
-UserSchema.methods.comparePassword = async function (plaintext) {
-  return bcrypt.compare(plaintext, this.password);
+UserSchema.pre("save", async function () {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+});
+
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// GENERATE JWT TOKEN
-UserSchema.methods.generateJWT = function () {
-  return jwt.sign(
-    { id: this._id, email: this.email },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" }
-  );
+UserSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE || "7d",
+  });
+  return token;
 };
 
-export default mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+export default User;
