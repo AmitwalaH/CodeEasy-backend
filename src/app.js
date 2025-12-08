@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import progressRoutes from "./routes/progress.js";
 import trackRoutes from "./routes/track.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import submissionRoutes from "./routes/submission.js";
 
 dotenv.config();
 
@@ -18,8 +19,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/tracks", trackRoutes);
+app.use("/api/submissions", submissionRoutes);
 
-// Healt    h check
 app.get("/", (req, res) => {
   res.json({ message: "CodeEasy API running..." });
 });
