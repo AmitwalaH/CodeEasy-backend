@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+// serve public folder
+app.use("/public", express.static(path.join(__dirname, "..", "public")));
 app.use("/api/auth", authRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/tracks", trackRoutes);

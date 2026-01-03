@@ -7,7 +7,23 @@ const router = express.Router();
 // POST /api/auth/register
 router.post("/register", async (req, res) => {
   try {
+    // ADD THIS DEBUG LOGGING
+    console.log("=== REGISTRATION DEBUG ===");
+    console.log("Full request body:", req.body);
+    console.log("Username:", req.body.username);
+    console.log("Email:", req.body.email);
+    console.log("Password:", req.body.password);
+    console.log("========================");
+
     const { username, email, password } = req.body;
+
+    // ADD VALIDATION
+    if (!username || !email || !password) {
+      return res.status(400).json({
+        error: "Username, email, and password are required",
+      });
+    }
+
     const user = new User({ username, email, password });
     await user.save();
     const token = user.generateAuthToken();
