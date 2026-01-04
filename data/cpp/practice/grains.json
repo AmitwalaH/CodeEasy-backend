@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "grains",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\nThere once was a wise servant who saved the life of a prince.\r\nThe king promised to pay whatever the servant could dream up.\r\nKnowing that the king loved chess, the servant told the king he would like to have grains of wheat.\r\nOne grain on the first square of a chessboard, with the number of grains doubling on each successive square.\r\n",
+    "instructions": "# Instructions\r\n\r\nCalculate the number of grains of wheat on a chessboard.\r\n\r\nA chessboard has 64 squares.\r\nSquare 1 has one grain, square 2 has two grains, square 3 has four grains, and so on, doubling each time.\r\n\r\nWrite code that calculates:\r\n\r\n- the number of grains on a given square\r\n- the total number of grains on the chessboard\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "grains.cpp": "#include \"grains.h\"\r\n\r\nnamespace grains {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace grains\r\n",
+    "grains.h": "#pragma once\r\n\r\nnamespace grains {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace grains\r\n"
+  },
+  "tests": {
+    "grains_test.cpp": "#include \"grains.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n\r\nTEST_CASE(\"square_1\") { REQUIRE(1ULL == grains::square(1)); }\r\n\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\nTEST_CASE(\"square_2\") { REQUIRE(2ULL == grains::square(2)); }\r\n\r\nTEST_CASE(\"square_3\") { REQUIRE(4ULL == grains::square(3)); }\r\n\r\nTEST_CASE(\"square_4\") { REQUIRE(8ULL == grains::square(4)); }\r\n\r\nTEST_CASE(\"square_16\") { REQUIRE(32768ULL == grains::square(16)); }\r\n\r\nTEST_CASE(\"square_32\") { REQUIRE(2147483648ULL == grains::square(32)); }\r\n\r\nTEST_CASE(\"square_64\") {\r\n    REQUIRE(9223372036854775808ULL == grains::square(64));\r\n}\r\n\r\nTEST_CASE(\"total\") { REQUIRE(18446744073709551615ULL == grains::total()); }\r\n#endif\r\n"
+  }
+}

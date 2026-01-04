@@ -1,0 +1,24 @@
+{
+  "concept": "descriptors",
+  "about": "#TODO: Add about for this concept.\r\n\r\n",
+  "introduction": "#TODO: Add introduction for this concept.\r\n\r\n",
+  "links": [
+    {
+      "url": "http://example.com/",
+      "description": "TODO:  add new link (above) and write a short description here of the resource."
+    },
+    {
+      "url": "http://example.com/",
+      "description": "TODO:  add new link (above) and write a short description here of the resource."
+    },
+    {
+      "url": "http://example.com/",
+      "description": "TODO:  add new link (above) and write a short description here of the resource."
+    },
+    {
+      "url": "http://example.com/",
+      "description": "TODO:  add new link (above) and write a short description here of the resource."
+    }
+  ],
+  "config": {}
+}

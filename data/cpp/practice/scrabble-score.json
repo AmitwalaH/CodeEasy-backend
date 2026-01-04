@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "scrabble-score",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\n[Scrabble][wikipedia] is a word game where players place letter tiles on a board to form words.\r\nEach letter has a value.\r\nA word's score is the sum of its letters' values.\r\n\r\n[wikipedia]: https://en.wikipedia.org/wiki/Scrabble\r\n",
+    "instructions": "# Instructions\r\n\r\nYour task is to compute a word's Scrabble score by summing the values of its letters.\r\n\r\nThe letters are valued as follows:\r\n\r\n| Letter                       | Value |\r\n| ---------------------------- | ----- |\r\n| A, E, I, O, U, L, N, R, S, T | 1     |\r\n| D, G                         | 2     |\r\n| B, C, M, P                   | 3     |\r\n| F, H, V, W, Y                | 4     |\r\n| K                            | 5     |\r\n| J, X                         | 8     |\r\n| Q, Z                         | 10    |\r\n\r\nFor example, the word \"cabbage\" is worth 14 points:\r\n\r\n- 3 points for C\r\n- 1 point for A\r\n- 3 points for B\r\n- 3 points for B\r\n- 1 point for A\r\n- 2 points for G\r\n- 1 point for E\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "scrabble_score.cpp": "#include \"scrabble_score.h\"\r\n\r\nnamespace scrabble_score {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace scrabble_score\r\n",
+    "scrabble_score.h": "#pragma once\r\n\r\nnamespace scrabble_score {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace scrabble_score\r\n"
+  },
+  "tests": {
+    "scrabble_score_test.cpp": "#include \"scrabble_score.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n\r\nTEST_CASE(\"scores_an_empty_word_as_zero\") {\r\n    REQUIRE(0 == scrabble_score::score(\"\"));\r\n}\r\n\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\nTEST_CASE(\"scores_a_very_short_word\") {\r\n    REQUIRE(1 == scrabble_score::score(\"a\"));\r\n}\r\n\r\nTEST_CASE(\"scores_the_word_by_the_number_of_letters\") {\r\n    REQUIRE(6 == scrabble_score::score(\"street\"));\r\n}\r\n\r\nTEST_CASE(\"scores_more_complicated_words_with_more\") {\r\n    REQUIRE(22 == scrabble_score::score(\"quirky\"));\r\n}\r\n\r\nTEST_CASE(\"scores_case_insensitive_words\") {\r\n    REQUIRE(41 == scrabble_score::score(\"OXYPHENBUTAZONE\"));\r\n}\r\n\r\nTEST_CASE(\"scores_z_word\") { REQUIRE(12 == scrabble_score::score(\"zoo\")); }\r\n#endif\r\n"
+  }
+}

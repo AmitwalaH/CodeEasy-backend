@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "type": "practice",
+  "slug": "two-fer",
+  "title": "Two Fer",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to determine what you will say as you give away the extra cookie.\r\n\r\nIf you know the person's name (e.g. if they're named Do-yun), then you will say:\r\n\r\n```text\r\nOne for Do-yun, one for me.\r\n```\r\n\r\nIf you don't know the person's name, you will say _you_ instead.\r\n\r\n```text\r\nOne for you, one for me.\r\n```\r\n\r\nHere are some examples:\r\n\r\n| Name   | Dialogue                    |\r\n| :----- | :-------------------------- |\r\n| Alice  | One for Alice, one for me.  |\r\n| Bohdan | One for Bohdan, one for me. |\r\n|        | One for you, one for me.    |\r\n| Zaphod | One for Zaphod, one for me. |\r\n",
+    "hints": ""
+  },
+  "starter_code": "def two_fer(name):\r\n    pass\r\n",
+  "tests": "# These tests are auto-generated with test data from:\r\n# https://github.com/exercism/problem-specifications/tree/main/exercises/two-fer/canonical-data.json\r\n# File last updated on 2023-07-19\r\n\r\nimport unittest\r\n\r\nfrom two_fer import (\r\n    two_fer,\r\n)\r\n\r\n\r\nclass TwoFerTest(unittest.TestCase):\r\n    def test_no_name_given(self):\r\n        self.assertEqual(two_fer(), \"One for you, one for me.\")\r\n\r\n    def test_a_name_given(self):\r\n        self.assertEqual(two_fer(\"Alice\"), \"One for Alice, one for me.\")\r\n\r\n    def test_another_name_given(self):\r\n        self.assertEqual(two_fer(\"Bob\"), \"One for Bob, one for me.\")\r\n"
+}

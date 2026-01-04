@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "reverse-string",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\nReversing strings (reading them from right to left, rather than from left to right) is a surprisingly common task in programming.\r\n\r\nFor example, in bioinformatics, reversing the sequence of DNA or RNA strings is often important for various analyses, such as finding complementary strands or identifying palindromic sequences that have biological significance.\r\n",
+    "instructions": "# Instructions\r\n\r\nYour task is to reverse a given string.\r\n\r\nSome examples:\r\n\r\n- Turn `\"stressed\"` into `\"desserts\"`.\r\n- Turn `\"strops\"` into `\"sports\"`.\r\n- Turn `\"racecar\"` into `\"racecar\"`.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "reverse_string.cpp": "#include \"reverse_string.h\"\r\n\r\nnamespace reverse_string {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace reverse_string\r\n",
+    "reverse_string.h": "#pragma once\r\n\r\nnamespace reverse_string {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace reverse_string\r\n"
+  },
+  "tests": {
+    "reverse_string_test.cpp": "#include \"reverse_string.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n\r\nTEST_CASE(\"an_empty_string\") {\r\n    REQUIRE(\"\" == reverse_string::reverse_string(\"\"));\r\n}\r\n\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\nTEST_CASE(\"a_word\") {\r\n    REQUIRE(\"tobor\" == reverse_string::reverse_string(\"robot\"));\r\n}\r\n\r\nTEST_CASE(\"a_capitalized_word\") {\r\n    REQUIRE(\"nemaR\" == reverse_string::reverse_string(\"Ramen\"));\r\n}\r\n\r\nTEST_CASE(\"a_sentence_with_punctuation\") {\r\n    REQUIRE(\"!yrgnuh m'I\" == reverse_string::reverse_string(\"I'm hungry!\"));\r\n}\r\n\r\nTEST_CASE(\"a_palindrome\") {\r\n    REQUIRE(\"racecar\" == reverse_string::reverse_string(\"racecar\"));\r\n}\r\n#endif\r\n"
+  }
+}

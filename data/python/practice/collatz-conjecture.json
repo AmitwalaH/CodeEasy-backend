@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "type": "practice",
+  "slug": "collatz-conjecture",
+  "title": "Collatz Conjecture",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nGiven a positive integer, return the number of steps it takes to reach 1 according to the rules of the Collatz Conjecture.\r\n",
+    "hints": ""
+  },
+  "starter_code": "def steps(number):\r\n    pass\r\n",
+  "tests": "# These tests are auto-generated with test data from:\r\n# https://github.com/exercism/problem-specifications/tree/main/exercises/collatz-conjecture/canonical-data.json\r\n# File last updated on 2023-07-20\r\n\r\nimport unittest\r\n\r\nfrom collatz_conjecture import (\r\n    steps,\r\n)\r\n\r\n\r\nclass CollatzConjectureTest(unittest.TestCase):\r\n    def test_zero_steps_for_one(self):\r\n        self.assertEqual(steps(1), 0)\r\n\r\n    def test_divide_if_even(self):\r\n        self.assertEqual(steps(16), 4)\r\n\r\n    def test_even_and_odd_steps(self):\r\n        self.assertEqual(steps(12), 9)\r\n\r\n    def test_large_number_of_even_and_odd_steps(self):\r\n        self.assertEqual(steps(1000000), 152)\r\n\r\n    def test_zero_is_an_error(self):\r\n        with self.assertRaises(ValueError) as err:\r\n            steps(0)\r\n        self.assertEqual(type(err.exception), ValueError)\r\n        self.assertEqual(err.exception.args[0], \"Only positive integers are allowed\")\r\n\r\n    def test_negative_value_is_an_error(self):\r\n        with self.assertRaises(ValueError) as err:\r\n            steps(-15)\r\n        self.assertEqual(type(err.exception), ValueError)\r\n        self.assertEqual(err.exception.args[0], \"Only positive integers are allowed\")\r\n"
+}

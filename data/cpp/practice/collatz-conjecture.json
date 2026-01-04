@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "collatz-conjecture",
+  "docs": {
+    "introduction": "# Introduction\r\n\r\nOne evening, you stumbled upon an old notebook filled with cryptic scribbles, as though someone had been obsessively chasing an idea.\r\nOn one page, a single question stood out: **Can every number find its way to 1?**\r\nIt was tied to something called the **Collatz Conjecture**, a puzzle that has baffled thinkers for decades.\r\n\r\nThe rules were deceptively simple.\r\nPick any positive integer.\r\n\r\n- If it's even, divide it by 2.\r\n- If it's odd, multiply it by 3 and add 1.\r\n\r\nThen, repeat these steps with the result, continuing indefinitely.\r\n\r\nCurious, you picked number 12 to test and began the journey:\r\n\r\n12 ➜ 6 ➜ 3 ➜ 10 ➜ 5 ➜ 16 ➜ 8 ➜ 4 ➜ 2 ➜ 1\r\n\r\nCounting from the second number (6), it took 9 steps to reach 1, and each time the rules repeated, the number kept changing.\r\nAt first, the sequence seemed unpredictable — jumping up, down, and all over.\r\nYet, the conjecture claims that no matter the starting number, we'll always end at 1.\r\n\r\nIt was fascinating, but also puzzling.\r\nWhy does this always seem to work?\r\nCould there be a number where the process breaks down, looping forever or escaping into infinity?\r\nThe notebook suggested solving this could reveal something profound — and with it, fame, [fortune][collatz-prize], and a place in history awaits whoever could unlock its secrets.\r\n\r\n[collatz-prize]: https://mathprize.net/posts/collatz-conjecture/\r\n",
+    "instructions": "# Instructions\r\n\r\nGiven a positive integer, return the number of steps it takes to reach 1 according to the rules of the Collatz Conjecture.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "collatz_conjecture.cpp": "#include \"collatz_conjecture.h\"\r\n\r\nnamespace collatz_conjecture {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace collatz_conjecture\r\n",
+    "collatz_conjecture.h": "#pragma once\r\n\r\nnamespace collatz_conjecture {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace collatz_conjecture\r\n"
+  },
+  "tests": {
+    "collatz_conjecture_test.cpp": "#include \"collatz_conjecture.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n#include <stdexcept>\r\n\r\nTEST_CASE(\"zero_steps_for_one\") { REQUIRE(0 == collatz_conjecture::steps(1)); }\r\n\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\n\r\nTEST_CASE(\"divide_if_even\") { REQUIRE(4 == collatz_conjecture::steps(16)); }\r\n\r\nTEST_CASE(\"even_and_odd_steps\") { REQUIRE(9 == collatz_conjecture::steps(12)); }\r\n\r\nTEST_CASE(\"large_number_of_even_and_odd_steps\") {\r\n    REQUIRE(152 == collatz_conjecture::steps(1000000));\r\n}\r\n\r\nTEST_CASE(\"zero_is_an_error\") {\r\n    REQUIRE_THROWS_AS(collatz_conjecture::steps(0), std::domain_error);\r\n}\r\n\r\nTEST_CASE(\"negative_value_is_an_error\") {\r\n    REQUIRE_THROWS_AS(collatz_conjecture::steps(-15), std::domain_error);\r\n}\r\n#endif\r\n"
+  }
+}

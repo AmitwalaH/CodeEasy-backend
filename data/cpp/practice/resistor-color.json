@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "resistor-color",
+  "docs": {
+    "introduction": "",
+    "instructions": "# Instructions\r\n\r\nIf you want to build something using a Raspberry Pi, you'll probably use _resistors_.\r\nFor this exercise, you need to know two things about them:\r\n\r\n- Each resistor has a resistance value.\r\n- Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.\r\n\r\nTo get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.\r\nEach band has a position and a numeric value.\r\n\r\nThe first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.\r\n\r\nIn this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.\r\n\r\nThese colors are encoded as follows:\r\n\r\n- black: 0\r\n- brown: 1\r\n- red: 2\r\n- orange: 3\r\n- yellow: 4\r\n- green: 5\r\n- blue: 6\r\n- violet: 7\r\n- grey: 8\r\n- white: 9\r\n\r\nThe goal of this exercise is to create a way:\r\n\r\n- to look up the numerical value associated with a particular color band\r\n- to list the different band colors\r\n\r\nMnemonics map the colors to the numbers, that, when stored as an array, happen to map to their index in the array:\r\nBetter Be Right Or Your Great Big Values Go Wrong.\r\n\r\nMore information on the color encoding of resistors can be found in the [Electronic color code Wikipedia article][e-color-code].\r\n\r\n[e-color-code]: https://en.wikipedia.org/wiki/Electronic_color_code\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "resistor_color.cpp": "#include \"resistor_color.h\"\r\n\r\nnamespace resistor_color {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace resistor_color\r\n",
+    "resistor_color.h": "#pragma once\r\n\r\nnamespace resistor_color {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace resistor_color\r\n"
+  },
+  "tests": {
+    "resistor_color_test.cpp": "#include \"resistor_color.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n\r\nTEST_CASE(\"Black\", \"[49eb31c5-10a8-4180-9f7f-fea632ab87ef]\") {\r\n    REQUIRE(0 == resistor_color::color_code(\"black\"));\r\n}\r\n\r\nTEST_CASE(\"White\", \"[0a4df94b-92da-4579-a907-65040ce0b3fc]\") {\r\n    REQUIRE(9 == resistor_color::color_code(\"white\"));\r\n}\r\n\r\nTEST_CASE(\"Orange\", \"[5f81608d-f36f-4190-8084-f45116b6f380]\") {\r\n    REQUIRE(3 == resistor_color::color_code(\"orange\"));\r\n}\r\n\r\nTEST_CASE(\"Colors\", \"[581d68fa-f968-4be2-9f9d-880f2fb73cf7]\") {\r\n    std::vector<std::string> expected{\"black\",  \"brown\", \"red\",  \"orange\",\r\n                                      \"yellow\", \"green\", \"blue\", \"violet\",\r\n                                      \"grey\",   \"white\"};\r\n    REQUIRE(expected == resistor_color::colors());\r\n}\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\n\r\n#endif\r\n"
+  }
+}

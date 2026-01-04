@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "type": "practice",
+  "slug": "leap",
+  "title": "Leap",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to determine whether a given year is a leap year.\r\n",
+    "hints": ""
+  },
+  "starter_code": "def leap_year(year):\r\n    pass\r\n",
+  "tests": "# These tests are auto-generated with test data from:\r\n# https://github.com/exercism/problem-specifications/tree/main/exercises/leap/canonical-data.json\r\n# File last updated on 2023-07-19\r\n\r\nimport unittest\r\n\r\nfrom leap import (\r\n    leap_year,\r\n)\r\n\r\n\r\nclass LeapTest(unittest.TestCase):\r\n    def test_year_not_divisible_by_4_in_common_year(self):\r\n        self.assertIs(leap_year(2015), False)\r\n\r\n    def test_year_divisible_by_2_not_divisible_by_4_in_common_year(self):\r\n        self.assertIs(leap_year(1970), False)\r\n\r\n    def test_year_divisible_by_4_not_divisible_by_100_in_leap_year(self):\r\n        self.assertIs(leap_year(1996), True)\r\n\r\n    def test_year_divisible_by_4_and_5_is_still_a_leap_year(self):\r\n        self.assertIs(leap_year(1960), True)\r\n\r\n    def test_year_divisible_by_100_not_divisible_by_400_in_common_year(self):\r\n        self.assertIs(leap_year(2100), False)\r\n\r\n    def test_year_divisible_by_100_but_not_by_3_is_still_not_a_leap_year(self):\r\n        self.assertIs(leap_year(1900), False)\r\n\r\n    def test_year_divisible_by_400_is_leap_year(self):\r\n        self.assertIs(leap_year(2000), True)\r\n\r\n    def test_year_divisible_by_400_but_not_by_125_is_still_a_leap_year(self):\r\n        self.assertIs(leap_year(2400), True)\r\n\r\n    def test_year_divisible_by_200_not_divisible_by_400_in_common_year(self):\r\n        self.assertIs(leap_year(1800), False)\r\n"
+}

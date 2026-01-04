@@ -1,0 +1,22 @@
+{
+  "language": "cpp",
+  "slug": "comparisons",
+  "title": "Comparisons",
+  "docs": {
+    "about": "# About\r\n\r\nIn C++, you can compare values using the comparison operators.\r\n\r\n| Comparison        | Operator  |\r\n| ------------------| --------- |\r\n| equal             | `==`      |\r\n| not equal         | `!=`      |\r\n| less              | `<`       |\r\n| less or equal     | `<=`      |\r\n| greater           | `>`       |\r\n| greater or equal  | `>=`      |\r\n\r\nThe result of these comparisons is always a boolean value:\r\n\r\n```cpp\r\nint a{3};\r\n\r\nbool eq1 = a != 4; // true\r\n\r\nbool eq2 = a > 5;  // false\r\n```\r\n\r\nThe operators `==` and `!=` check whether a value is equal to another or not, respectively.\r\nHere are some common examples:\r\n\r\n```cpp\r\nbool eq3 = 2 == 3; // false, integer comparison\r\n\r\nbool eq4 = 2.1 != 2.2; // true, float comparison\r\n\r\nbool eq5 = \"hello\" == \"hello\"; // true, string comparison\r\n```\r\n\r\nThe other operators check if one value is greater than (`>`), greater or equal to (`>=`), less than (`<`), and less or equal to (`<=`) to another value.\r\nThis kind of comparison is available for numbers and strings.\r\nWhen comparing strings, the dictionary order (also known as lexicographic order) is followed.\r\n\r\n```cpp\r\nbool eq6 = 2 > 3; // false, integer comparison\r\n\r\nbool eq7 = 1.2 < 1.3; // true, float comparison\r\n\r\nbool eq8 = \"Hello\" < \"World\"; // true, string comparison\r\n```\r\n",
+    "introduction": "# Introduction\r\n\r\nIn C++, you can compare values using the comparison operators.\r\n\r\n| Comparison        | Operator  |\r\n| ------------------| --------- |\r\n| equal             | `==`      |\r\n| not equal         | `!=`      |\r\n| less              | `<`       |\r\n| less or equal     | `<=`      |\r\n| greater           | `>`       |\r\n| greater or equal  | `>=`      |\r\n\r\nThe result of these comparisons is always a boolean value:\r\n\r\n```cpp\r\nint a{3};\r\n\r\nbool eq1 = a != 4; // true\r\n\r\nbool eq2 = a > 5;  // false\r\n```\r\n\r\nThe operators `==` and `!=` check whether a value is equal to another or not, respectively.\r\nHere are some common examples:\r\n\r\n```cpp\r\nbool eq3 = 2 == 3; // false, integer comparison\r\n\r\nbool eq4 = 2.1 != 2.2; // true, float comparison\r\n\r\nbool eq5 = \"hello\" == \"hello\"; // true, string comparison\r\n```\r\n\r\nThe other operators check if one value is greater than (`>`), greater or equal to (`>=`), less than (`<`), and less or equal to (`<=`) to another value.\r\nThis kind of comparison is available for numbers and strings.\r\nWhen comparing strings, the dictionary order (also known as lexicographic order) is followed.\r\n\r\n```cpp\r\nbool eq6 = 2 > 3; // false, integer comparison\r\n\r\nbool eq7 = 1.2 < 1.3; // true, float comparison\r\n\r\nbool eq8 = \"Hello\" < \"World\"; // true, string comparison\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Compare values using the comparison operators.",
+    "authors": [
+      "vaeng"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://en.cppreference.com/w/cpp/language/operator_comparison",
+      "description": "C++ reference on comparison operators"
+    }
+  ]
+}

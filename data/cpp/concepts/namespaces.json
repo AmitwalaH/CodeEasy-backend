@@ -1,0 +1,22 @@
+{
+  "language": "cpp",
+  "slug": "namespaces",
+  "title": "Namespaces",
+  "docs": {
+    "about": "# About\r\n\r\nAn important method for code organization are namespaces.\r\nTwo functions might have a naming collision, which can be resolved by putting them in different namespaces.\r\nNamespaces can be nested, which might help to structure big code bases.\r\nAccess to the namespaces is done via the scope-resolution operator `::`.\r\n\r\nThe example below shows the use of two different `foo` functions.\r\nThey are used together by prefixing their respective namespaces.\r\n\r\n```cpp\r\nnamespace my_ns {\r\n    int foo() {\r\n        return 44;\r\n    }\r\n    namespace my_inner_ns {\r\n        int baz() {\r\n            return 90;\r\n        }\r\n    }\r\n}\r\nnamespace my_other_ns {\r\n    int foo() {\r\n        return -2;\r\n    }\r\n}\r\nint myresult{my_ns::foo() + my_other_ns::foo() * my_ns::my_inner_ns::baz()};\r\n```\r\n\r\n~~~~exercism/advanced\r\nDeeply nested namespaces might be too verbose.\r\nIt is possible to remove the verbosity with a namespace import via `using`.\r\nThis moves all names into the global namespace.\r\nTo keep some differentiation aliases might be useful.\r\n\r\n```cpp\r\nint my_other_result{my_ns::my_inner_ns::baz()};\r\n\r\nusing namespace my_ns::my_inner_ns; // importing the complete namespace\r\nint also_other_result{baz()};\r\n\r\nnamespace m = my_ns; // setting an alias\r\nnamespace o = my_other_ns;\r\n\r\nint also_my_result{m::foo() + o::foo() * m::my_inner_ns::baz()};\r\n```\r\n~~~~\r\n",
+    "introduction": "# Introduction\r\n\r\nAn important method for code organization are namespaces.\r\nTwo functions might have a naming collision, which can be resolved by putting them in different namespaces.\r\nNamespaces can be nested, which might help to structure big code bases.\r\nAccess to the namespaces is done via the scope-resolution operator `::`.\r\n\r\nThe example below shows the use of two different `foo` functions.\r\nThey are used together by prefixing their respective namespaces.\r\n\r\n```cpp\r\nnamespace my_ns {\r\n    int foo() {\r\n        return 44;\r\n    }\r\n    namespace my_inner_ns {\r\n        int baz() {\r\n            return 90;\r\n        }\r\n    }\r\n}\r\nnamespace my_other_ns {\r\n    int foo() {\r\n        return -2;\r\n    }\r\n}\r\n\r\nint myresult{my_ns::foo() + my_other_ns::foo() * my_ns::my_inner_ns::baz()};\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Code can be organized in namespaces for a clearer structure.",
+    "authors": [
+      "vaeng"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://en.cppreference.com/w/cpp/language/namespace",
+      "description": "C++ reference on namespaces"
+    }
+  ]
+}

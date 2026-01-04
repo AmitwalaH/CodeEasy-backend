@@ -1,0 +1,22 @@
+{
+  "language": "cpp",
+  "slug": "includes",
+  "title": "Includes",
+  "docs": {
+    "about": "# About\r\n\r\n## Includes\r\n\r\nTo include the content of other files C++ uses the `include` directive.\r\nThese includes should be stated at the top of the file.\r\nDuring compilation, the line with the directive is replaced by the content of the respective file.\r\nNamespaces are kept as they are in the original file after includes.\r\n\r\n## The Standard Library\r\n\r\nThe standard library offers many common functions, algorithms, and data structures.\r\nThe standard library uses the `std` namespace.\r\n\r\nOne example is the C numerics library `cmath`.\r\nIt provides many common mathematical operations.\r\n\r\n```cpp\r\n#include <cmath>\r\n\r\nint cube_me(int a) {\r\n    // raise `a` to the third power\r\n    return std::pow(a, 3);\r\n}\r\n```\r\n\r\n~~~~exercism/note\r\nStandard libraries are included with angled braces `<>` instead of double quotes `\"`.\r\nThe difference is the location, where the compiler searches for the respective files.\r\nThe search in the current project is skipped for the angled braces version, and it directly starts in the system's include directories.\r\nIf you want to include local files you would use double quotes: `#include \"myfile\"`\r\n~~~~\r\n",
+    "introduction": "# Introduction\r\n\r\nIn general, you don't want to reinvent the wheel when it comes to programming.\r\nFor many standard algorithms, there will be someone who might have already done your work for you.\r\n\r\n## Includes\r\n\r\nTo include the content of other files C++ uses the `include` directive.\r\nThese includes should be stated at the top of the file.\r\nDuring compilation, the line with the directive is replaced by the content of the respective file.\r\nNamespaces are kept as they are in the original file after includes.\r\n\r\n## The Standard Library\r\n\r\nThe standard library offers many common functions, algorithms, and data structures.\r\nThe standard library uses the `std` namespace.\r\n\r\nOne example is the C numerics library `cmath`.\r\nIt provides many common mathematical operations.\r\n\r\n```cpp\r\n#include <cmath>\r\n\r\nint cube_me(int a) {\r\n    // raise `a` to the third power\r\n    return std::pow(a, 3);\r\n}\r\n```\r\n\r\n~~~~exercism/note\r\nStandard libraries are included with angled braces `<>` instead of double quotes `\"`.\r\nThe difference is the location, where the compiler searches for the respective files.\r\nThe search in the current project is skipped for the angled braces version, and it directly starts in the system's include directories.\r\nIf you want to include local files you would use double quotes: `#include \"myfile\"`\r\n~~~~\r\n"
+  },
+  "meta": {
+    "blurb": "To work with multiple files and external libraries, C++ uses the include keyword.",
+    "authors": [
+      "vaeng"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://en.cppreference.com/w/cpp/preprocessor/include",
+      "description": "C++ reference on Source File Inclusion"
+    }
+  ]
+}

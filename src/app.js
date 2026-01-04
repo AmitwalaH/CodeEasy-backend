@@ -6,6 +6,9 @@ import progressRoutes from "./routes/progress.js";
 import trackRoutes from "./routes/track.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import submissionRoutes from "./routes/submission.js";
+import path from "path";  
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 dotenv.config();
 
@@ -16,7 +19,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-// serve public folder
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use("/public", express.static(path.join(__dirname, "..", "public")));
 app.use("/api/auth", authRoutes);
 app.use("/api/progress", progressRoutes);

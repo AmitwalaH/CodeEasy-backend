@@ -1,0 +1,28 @@
+{
+  "concept": "enums",
+  "about": "# About\r\n\r\nIn Python, [an enum][enum-docs] is a set of unique names that are bound unique, **constant** values. Enums are defined by inheriting an `Enum` class. Built-in enum types are available in the module `enum` and the class `Enum` can be imported using `from enum import Enum`.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 1\r\n    GREEN = 2\r\n```\r\n\r\nNote that the values of the enum members can be any data types such as str, tuple, float, etc.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 'red'\r\n    GREEN = 'green'\r\n```\r\n\r\nEnums can also be created via the following [functional API][enum-functional-api].\r\n\r\n```python\r\nAnimal = Enum('Animal', 'ANT BEE CAT DOG')\r\nlist(Animal)\r\n#=> [<Animal.ANT: 1>, <Animal.BEE: 2>, <Animal.CAT: 3>, <Animal.DOG: 4>]\r\n\r\nAnimal.ANT.value\r\n#=> 1\r\n```\r\n\r\nWhen assigning the same value to two members in an enum, the latter assigned member will be an alias to the formed one. It is not allowed to use the same name for two members of an enum.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 1\r\n    GREEN = 2\r\n    ALIAS_OF_RED = 1\r\n\r\nColor.ALIAS_OF_RED\r\n#=> <Color.RED: 1>\r\n```\r\n\r\nIterating through the members of the enum can be done with the standard `for member in` syntax:\r\n\r\n```python\r\nfor member in Color:\r\n    print((member.name, member.value))\r\n#=> (RED, 1)\r\n#=> (GREEN, 2)\r\n\r\n# __members__.items() helps you to loop through alias as well\r\nfor member in Color.__members__.items():\r\n    print(member)\r\n#=>('RED', <Color.RED: 1>)\r\n#=>('GREEN', <Color.GREEN: 2>)\r\n#=>('ALIAS_OF_RED', <Color.RED: 1>)\r\n```\r\n\r\nEnum members can be compared using [`is` (_identity operator_)][identity-keyword] or `is not`. The `==` or `!=` (_equality operators_) work likewise.\r\n\r\n```python\r\na = Color.RED\r\n\r\na is Color.RED\r\n#=> True\r\n\r\na == Color.RED\r\n#=> True\r\n```\r\n\r\nTo assign integer values, the [`auto()` function][enum-auto-docs] starts with `1` and automatically sets subsequent values.\r\n\r\n```python\r\nclass Shape(Enum):\r\n    CIRCLE = auto()\r\n    SQUARE = auto()\r\n    OVAL = auto()\r\n```\r\n\r\nTo disallow aliasing (_preventing duplicate values with different names_), the `@unique` decorator may be used.\r\n\r\n```python\r\n@unique\r\nclass Shape(Enum):\r\n    CIRCLE = 1\r\n    SQUARE = 2\r\n    TRIANGLE = 1\r\n#=> ValueError: duplicate values found in <enum 'Shape'>: TRIANGLE -> CIRCLE\r\n```\r\n\r\nTo access an enum member for a given value, this notation can be used: `EnumName(value)`.\r\n\r\n```python\r\ng = Color(2)\r\n\r\ng is Color.GREEN\r\n#=> True\r\n\r\ng\r\n#=> <Color.GREEN: 2>\r\n```\r\n\r\nA custom [restricted `Enum`][restricted-enums] can be written by subclassing `Enum` with any mix-in or data-type. For example:\r\n\r\n```python\r\nclass StrEnum(str, Enum):\r\n    pass\r\n```\r\n\r\n[enum-docs]: https://docs.python.org/3/library/enum.html\r\n[enum-auto-docs]: https://docs.python.org/3/library/enum.html#using-auto\r\n[enum-functional-api]: https://docs.python.org/3/library/enum.html#functional-api\r\n[restricted-enums]: https://docs.python.org/3/library/enum.html#restricted-enum-subclassing\r\n[identity-keyword]: https://www.w3schools.com/python/ref_keyword_is.asp\r\n",
+  "introduction": "# Introduction\r\n\r\nIn Python, [an enum](https://docs.python.org/3/library/enum.html) is a set of names that are bound to unique `literal`, or `constant` values. Enums are defined by inheriting an `Enum` class. Built-in enum types are available in the module `enum` and the class `Enum` can be imported using `from enum import Enum`.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 1\r\n    GREEN = 2\r\n```\r\n\r\nNote that the values of the enum members can be any data types such as str, tuple, float, etc.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 'red'\r\n    GREEN = 'green'\r\n```\r\n\r\nWhen assigning the same value to two members in an enum, the latter assigned member will be an alias to the formed one. It is not allowed to use the same name for two members of an enum.\r\n\r\n```python\r\nclass Color(Enum):\r\n    RED = 1\r\n    GREEN = 2\r\n    ALIAS_OF_RED = 1\r\n\r\nColor.ALIAS_OF_RED\r\n#=> <Color.RED: 1>\r\n\r\nColor.ALIAS_OF_RED.value\r\n#=> 1\r\n```\r\n\r\nIterating through the members of the enum can be done with the standard `for member in` syntax:\r\n\r\n```python\r\nfor member in Color:\r\n    print((member.name, member.value))\r\n#=> (RED, 1)\r\n#=> (GREEN, 2)\r\n```\r\n\r\nEnum members can be compared using [`is` (_identity operator_)](https://www.w3schools.com/python/ref_keyword_is.asp) or `is not`. The `==` or `!=` (_equality_operators_) work likewise.\r\n\r\n```python\r\na = Color.RED\r\n\r\na is Color.RED\r\n#=> True\r\n\r\na == Color.RED\r\n#=> True\r\n```\r\n\r\nTo access an enum member for a given value, `EnumName(value)` can be used:\r\n\r\n```python\r\ng = Color(2)\r\n\r\ng is Color.GREEN\r\n#=> True\r\n\r\ng\r\n#=> <Color.GREEN: 2>\r\n```\r\n",
+  "links": [
+    {
+      "url": "https://docs.python.org/3/library/enum.html",
+      "description": "enum documentation"
+    },
+    {
+      "url": "https://www.w3schools.com/python/ref_keyword_is.asp",
+      "description": "identity keyword"
+    },
+    {
+      "url": "https://docs.python.org/3/library/enum.html#using-auto",
+      "description": "enum auto documentation"
+    },
+    {
+      "url": "https://docs.python.org/3/library/enum.html#functional-api",
+      "description": "enum functional api"
+    },
+    {
+      "url": "https://docs.python.org/3/library/enum.html#restricted-enum-subclassing",
+      "description": "restricted enum"
+    }
+  ],
+  "config": {}
+}

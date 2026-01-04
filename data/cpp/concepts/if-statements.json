@@ -1,0 +1,22 @@
+{
+  "language": "cpp",
+  "slug": "if-statements",
+  "title": "If Statements",
+  "docs": {
+    "about": "# About\r\n\r\nConditionals in C++ are similar to conditionals in other languages.\r\nThe underlying type of any conditional operation is the `bool` type, which can have the value of `true` or `false`.\r\nConditionals are often used as flow control mechanisms to check for various conditions.\r\n\r\nAn `if` statement can be used, which executes its code if the underlying condition is `true` like this:\r\n\r\n```cpp\r\nstd::string value{\"val\"};\r\n\r\nif (value == \"val\") {\r\n    return \"was val\";\r\n}\r\n```\r\n\r\nIn scenarios involving more than one case many `if` statements can be chained together using the `else if` and `else` statements.\r\n\r\n```cpp\r\nint number{33};\r\n\r\nif (number > 0) {\r\n   return \"positive\";\r\n} else if (number < 0) {\r\n    return \"negative\";\r\n} else {\r\n   return \"zero\";\r\n}\r\n```\r\n\r\nSince C++17 if-statements can also include a short initialization statement that can be used to initialize one or more variables for the if statement.\r\nFor example:\r\n\r\n```cpp\r\nint num{7};\r\nif (int v{2 * num}; v > 10) {\r\n    return v;\r\n} else {\r\n    return num;\r\n}\r\n// => 14\r\n```\r\n\r\n> Note: any variables created in the initialization cannot be accesed after the end of the if statement.\r\n",
+    "introduction": "# Introduction\r\n\r\nConditionals in C++ are similar to conditionals in other languages.\r\nThe underlying type of any conditional operation is the `bool` type, which can have the value of `true` or `false`.\r\nConditionals are often used as flow control mechanisms to check for various conditions.\r\n\r\nAn `if` statement can be used, which executes its code if the underlying condition is `true` like this:\r\n\r\n```cpp\r\nstd::string value{\"val\"};\r\n\r\nif (value == \"val\") {\r\n    return \"was val\";\r\n}\r\n```\r\n\r\nIn scenarios involving more than one case many `if` statements can be chained together using the `else if` and `else` statements.\r\n\r\n```cpp\r\nint number{33};\r\n\r\nif (number > 0) {\r\n   return \"positive\";\r\n} else if (number < 0) {\r\n    return \"negative\";\r\n} else {\r\n   return \"zero\";\r\n}\r\n```\r\n\r\nSince C++17 if-statements can also include a short initialization statement that can be used to initialize one or more variables for the if statement.\r\nFor example:\r\n\r\n```cpp\r\nint num{7};\r\nif (int v{2 * num}; v > 10) {\r\n    return v;\r\n} else {\r\n    return num;\r\n}\r\n// => 14\r\n```\r\n\r\n> Note: any variables created in the initialization cannot be accesed after the end of the if statement.\r\n"
+  },
+  "meta": {
+    "blurb": "If statements control the flow of execution of a program based on a boolean condition.",
+    "authors": [
+      "vaeng"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://en.cppreference.com/w/cpp/language/if",
+      "description": "C++ reference on if statements"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "type": "practice",
+  "slug": "reverse-string",
+  "title": "Reverse String",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to reverse a given string.\r\n\r\nSome examples:\r\n\r\n- Turn `\"stressed\"` into `\"desserts\"`.\r\n- Turn `\"strops\"` into `\"sports\"`.\r\n- Turn `\"racecar\"` into `\"racecar\"`.\r\n",
+    "hints": ""
+  },
+  "starter_code": "def reverse(text):\r\n    pass\r\n",
+  "tests": "# These tests are auto-generated with test data from:\r\n# https://github.com/exercism/problem-specifications/tree/main/exercises/reverse-string/canonical-data.json\r\n# File last updated on 2024-02-28\r\n\r\nimport unittest\r\n\r\nfrom reverse_string import (\r\n    reverse,\r\n)\r\n\r\n\r\nclass ReverseStringTest(unittest.TestCase):\r\n    def test_an_empty_string(self):\r\n        self.assertEqual(reverse(\"\"), \"\")\r\n\r\n    def test_a_word(self):\r\n        self.assertEqual(reverse(\"robot\"), \"tobor\")\r\n\r\n    def test_a_capitalized_word(self):\r\n        self.assertEqual(reverse(\"Ramen\"), \"nemaR\")\r\n\r\n    def test_a_sentence_with_punctuation(self):\r\n        self.assertEqual(reverse(\"I'm hungry!\"), \"!yrgnuh m'I\")\r\n\r\n    def test_a_palindrome(self):\r\n        self.assertEqual(reverse(\"racecar\"), \"racecar\")\r\n\r\n    def test_an_even_sized_word(self):\r\n        self.assertEqual(reverse(\"drawer\"), \"reward\")\r\n\r\n    def test_wide_characters(self):\r\n        self.assertEqual(reverse(\"子猫\"), \"猫子\")\r\n"
+}

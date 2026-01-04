@@ -1,0 +1,16 @@
+{
+  "language": "cpp",
+  "slug": "nth-prime",
+  "docs": {
+    "introduction": "",
+    "instructions": "# Instructions\r\n\r\nGiven a number n, determine what the nth prime is.\r\n\r\nBy listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.\r\n\r\nIf your language provides methods in the standard library to deal with prime numbers, pretend they don't exist and implement them yourself.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "nth_prime.cpp": "#include \"nth_prime.h\"\r\n\r\nnamespace nth_prime {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace nth_prime\r\n",
+    "nth_prime.h": "#pragma once\r\n\r\nnamespace nth_prime {\r\n\r\n// TODO: add your solution here\r\n\r\n}  // namespace nth_prime\r\n"
+  },
+  "tests": {
+    "nth_prime_test.cpp": "#include \"nth_prime.h\"\r\n#ifdef EXERCISM_TEST_SUITE\r\n#include <catch2/catch.hpp>\r\n#else\r\n#include \"test/catch.hpp\"\r\n#endif\r\n#include <stdexcept>\r\n\r\nTEST_CASE(\"first\") { REQUIRE(2 == nth_prime::nth(1)); }\r\n\r\n#if defined(EXERCISM_RUN_ALL_TESTS)\r\nTEST_CASE(\"second\") { REQUIRE(3 == nth_prime::nth(2)); }\r\n\r\nTEST_CASE(\"sixth\") { REQUIRE(13 == nth_prime::nth(6)); }\r\n\r\nTEST_CASE(\"big_prime\") { REQUIRE(104743 == nth_prime::nth(10001)); }\r\n\r\nTEST_CASE(\"weird_case\") {\r\n    REQUIRE_THROWS_AS(nth_prime::nth(0), std::domain_error);\r\n}\r\n#endif\r\n"
+  }
+}
