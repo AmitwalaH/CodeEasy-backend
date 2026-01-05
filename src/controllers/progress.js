@@ -1,4 +1,4 @@
-import UserProgress from "../routes/progress.js";
+import UserProgress from "../models/UserProgress.js"; // CORRECT
 
 // POST /api/progress/complete
 export const markCompleted = async (req, res, next) => {
