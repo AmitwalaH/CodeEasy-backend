@@ -1,4 +1,3 @@
-// src/controllers/track.controller.js
 import {
   getAllTracks,
   getTrackCategories,
@@ -8,14 +7,24 @@ import {
 import UserProgress from "../models/UserProgress.js";
 import { protect } from "../middlewares/auth.js";
 
+// GET /api/tracks  → return all tracks with exercise counts
 export const listTracks = (req, res, next) => {
   try {
     const tracks = getAllTracks();
-    res.status(200).json({ tracks });
+    const tracksWithCount = tracks.map(slug => {
+      const categories = getTrackCategories(slug);
+      let exerciseCount = 0;
+      categories.forEach(cat => {
+        exerciseCount += getExercisesInCategory(slug, cat).length;
+      });
+      return { slug, exerciseCount };
+    });
+    res.status(200).json({ tracks: tracksWithCount });
   } catch (err) {
     next(err);
   }
 };
+
 
 // GET /api/tracks/:trackSlug/exercises  → return categories under track
 export const listCategories = (req, res, next) => {
