@@ -17,7 +17,7 @@ router.get("/", listTracks);
 router.post("/:trackSlug/join", protect, joinTrack);  // ADD THIS LINE
 
 // GET /api/tracks/:trackSlug/concepts/:conceptSlug
-router.get("/:trackSlug/concepts/:conceptSlug", getConceptDetail);
+// router.get("/:trackSlug/concepts/:conceptSlug", getConceptDetail);
 
 // list categories for a track
 router.get("/:trackSlug/exercises", listCategories);
