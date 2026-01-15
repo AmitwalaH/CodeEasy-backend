@@ -193,7 +193,6 @@ export const getTrackAbout = (req, res, next) => {
     next(err);
   }
 };
-
 // --------------------------------------------------
 // GET /api/tracks/:trackSlug/concepts/:conceptSlug
 // --------------------------------------------------
@@ -201,35 +200,33 @@ export const getConceptDetail = (req, res, next) => {
   try {
     const { trackSlug, conceptSlug } = req.params;
 
-    const conceptPath = path.join(
+    const conceptFilePath = path.join(
       DATA_PATH,
       trackSlug,
       "concepts",
-      conceptSlug
+      `${conceptSlug}.json`
     );
 
-    const aboutPath = path.join(conceptPath, "about.md");
-    const introPath = path.join(conceptPath, "introduction.md");
-    const linksPath = path.join(conceptPath, "links.json");
+    if (!fs.existsSync(conceptFilePath)) {
+      return res.status(404).json({
+        success: false,
+        message: "Concept not found",
+      });
+    }
 
-    const about = fs.existsSync(aboutPath)
-      ? fs.readFileSync(aboutPath, "utf8")
-      : "";
+    const concept = JSON.parse(fs.readFileSync(conceptFilePath, "utf8"));
 
-    const introduction = fs.existsSync(introPath)
-      ? fs.readFileSync(introPath, "utf8")
-      : "";
+    res.json({
+      success: true,
+      data: {
+        about: concept?.about ?? concept?.docs?.about ?? "",
 
-    const links = fs.existsSync(linksPath)
-      ? JSON.parse(fs.readFileSync(linksPath, "utf8"))
-      : [];
+        // introduction:
+        //   concept?.introduction ?? concept?.docs?.introduction ?? "",
 
-    res.status(200).json({
-      track: trackSlug,
-      concept: conceptSlug,
-      about,
-      introduction,
-      links,
+        links: concept?.links ?? [],
+        config: concept?.config ?? {},
+      },
     });
   } catch (err) {
     next(err);
