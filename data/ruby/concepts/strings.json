@@ -1,0 +1,30 @@
+{
+  "language": "ruby",
+  "slug": "strings",
+  "title": "Strings",
+  "docs": {
+    "about": "# About\r\n\r\nThe key thing to remember about Ruby strings is that they are objects that you call methods on. You can find all the methods in the [Ruby docs][ruby-doc.org-string]\r\n\r\nIt's also worth knowing that strings can be created using single quotes (`'`) or double quotes (`\"`). Single-quoted strings don't process ASCII escape codes(\\n, \\t etc.), and they don't do [string interpolation][ruby-for-beginners.rubymonstas.org-interpolation] while double-quoted does both.\r\n\r\nYou can also create strings using the [heredoc syntax][ruby-heredoc] or using the `%q` and `%Q` helpers.\r\n\r\n[ruby-for-beginners.rubymonstas.org-interpolation]: http://ruby-for-beginners.rubymonstas.org/bonus/string_interpolation.html\r\n[ruby-doc.org-string]: https://ruby-doc.org/core-2.7.0/String.html\r\n[ruby-heredoc]: https://www.rubyguides.com/2018/11/ruby-heredoc/\r\n",
+    "introduction": "# Introduction\r\n\r\nA `String` in Ruby is an object that holds and manipulates an arbitrary sequence of bytes, typically representing characters. Strings are manipulated by calling the string's methods.\r\n"
+  },
+  "meta": {
+    "blurb": "Strings are objects containing a sequence of bytes, usually representing characters.",
+    "authors": [
+      "pvcarrera"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://ruby-doc.org/core-2.7.0/String.html",
+      "description": "ruby-doc.org-string"
+    },
+    {
+      "url": "http://ruby-for-beginners.rubymonstas.org/bonus/string_interpolation.html",
+      "description": "ruby-for-beginners.rubymonstas.org-interpolation"
+    },
+    {
+      "url": "https://www.rubyguides.com/2018/11/ruby-heredoc/",
+      "description": "ruby-heredoc"
+    }
+  ]
+}

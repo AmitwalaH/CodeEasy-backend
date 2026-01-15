@@ -1,73 +1,116 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
 import {
   getAllTracks,
   getTrackCategories,
   getExercisesInCategory,
   getExerciseData,
 } from "../utils/exerciseData.js";
-import UserProgress from "../models/UserProgress.js";
-import { protect } from "../middlewares/auth.js";
 
-// GET /api/tracks  → return all tracks with exercise counts
+import UserProgress from "../models/UserProgress.js";
+
+// --------------------------------------------------
+// ESM __dirname FIX
+// --------------------------------------------------
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// --------------------------------------------------
+// DATA PATH
+// src/controllers → ../../data
+// --------------------------------------------------
+const DATA_PATH = path.join(__dirname, "../../data");
+
+// --------------------------------------------------
+// GET /api/tracks
+// --------------------------------------------------
 export const listTracks = (req, res, next) => {
   try {
     const tracks = getAllTracks();
+
     const tracksWithCount = tracks.map((slug) => {
       const categories = getTrackCategories(slug);
       let exerciseCount = 0;
+
       categories.forEach((cat) => {
         exerciseCount += getExercisesInCategory(slug, cat).length;
       });
+
       return { slug, exerciseCount };
     });
+
     res.status(200).json({ tracks: tracksWithCount });
   } catch (err) {
     next(err);
   }
 };
 
-// GET /api/tracks/:trackSlug/exercises  → return categories under track
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/exercises
+// --------------------------------------------------
 export const listCategories = (req, res, next) => {
   try {
     const { trackSlug } = req.params;
     const categories = getTrackCategories(trackSlug);
-    res.status(200).json({ track: trackSlug, categories });
+
+    res.status(200).json({
+      track: trackSlug,
+      categories,
+    });
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 };
 
-// GET /api/tracks/:trackSlug/exercises/:category → return exercise slugs under that category
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/exercises/:category
+// --------------------------------------------------
 export const listExercisesByCategory = (req, res, next) => {
   try {
     const { trackSlug, category } = req.params;
     const exercises = getExercisesInCategory(trackSlug, category);
-    res.status(200).json({ track: trackSlug, category, exercises });
+
+    res.status(200).json({
+      track: trackSlug,
+      category,
+      exercises,
+    });
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 };
 
-// GET /api/tracks/:trackSlug/exercises/:category/:exerciseSlug → return full exercise data
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/exercises/:category/:exerciseSlug
+// --------------------------------------------------
 export const getExercise = (req, res, next) => {
   try {
     const { trackSlug, category, exerciseSlug } = req.params;
     const exercise = getExerciseData(trackSlug, category, exerciseSlug);
-    res.status(200).json({ track: trackSlug, category, exercise });
+
+    res.status(200).json({
+      track: trackSlug,
+      category,
+      exercise,
+    });
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 };
 
-// POST /api/tracks/:trackSlug/join - Join a track
+// --------------------------------------------------
+// POST /api/tracks/:trackSlug/join
+// --------------------------------------------------
 export const joinTrack = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const { trackSlug } = req.params;
 
-    // Check if user already has any progress in this track
     const existingProgress = await UserProgress.findOne({
       user: userId,
-      trackSlug: trackSlug,
+      trackSlug,
     });
 
     if (existingProgress) {
@@ -78,11 +121,10 @@ export const joinTrack = async (req, res, next) => {
       });
     }
 
-    // Create initial progress entry to mark track as "joined"
     await UserProgress.create({
       user: userId,
-      trackSlug: trackSlug,
-      exerciseSlug: "_joined", // Special marker for "joined but no exercise started"
+      trackSlug,
+      exerciseSlug: "_joined",
       category: "system",
       status: "in_progress",
     });
@@ -92,81 +134,104 @@ export const joinTrack = async (req, res, next) => {
       message: "Track joined successfully",
       trackSlug,
     });
-
-    // When user joins a track, increment count
-    await Track.findOneAndUpdate(
-      { slug: trackSlug },
-      { $inc: { studentCount: 1 } },
-      { upsert: true }
-    );
   } catch (err) {
     next(err);
   }
 };
 
-// GET /api/tracks/:trackSlug/config → return track configuration
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/config
+// --------------------------------------------------
 export const getTrackConfig = (req, res, next) => {
-  const { trackSlug } = req.params;
-  const configPath = path.join(DATA_PATH, trackSlug, "config.json");
+  try {
+    const { trackSlug } = req.params;
+    const configPath = path.join(DATA_PATH, trackSlug, "config.json");
 
-  if (!fs.existsSync(configPath)) {
-    return res.status(404).json({ error: "Config not found" });
+    if (!fs.existsSync(configPath)) {
+      return res.status(404).json({ error: "Config not found" });
+    }
+
+    const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+
+    res.status(200).json({
+      track: trackSlug,
+      config: {
+        name: config.language,
+        slug: config.slug,
+        blurb: config.blurb,
+        exerciseCount:
+          (config.exercises?.concept?.length || 0) +
+          (config.exercises?.practice?.length || 0),
+        concepts: config.concepts || [],
+        ...config,
+      },
+    });
+  } catch (err) {
+    next(err);
   }
-
-  const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-  res.status(200).json({
-    track: trackSlug,
-    config: {
-      name: config.language,
-      slug: config.slug,
-      blurb: config.blurb,
-      exerciseCount:
-        (config.exercises?.concept?.length || 0) +
-        (config.exercises?.practice?.length || 0),
-      concepts: config.concepts || [],
-      ...config,
-    },
-  });
 };
 
-// GET /api/tracks/:trackSlug/about → return track about information
-
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/about
+// --------------------------------------------------
 export const getTrackAbout = (req, res, next) => {
-  const { trackSlug } = req.params;
-  const aboutPath = path.join(DATA_PATH, trackSlug, "ABOUT.md");
+  try {
+    const { trackSlug } = req.params;
+    const aboutPath = path.join(DATA_PATH, trackSlug, "ABOUT.md");
 
-  if (!fs.existsSync(aboutPath)) {
-    return res.status(404).json({ error: "About not found" });
+    if (!fs.existsSync(aboutPath)) {
+      return res.status(404).json({ error: "About not found" });
+    }
+
+    const about = fs.readFileSync(aboutPath, "utf8");
+
+    res.status(200).json({
+      track: trackSlug,
+      about,
+    });
+  } catch (err) {
+    next(err);
   }
-
-  const about = fs.readFileSync(aboutPath, "utf8");
-  res.status(200).json({ track: trackSlug, about });
 };
 
-// GET /api/tracks/:trackSlug/concepts/:conceptSlug → return concept details
+// --------------------------------------------------
+// GET /api/tracks/:trackSlug/concepts/:conceptSlug
+// --------------------------------------------------
 export const getConceptDetail = (req, res, next) => {
-  const { trackSlug, conceptSlug } = req.params;
-  const conceptPath = path.join(DATA_PATH, trackSlug, "concepts", conceptSlug);
+  try {
+    const { trackSlug, conceptSlug } = req.params;
 
-  const aboutPath = path.join(conceptPath, "about.md");
-  const introPath = path.join(conceptPath, "introduction.md");
-  const linksPath = path.join(conceptPath, "links.json");
+    const conceptPath = path.join(
+      DATA_PATH,
+      trackSlug,
+      "concepts",
+      conceptSlug
+    );
 
-  const about = fs.existsSync(aboutPath)
-    ? fs.readFileSync(aboutPath, "utf8")
-    : "";
-  const introduction = fs.existsSync(introPath)
-    ? fs.readFileSync(introPath, "utf8")
-    : "";
-  const links = fs.existsSync(linksPath)
-    ? JSON.parse(fs.readFileSync(linksPath, "utf8"))
-    : [];
+    const aboutPath = path.join(conceptPath, "about.md");
+    const introPath = path.join(conceptPath, "introduction.md");
+    const linksPath = path.join(conceptPath, "links.json");
 
-  res.status(200).json({
-    track: trackSlug,
-    concept: conceptSlug,
-    about,
-    introduction,
-    links,
-  });
+    const about = fs.existsSync(aboutPath)
+      ? fs.readFileSync(aboutPath, "utf8")
+      : "";
+
+    const introduction = fs.existsSync(introPath)
+      ? fs.readFileSync(introPath, "utf8")
+      : "";
+
+    const links = fs.existsSync(linksPath)
+      ? JSON.parse(fs.readFileSync(linksPath, "utf8"))
+      : [];
+
+    res.status(200).json({
+      track: trackSlug,
+      concept: conceptSlug,
+      about,
+      introduction,
+      links,
+    });
+  } catch (err) {
+    next(err);
+  }
 };

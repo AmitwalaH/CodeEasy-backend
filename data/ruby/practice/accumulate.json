@@ -1,0 +1,12 @@
+{
+  "language": "ruby",
+  "type": "practice",
+  "slug": "accumulate",
+  "title": "Accumulate",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nImplement the `accumulate` operation, which, given a collection and an operation to perform on each element of the collection, returns a new collection containing the result of applying that operation to each element of the input collection.\r\n\r\nGiven the collection of numbers:\r\n\r\n- 1, 2, 3, 4, 5\r\n\r\nAnd the operation:\r\n\r\n- square a number (`x => x * x`)\r\n\r\nYour code should be able to produce the collection of squares:\r\n\r\n- 1, 4, 9, 16, 25\r\n\r\nCheck out the test suite to see the expected function signature.\r\n\r\n## Restrictions\r\n\r\nKeep your hands off that collect/map/fmap/whatchamacallit functionality provided by your standard library!\r\nSolve this one yourself using other basic tools instead.\r\n",
+    "hints": ""
+  },
+  "starter_code": "=begin\r\nWrite your code for the 'Accumulate' exercise in this file. Make the tests in\r\n`accumulate_test.rb` pass.\r\n\r\nTo get started with TDD, see the `README.md` file in your\r\n`ruby/accumulate` directory.\r\n=end\r\n",
+  "tests": "require 'minitest/autorun'\r\nrequire_relative 'accumulate'\r\n\r\nclass ArrayTest < Minitest::Test\r\n  def test_empty_accumulation\r\n    assert_empty([].accumulate { |e| e * e })\r\n  end\r\n\r\n  def test_accumulate_squares\r\n    skip\r\n    result = [1, 2, 3].accumulate do |number|\r\n      number * number\r\n    end\r\n    assert_equal [1, 4, 9], result\r\n  end\r\n\r\n  def test_accumulate_upcases\r\n    skip\r\n    result = %w[hello world].accumulate(&:upcase)\r\n    assert_equal %w[HELLO WORLD], result\r\n  end\r\n\r\n  def test_accumulate_reversed_strings\r\n    skip\r\n    result = %w[the quick brown fox etc].accumulate(&:reverse)\r\n    assert_equal %w[eht kciuq nworb xof cte], result\r\n  end\r\n\r\n  def test_accumulate_recursively\r\n    skip\r\n    result = %w[a b c].accumulate do |char|\r\n      %w[1 2 3].accumulate do |digit|\r\n        \"#{char}#{digit}\"\r\n      end\r\n    end\r\n    assert_equal [%w[a1 a2 a3], %w[b1 b2 b3], %w[c1 c2 c3]], result\r\n  end\r\n\r\n  def test_do_not_change_in_place\r\n    skip\r\n    original = [1, 2, 3]\r\n    copy = original.dup\r\n    original.accumulate { |n| n * n }\r\n    assert_equal copy, original\r\n  end\r\nend\r\n"
+}

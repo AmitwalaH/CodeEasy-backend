@@ -1,0 +1,12 @@
+{
+  "language": "ruby",
+  "type": "practice",
+  "slug": "eliuds-eggs",
+  "title": "Eliuds Eggs",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to count the number of 1 bits in the binary representation of a number.\r\n\r\n## Restrictions\r\n\r\nKeep your hands off that bit-count functionality provided by your standard library!\r\nSolve this one yourself using other basic tools instead.\r\n",
+    "hints": ""
+  },
+  "starter_code": "=begin\r\nWrite your code for the 'Eliuds Eggs' exercise in this file. Make the tests in\r\n`eliuds_eggs_test.rb` pass.\r\n\r\nTo get started with TDD, see the `README.md` file in your\r\n`ruby/eliuds-eggs` directory.\r\n=end\r\n",
+  "tests": "require 'minitest/autorun'\r\nrequire_relative 'eliuds_eggs'\r\n\r\nclass EliudsEggsTest < Minitest::Test\r\n  def test_0_eggs\r\n    # skip\r\n    assert_equal 0, EliudsEggs.egg_count(0)\r\n  end\r\n\r\n  def test_1_egg\r\n    skip\r\n    assert_equal 1, EliudsEggs.egg_count(16)\r\n  end\r\n\r\n  def test_4_eggs\r\n    skip\r\n    assert_equal 4, EliudsEggs.egg_count(89)\r\n  end\r\n\r\n  def test_13_eggs\r\n    skip\r\n    assert_equal 13, EliudsEggs.egg_count(2_000_000_000)\r\n  end\r\nend\r\n"
+}

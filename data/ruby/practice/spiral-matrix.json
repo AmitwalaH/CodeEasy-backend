@@ -1,0 +1,12 @@
+{
+  "language": "ruby",
+  "type": "practice",
+  "slug": "spiral-matrix",
+  "title": "Spiral Matrix",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to return a square matrix of a given size.\r\n\r\nThe matrix should be filled with natural numbers, starting from 1 in the top-left corner, increasing in an inward, clockwise spiral order, like these examples:\r\n\r\n## Examples\r\n\r\n### Spiral matrix of size 3\r\n\r\n```text\r\n1 2 3\r\n8 9 4\r\n7 6 5\r\n```\r\n\r\n### Spiral matrix of size 4\r\n\r\n```text\r\n 1  2  3 4\r\n12 13 14 5\r\n11 16 15 6\r\n10  9  8 7\r\n```\r\n",
+    "hints": ""
+  },
+  "starter_code": "=begin\r\nWrite your code for the 'Spiral Matrix' exercise in this file. Make the tests in\r\n`spiraL_matrix_test.rb` pass.\r\n\r\nTo get started with TDD, see the `README.md` file in your\r\n`ruby/spiral-matrix` directory.\r\n=end\r\n",
+  "tests": "require 'minitest/autorun'\r\nrequire_relative 'spiral_matrix'\r\n\r\nclass SpiralMatrixTest < Minitest::Test\r\n  def test_empty_spiral\r\n    # skip\r\n    actual = SpiralMatrix.new(0).matrix\r\n    expected = []\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_trivial_spiral\r\n    skip\r\n    actual = SpiralMatrix.new(1).matrix\r\n    expected = [[1]]\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_spiral_of_size_2\r\n    skip\r\n    actual = SpiralMatrix.new(2).matrix\r\n    expected = [[1, 2], [4, 3]]\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_spiral_of_size_3\r\n    skip\r\n    actual = SpiralMatrix.new(3).matrix\r\n    expected = [[1, 2, 3], [8, 9, 4], [7, 6, 5]]\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_spiral_of_size_4\r\n    skip\r\n    actual = SpiralMatrix.new(4).matrix\r\n    expected = [[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_spiral_of_size_5\r\n    skip\r\n    actual = SpiralMatrix.new(5).matrix\r\n    expected = [[1, 2, 3, 4, 5], [16, 17, 18, 19, 6], [15, 24, 25, 20, 7], [14, 23, 22, 21, 8], [13, 12, 11, 10, 9]]\r\n    assert_equal expected, actual\r\n  end\r\nend\r\n"
+}

@@ -9,15 +9,15 @@ import {
   getTrackConfig,
   getTrackAbout,
 } from "../controllers/track.js";
-import { protect } from "../middlewares/auth.js"; // ADD THIS
+import { protect } from "../middlewares/auth.js";
 
 const router = express.Router();
 
 // list all tracks
 router.get("/", listTracks);
 
-// JOIN a track (requires auth)
-router.post("/:trackSlug/join", protect, joinTrack); // ADD THIS LINE
+// join a track (auth required)
+router.post("/:trackSlug/join", protect, joinTrack);
 
 // list categories for a track
 router.get("/:trackSlug/exercises", listCategories);
@@ -28,13 +28,13 @@ router.get("/:trackSlug/exercises/:category", listExercisesByCategory);
 // get a specific exercise
 router.get("/:trackSlug/exercises/:category/:exerciseSlug", getExercise);
 
-// GET /api/tracks/:trackSlug/concepts/:conceptSlug
-router.get("/:trackSlug/concepts/:conceptSlug", getConceptDetail);
+// get track about information
+router.get("/:trackSlug/about", getTrackAbout);
 
 // get track configuration
 router.get("/:trackSlug/config", getTrackConfig);
 
-// get track about information
-router.get("/:trackSlug/about", getTrackAbout);
+// get concept detail
+router.get("/:trackSlug/concepts/:conceptSlug", getConceptDetail);
 
 export default router;

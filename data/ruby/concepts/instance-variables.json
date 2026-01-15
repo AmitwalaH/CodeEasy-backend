@@ -1,0 +1,45 @@
+{
+  "language": "ruby",
+  "slug": "instance-variables",
+  "title": "Instance Variables",
+  "docs": {
+    "about": "# About\r\n\r\n## Key Points:\r\n\r\n- When a class' `.new` method is called to create an object instance, the `.initialize` method is passed all arguments to initialize the instance's state.\r\n- instance variable names are prefixed with `@`.\r\n- instance variables default to `nil` until they are explicitly set.\r\n- instance variables are private by default, and they should be manipulated with getters and setters\r\n\r\n```ruby\r\nclass Backpack\r\n  initialize(owner)\r\n    @owner = owner\r\n  end\r\n\r\n  def owner\r\n    @owner\r\n  end\r\n\r\n  def owner=(new_owner)\r\n    @owner = new_owner\r\n  end\r\nend\r\n```\r\n\r\n- Methods named with a trailing `=` are recognized as setters by Ruby, and allow the syntactic \"sugar\" use of the assignment syntax, e.g. `Backpack.new(\"Sven\").owner = \"Ayah\"`. Notice the space between `owner` and `=` while the actual method name is `owner=`.\r\n- Getters and setters can be created using the `attr_reader`, `attr_writer`, and `attr_accessor` methods:\r\n  - `attr_reader`: Create getters for the symbols listed\r\n  - `attr_writer`: Create setters for the symbols listed\r\n  - `attr_accessor`: Create getters and setters for the symbols listed\r\n\r\n```ruby\r\nclass Backpack\r\n  attr_accessor :owner\r\n\r\n  initialize(owner)\r\n    @owner = owner\r\n  end\r\nend\r\n```\r\n\r\n- Why use getters and setters rather than the instance variable directly?\r\n  - If there was a typographical error (we call these \"typo\") in the previous example (e.g. `@ownar`), it would fail silently, potentially introducing a bug into the system.\r\n  - Getters and setters make this explicit, and will raise an error when a typo is made\r\n\r\n## References\r\n\r\n### Initializing object instances\r\n\r\n- [Ruby Guides: Initialize Method][rg-initialize-method]\r\n\r\n### Instance variables\r\n\r\n- [Ruby For Beginners: Instance variables][rfb-instance-variables]\r\n- [Ruby Guides: Instance variables][rg-instance-variables]\r\n- [Ruby User's Guide: Instance variables][rug-instance-variables]\r\n- [Geeks for Geeks: Ruby Getters and Setters Methods][gfg-getter-setters]\r\n- [Mix & Go: Ruby's attr_accessor, attr_reader, attr_writer][mg-attr]\r\n\r\n[mg-attr]: https://mixandgo.com/learn/ruby_attr_accessor_attr_reader_attr_writer\r\n[rfb-instance-variables]: http://ruby-for-beginners.rubymonstas.org/writing_classes/instance_variables.html\r\n[rg-initialize-method]: https://www.rubyguides.com/2019/01/ruby-initialize-method/\r\n[rg-instance-variables]: https://www.rubyguides.com/2019/07/ruby-instance-variables/\r\n[rug-instance-variables]: https://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/instancevars.html\r\n[gfg-getter-setters]: https://www.geeksforgeeks.org/ruby-getters-and-setters-method/\r\n",
+    "introduction": "# Introduction\r\n\r\nObjects can hold their own state by setting _instance variables_, which are created by prefixing `@` to a variable name.\r\n\r\n```ruby\r\n@name = 2\r\n```\r\n\r\nObjects usually set their initial state in an `initialize` method, which is automatically called when calling `new` on a class.\r\n\r\n```ruby\r\nclass Airplane\r\n  def initialize\r\n    @wings = 2\r\n  end\r\nend\r\n```\r\n\r\nThe `initialize` method may also take arguments, so that each instance can start with a custom state:\r\n\r\n```ruby\r\nclass Suitcase\r\n  def initialize(locked)\r\n    @locked = locked\r\n  end\r\nend\r\n```\r\n\r\nConsider _instance_ variables to be private from external read and writes. _Instance_ methods should be used for getting and setting instance variables:\r\n\r\n```ruby\r\nclass Suitcase\r\n  #...\r\n\r\n  def locked? # Query methods should be named with a trailing `?`\r\n    @locked\r\n  end\r\n\r\n  def unlock! # Methods which mutate state should have trailing `!`\r\n    @locked = false\r\n  end\r\nend\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Objects can hold their own state by setting instance variables, which are created by prefixing '@' to a variable name.",
+    "authors": [
+      "neenjaw",
+      "iHiD"
+    ],
+    "contributors": [
+      "kotp"
+    ]
+  },
+  "links": [
+    {
+      "url": "https://www.rubyguides.com/2019/01/ruby-initialize-method/",
+      "description": "rg-initialize-method"
+    },
+    {
+      "url": "http://ruby-for-beginners.rubymonstas.org/writing_classes/instance_variables.html",
+      "description": "rfb-instance-variables"
+    },
+    {
+      "url": "https://www.rubyguides.com/2019/07/ruby-instance-variables/",
+      "description": "rg-instance-variables"
+    },
+    {
+      "url": "https://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/instancevars.html",
+      "description": "rug-instance-variables"
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/ruby-getters-and-setters-method/",
+      "description": "gfg-getter-setters"
+    },
+    {
+      "url": "https://mixandgo.com/learn/ruby_attr_accessor_attr_reader_attr_writer",
+      "description": "mg-attr"
+    }
+  ]
+}

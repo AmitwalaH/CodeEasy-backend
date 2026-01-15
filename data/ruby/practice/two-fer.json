@@ -1,0 +1,12 @@
+{
+  "language": "ruby",
+  "type": "practice",
+  "slug": "two-fer",
+  "title": "Two Fer",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to determine what you will say as you give away the extra cookie.\r\n\r\nIf you know the person's name (e.g. if they're named Do-yun), then you will say:\r\n\r\n```text\r\nOne for Do-yun, one for me.\r\n```\r\n\r\nIf you don't know the person's name, you will say _you_ instead.\r\n\r\n```text\r\nOne for you, one for me.\r\n```\r\n\r\nHere are some examples:\r\n\r\n| Name   | Dialogue                    |\r\n| :----- | :-------------------------- |\r\n| Alice  | One for Alice, one for me.  |\r\n| Bohdan | One for Bohdan, one for me. |\r\n|        | One for you, one for me.    |\r\n| Zaphod | One for Zaphod, one for me. |\r\n",
+    "hints": ""
+  },
+  "starter_code": "=begin\r\nWrite your code for the 'Two Fer' exercise in this file. Make the tests in\r\n`two_fer_test.rb` pass.\r\n=end\r\n",
+  "tests": "require 'minitest/autorun'\r\nrequire_relative 'two_fer'\r\n\r\nclass TwoFerTest < Minitest::Test\r\n  def test_no_name_given\r\n    # skip\r\n    actual = TwoFer.two_fer\r\n    expected = 'One for you, one for me.'\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_a_name_given\r\n    skip\r\n    actual = TwoFer.two_fer('Alice')\r\n    expected = 'One for Alice, one for me.'\r\n    assert_equal expected, actual\r\n  end\r\n\r\n  def test_another_name_given\r\n    skip\r\n    actual = TwoFer.two_fer('Bob')\r\n    expected = 'One for Bob, one for me.'\r\n    assert_equal expected, actual\r\n  end\r\nend\r\n"
+}

@@ -1,0 +1,12 @@
+{
+  "language": "ruby",
+  "type": "practice",
+  "slug": "grains",
+  "title": "Grains",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nCalculate the number of grains of wheat on a chessboard.\r\n\r\nA chessboard has 64 squares.\r\nSquare 1 has one grain, square 2 has two grains, square 3 has four grains, and so on, doubling each time.\r\n\r\nWrite code that calculates:\r\n\r\n- the number of grains on a given square\r\n- the total number of grains on the chessboard\r\n",
+    "hints": ""
+  },
+  "starter_code": "=begin\r\nWrite your code for the 'Grains' exercise in this file. Make the tests in\r\n`grains_test.rb` pass.\r\n\r\nTo get started with TDD, see the `README.md` file in your\r\n`ruby/grains` directory.\r\n=end\r\n",
+  "tests": "require 'minitest/autorun'\r\nrequire_relative 'grains'\r\n\r\nclass GrainsTest < Minitest::Test\r\n  def test_grains_on_square_1\r\n    # skip\r\n    assert_equal 1, Grains.square(1)\r\n  end\r\n\r\n  def test_grains_on_square_2\r\n    skip\r\n    assert_equal 2, Grains.square(2)\r\n  end\r\n\r\n  def test_grains_on_square_3\r\n    skip\r\n    assert_equal 4, Grains.square(3)\r\n  end\r\n\r\n  def test_grains_on_square_4\r\n    skip\r\n    assert_equal 8, Grains.square(4)\r\n  end\r\n\r\n  def test_grains_on_square_16\r\n    skip\r\n    assert_equal 32_768, Grains.square(16)\r\n  end\r\n\r\n  def test_grains_on_square_32\r\n    skip\r\n    assert_equal 2_147_483_648, Grains.square(32)\r\n  end\r\n\r\n  def test_grains_on_square_64\r\n    skip\r\n    assert_equal 9_223_372_036_854_775_808, Grains.square(64)\r\n  end\r\n\r\n  def test_square_0_is_invalid\r\n    skip\r\n    assert_raises(ArgumentError) do\r\n      Grains.square(0)\r\n    end\r\n  end\r\n\r\n  def test_negative_square_is_invalid\r\n    skip\r\n    assert_raises(ArgumentError) do\r\n      Grains.square(-1)\r\n    end\r\n  end\r\n\r\n  def test_square_greater_than_64_is_invalid\r\n    skip\r\n    assert_raises(ArgumentError) do\r\n      Grains.square(65)\r\n    end\r\n  end\r\n\r\n  def test_returns_the_total_number_of_grains_on_the_board\r\n    skip\r\n    assert_equal 18_446_744_073_709_551_615, Grains.total\r\n  end\r\nend\r\n"
+}

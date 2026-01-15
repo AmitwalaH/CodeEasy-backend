@@ -1,0 +1,17 @@
+{
+  "language": "ruby",
+  "slug": "modules",
+  "title": "Modules",
+  "docs": {
+    "about": "# About\r\n\r\nSome times you don't need the overhead of creating an object with state.\r\nIn these cases, a `module` can be used.\r\n\r\nA module is very similar to a class (in fact, `Module` is `Classes` parent in the object hierarchy) - the main difference being that rather than using instance methods, we use class methods.\r\nClass methods start with `self.` and are directly called on a module. \r\nFor example:\r\n\r\n```ruby\r\nmodule Speaker\r\n  def self.echo(something)\r\n    \"#{something} ... #{something}\"\r\n  end\r\nend\r\n\r\nSpeaker.echo(\"Hello\")   #=> \"Hello ... Hello\"\r\n```",
+    "introduction": "# Introduction\r\n\r\nSome times you don't need the overhead of creating an object with state.\r\nIn these cases, a `module` can be used.\r\n\r\nA module is very similar to a class (in fact, `Module` is an ancestor of `Class` in the object hierarchy) - the main difference being that rather than using instance methods, we use class methods.\r\nClass methods start with `self.` and are directly called on a module. \r\nFor example:\r\n\r\n```ruby\r\nmodule Speaker\r\n  def self.echo(something)\r\n    \"#{something} ... #{something}\"\r\n  end\r\nend\r\n\r\nSpeaker.echo(\"Hello\")   #=> \"Hello ... Hello\"\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "A module is very similar to a class, with the main difference being that rather than using instance methods, class methods are used.",
+    "authors": [
+      "iHiD"
+    ],
+    "contributors": []
+  },
+  "links": []
+}
