@@ -5,10 +5,10 @@ import {
   listExercisesByCategory,
   getExercise,
   joinTrack,
-  getConceptDetail,
   getTrackConfig,
   getTrackAbout,
 } from "../controllers/track.js";
+import { getConceptDetail } from "../controllers/conceptController.js";
 import { protect } from "../middlewares/auth.js";
 
 const router = express.Router();

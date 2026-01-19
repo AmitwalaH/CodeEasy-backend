@@ -193,42 +193,42 @@ export const getTrackAbout = (req, res, next) => {
     next(err);
   }
 };
-// --------------------------------------------------
-// GET /api/tracks/:trackSlug/concepts/:conceptSlug
-// --------------------------------------------------
-export const getConceptDetail = (req, res, next) => {
-  try {
-    const { trackSlug, conceptSlug } = req.params;
+// // --------------------------------------------------
+// // GET /api/tracks/:trackSlug/concepts/:conceptSlug
+// // --------------------------------------------------
+// export const getConceptDetail = (req, res, next) => {
+//   try {
+//     const { trackSlug, conceptSlug } = req.params;
 
-    const conceptFilePath = path.join(
-      DATA_PATH,
-      trackSlug,
-      "concepts",
-      `${conceptSlug}.json`
-    );
+//     const conceptFilePath = path.join(
+//       DATA_PATH,
+//       trackSlug,
+//       "concepts",
+//       `${conceptSlug}.json`
+//     );
 
-    if (!fs.existsSync(conceptFilePath)) {
-      return res.status(404).json({
-        success: false,
-        message: "Concept not found",
-      });
-    }
+//     if (!fs.existsSync(conceptFilePath)) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Concept not found",
+//       });
+//     }
 
-    const concept = JSON.parse(fs.readFileSync(conceptFilePath, "utf8"));
+//     const concept = JSON.parse(fs.readFileSync(conceptFilePath, "utf8"));
 
-    res.json({
-      success: true,
-      data: {
-        about: concept?.about ?? concept?.docs?.about ?? "",
+//     res.json({
+//       success: true,
+//       data: {
+//         about: concept?.about ?? concept?.docs?.about ?? "",
 
-        // introduction:
-        //   concept?.introduction ?? concept?.docs?.introduction ?? "",
+//         // introduction:
+//         //   concept?.introduction ?? concept?.docs?.introduction ?? "",
 
-        links: concept?.links ?? [],
-        config: concept?.config ?? {},
-      },
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+//         links: concept?.links ?? [],
+//         config: concept?.config ?? {},
+//       },
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
