@@ -1,0 +1,10 @@
+{
+  "language": "csharp",
+  "slug": "ordering",
+  "title": "Ordering",
+  "docs": {
+    "about": "# About\r\n\r\nTo allow an object to be compared to another object, it must implement the `IComparable<T>` interface.\r\nThis interface has a single method that needs to be implemented: `int CompareTo(T other)`.\r\n\r\nThere are three possible return values for the `CompareTo` method:\r\n\r\n- Value smaller than zero: the current object is smaller than the other object.\r\n- Value greater than zero: the current object is greater than the other object.\r\n- Value is zero: the current object is equal to the other object.\r\n\r\n```csharp\r\npublic class Book : IComparable<Book>\r\n{\r\n    public int PageCount { get; set; }\r\n\r\n    public int CompareTo(Book other)\r\n    {\r\n        // If other is not a valid object reference, this instance is greater.\r\n        if (other == null) return 1;\r\n\r\n        // Compare books using their number of pages\r\n        return PageCount.CompareTo(other.PageCount);\r\n    }\r\n}\r\n\r\nvar smallBook = new Book { PageCount = 99 };\r\nvar largeBook = new Book { PageCount = 3333 };\r\n\r\nsmallBook.CompareTo(largeBook);\r\n// => -1\r\n```\r\n",
+    "introduction": "# Introduction\r\n\r\nTo allow an object to be compared to another object, it must implement the `IComparable<T>` interface.\r\nThis interface has a single method that needs to be implemented: `int CompareTo(T other)`.\r\n\r\nThere are three possible return values for the `CompareTo` method:\r\n\r\n- Value smaller than zero: the current object is smaller than the other object.\r\n- Value greater than zero: the current object is greater than the other object.\r\n- Value is zero: the current object is equal to the other object.\r\n"
+  },
+  "links": []
+}

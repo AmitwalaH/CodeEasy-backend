@@ -1,0 +1,19 @@
+{
+  "language": "csharp",
+  "slug": "timezone",
+  "title": "Timezone",
+  "docs": {
+    "about": "# About\r\n\r\nThe [`TimeZoneInfo`][TimeZoneInfo] class provides routines for handling the differences between time zones. The `TimeZoneInfo` class also contains methods that facilitate dealing with daylight saving time.\r\n\r\nThe [`CultureInfo`][CultureInfo] class supports locale dependent date time formats.\r\n\r\nTo support cross-platform coding the [`RuntimeInformation`][RuntimeInformation] class allows you to detect which operating system your code is executing on, Linux, Windows or OSX.\r\n\r\n[TimeZoneInfo]: https://docs.microsoft.com/en-us/dotnet/api/system.timezoneinfo\r\n[CultureInfo]: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo\r\n[RuntimeInformation]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.runtimeinformation\r\n",
+    "introduction": "# Introduction\r\n\r\nThe `TimeZoneInfo` class provides routines for handling the differences between time zones. The `TimeZoneInfo` class also contains methods that facilitate dealing with daylight saving time.\r\n\r\nThe `CultureInfo` class supports locale dependent date time formats.\r\n\r\nTo support cross-platform coding the `RuntimeInformation` class allows you to detect which operating system your code is executing on, Linux, Windows or OSX.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.timezoneinfo?view=netcore-2.0",
+      "description": "time-zone-info"
+    },
+    {
+      "url": "https://devblogs.microsoft.com/dotnet/cross-platform-time-zones-with-net-core/",
+      "description": "cross-platform-time-zones"
+    }
+  ]
+}

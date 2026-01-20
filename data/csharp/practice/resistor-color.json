@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "resistor-color",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nIf you want to build something using a Raspberry Pi, you'll probably use _resistors_.\r\nFor this exercise, you need to know two things about them:\r\n\r\n- Each resistor has a resistance value.\r\n- Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.\r\n\r\nTo get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.\r\nEach band has a position and a numeric value.\r\n\r\nThe first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.\r\n\r\nIn this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.\r\n\r\nThese colors are encoded as follows:\r\n\r\n- black: 0\r\n- brown: 1\r\n- red: 2\r\n- orange: 3\r\n- yellow: 4\r\n- green: 5\r\n- blue: 6\r\n- violet: 7\r\n- grey: 8\r\n- white: 9\r\n\r\nThe goal of this exercise is to create a way:\r\n\r\n- to look up the numerical value associated with a particular color band\r\n- to list the different band colors\r\n\r\nMnemonics map the colors to the numbers, that, when stored as an array, happen to map to their index in the array:\r\nBetter Be Right Or Your Great Big Values Go Wrong.\r\n\r\nMore information on the color encoding of resistors can be found in the [Electronic color code Wikipedia article][e-color-code].\r\n\r\n[e-color-code]: https://en.wikipedia.org/wiki/Electronic_color_code\r\n",
+    "instructions_append": "",
+    "hints": ""
+  },
+  "starter_code": {
+    "ResistorColor.cs": "public static class ResistorColor\r\n{\r\n    public static int ColorCode(string color)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n\r\n    public static string[] Colors()\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}"
+  },
+  "tests": {
+    "ResistorColorTests.cs": "public class ResistorColorTests\r\n{\r\n    [Fact]\r\n    public void Black()\r\n    {\r\n        Assert.Equal(0, ResistorColor.ColorCode(\"black\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void White()\r\n    {\r\n        Assert.Equal(9, ResistorColor.ColorCode(\"white\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Orange()\r\n    {\r\n        Assert.Equal(3, ResistorColor.ColorCode(\"orange\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Colors()\r\n    {\r\n        string[] expected = [\"black\", \"brown\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"violet\", \"grey\", \"white\"];\r\n        Assert.Equal(expected, ResistorColor.Colors());\r\n    }\r\n}\r\n"
+  }
+}

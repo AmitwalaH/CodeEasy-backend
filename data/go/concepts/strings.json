@@ -1,0 +1,37 @@
+{
+  "language": "go",
+  "slug": "strings",
+  "title": "Strings",
+  "docs": {
+    "about": "# About\r\n\r\nA `string` in Go is an immutable sequence of bytes, which don't necessarily have to represent characters.\r\n\r\nA string literal is defined between double quotes:\r\n\r\n```go\r\nconst name = \"Jane\"\r\n```\r\n\r\nStrings can be concatenated via the `+` operator:\r\n\r\n```go\r\n\"Jane\" + \" \" + \"Austen\"\r\n// => \"Jane Austen\"\r\n```\r\n\r\nSome special characters need to be escaped with a leading backslash, such as `\\t` for a tab and `\\n` for a new line in strings.\r\n\r\n```go\r\n\"How is the weather today?\\nIt's sunny\"  \r\n// =>\r\n// How is the weather today?\r\n// It's sunny\r\n```\r\n\r\nThe `strings` package contains many useful functions to work on strings.\r\nFor more information about string functions, check out the [strings package documentation](https://pkg.go.dev/strings).\r\nHere are some examples:\r\n\r\n```go\r\nimport \"strings\"\r\n\r\n// strings.ToLower returns the string given as argument with all its characters lowercased\r\nstrings.ToLower(\"MaKEmeLoweRCase\")\r\n// => \"makemelowercase\"\r\n\r\n// strings.Repeat returns a string with a substring given as argument repeated many times\r\nstrings.Repeat(\"Go\", 3)\r\n// => \"GoGoGo\"\r\n```\r\n\r\n## Special characters\r\n\r\nAs mentioned previously, some special characters need to be escaped with a leading backslash.\r\nBelow is a more detailed list of what those special characters are:\r\n\r\n| Value | Description          |\r\n| ----- | -------------------- |\r\n| `\\a`  | Alert or bell        |\r\n| `\\b`  | Backspace            |\r\n| `\\\\`  | Backslash            |\r\n| `\\t`  | Horizontal tab       |\r\n| `\\n`  | Line feed or newline |\r\n| `\\f`  | Form feed            |\r\n| `\\r`  | Carriage return      |\r\n| `\\v`  | Vertical tab         |\r\n| `\\'`  | Single quote         |\r\n| `\\\"`  | Double quote         |\r\n\r\n```go\r\nfmt.Println(\"Joe\\nWilliam\\nJack\\nAverell\") \r\n\r\n// Output:\r\n// Joe\r\n// William\r\n// Jack\r\n// Averell\r\n```\r\n\r\n## Raw string literals\r\n\r\nRaw string literals use backticks (\\`) as their delimiter instead of double quotes and all characters in it are interpreted literally, meaning that there is no need to escape characters or newlines.\r\n\r\nThis is an example of a multiline string:\r\n\r\n```go\r\nconst daltons = `Joe\r\nWilliam\r\nJack\r\nAverell`\r\n```\r\n\r\nThis string has multiple lines. More specifically, it has 3 `\\n`. However, because we are a raw string literal, we don't need to put the `\\n` explicitly in the string. The newlines will be interpreted literally.\r\n\r\nHere are some other examples comparing raw string literals with regular string literals:\r\n\r\n```go\r\n`abc`\r\n// same as \"abc\"\r\n\r\n\"\\\"\" // regular string literal with 1 character: a double quote\r\n// same as `\"` a raw string literal with 1 character: a double quote\r\n\r\n`\\n\r\n` // raw string literal with 3 character: a backslash, an 'n', and a newline\r\n// same as \"\\\\n\\n\"  a regular string literal with 3 characters: a backslash, an 'n', and a newline\r\n\r\n\"\\t\\n\" // regular string literal with 2 characters: a tab and a newline\r\n`\\t\\n`// raw string literal with 4 characters: two backslashes, a 't', and an 'n'\r\n```\r\n\r\n\r\n",
+    "introduction": "# Introduction\r\n\r\nA `string` in Go is an immutable sequence of bytes, which don't necessarily have to represent characters.\r\n\r\nA string literal is defined between double quotes:\r\n\r\n```go\r\nconst name = \"Jane\"\r\n```\r\n\r\nStrings can be concatenated via the `+` operator:\r\n\r\n```go\r\n\"Jane\" + \" \" + \"Austen\"\r\n// => \"Jane Austen\"\r\n```\r\n\r\nSome special characters need to be escaped with a leading backslash, such as `\\t` for a tab and `\\n` for a new line in strings.\r\n\r\n```go\r\n\"How is the weather today?\\nIt's sunny\"  \r\n// =>\r\n// How is the weather today?\r\n// It's sunny\r\n```\r\n\r\nThe `strings` package contains many useful functions to work on strings.\r\nFor more information about string functions, check out the [strings package documentation](https://pkg.go.dev/strings).\r\nHere are some examples:\r\n\r\n```go\r\nimport \"strings\"\r\n\r\n// strings.ToLower returns the string given as argument with all its characters lowercased\r\nstrings.ToLower(\"MaKEmeLoweRCase\")\r\n// => \"makemelowercase\"\r\n\r\n// strings.Repeat returns a string with a substring given as argument repeated many times\r\nstrings.Repeat(\"Go\", 3)\r\n// => \"GoGoGo\"\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "A string in Go is an immutable sequence of bytes, which don't necessarily have to represent characters.",
+    "authors": [
+      "tehsphinx",
+      "erikschierboom"
+    ],
+    "contributors": [
+      "kekimaker"
+    ]
+  },
+  "links": [
+    {
+      "url": "https://golangbot.com/strings/",
+      "description": "Article: Introduction to Strings in Go"
+    },
+    {
+      "url": "https://go101.org/article/string.html",
+      "description": "Article: Strings in Go"
+    },
+    {
+      "url": "https://pkg.go.dev/strings",
+      "description": "Go Packages: strings package"
+    },
+    {
+      "url": "https://gobyexample.com/string-functions",
+      "description": "Go by Example: String Functions"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "reverse-string",
+  "title": "Reverse String",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to reverse a given string.\r\n\r\nSome examples:\r\n\r\n- Turn `\"stressed\"` into `\"desserts\"`.\r\n- Turn `\"strops\"` into `\"sports\"`.\r\n- Turn `\"racecar\"` into `\"racecar\"`.\r\n",
+    "hints": ""
+  },
+  "starter_code": "package reverse\r\n\r\nfunc Reverse(input string) string {\r\n\tpanic(\"Please implement the Reverse function\")\r\n}\r\n",
+  "tests": "package reverse\r\n\r\nimport (\r\n\t\"testing\"\r\n\t\"testing/quick\"\r\n)\r\n\r\nfunc TestReverse(t *testing.T) {\r\n\tfor _, tc := range append(testCases, multiByteCases...) {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tif actual := Reverse(tc.input); actual != tc.expected {\r\n\t\t\t\tt.Fatalf(\"Reverse(%q) = %q, want: %q\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc TestReverseOfReverse(t *testing.T) {\r\n\tassertion := func(s string) bool {\r\n\t\treturn s == Reverse(Reverse(s))\r\n\t}\r\n\tif err := quick.Check(assertion, nil); err != nil {\r\n\t\tt.Fatal(err)\r\n\t}\r\n}\r\n\r\nfunc BenchmarkReverse(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, tc := range testCases {\r\n\t\t\tReverse(tc.input)\r\n\t\t}\r\n\t}\r\n}\r\n\r\n// mutiByteCases adds UTF-8 multi-byte case,\r\n// since the canonical-data.json (generator data source for cases_test.go)\r\n// doesn't have any such cases.\r\nvar multiByteCases = []reverseTestCase{\r\n\t{\r\n\t\tdescription: \"a multi-byte test case\",\r\n\t\tinput:       \"Hello, 世界\",\r\n\t\texpected:    \"界世 ,olleH\",\r\n\t},\r\n}\r\n"
+}

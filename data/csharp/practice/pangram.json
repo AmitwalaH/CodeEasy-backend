@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "pangram",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to figure out if a sentence is a pangram.\r\n\r\nA pangram is a sentence using every letter of the alphabet at least once.\r\nIt is case insensitive, so it doesn't matter if a letter is lower-case (e.g. `k`) or upper-case (e.g. `K`).\r\n\r\nFor this exercise, a sentence is a pangram if it contains each of the 26 letters in the English alphabet.\r\n",
+    "instructions_append": "",
+    "hints": ""
+  },
+  "starter_code": {
+    "Pangram.cs": "public static class Pangram\r\n{\r\n    public static bool IsPangram(string input)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}\r\n"
+  },
+  "tests": {
+    "PangramTests.cs": "public class PangramTests\r\n{\r\n    [Fact]\r\n    public void Empty_sentence()\r\n    {\r\n        Assert.False(Pangram.IsPangram(\"\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Perfect_lower_case()\r\n    {\r\n        Assert.True(Pangram.IsPangram(\"abcdefghijklmnopqrstuvwxyz\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Only_lower_case()\r\n    {\r\n        Assert.True(Pangram.IsPangram(\"the quick brown fox jumps over the lazy dog\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Missing_the_letter_x()\r\n    {\r\n        Assert.False(Pangram.IsPangram(\"a quick movement of the enemy will jeopardize five gunboats\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Missing_the_letter_h()\r\n    {\r\n        Assert.False(Pangram.IsPangram(\"five boxing wizards jump quickly at it\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void With_underscores()\r\n    {\r\n        Assert.True(Pangram.IsPangram(\"the_quick_brown_fox_jumps_over_the_lazy_dog\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void With_numbers()\r\n    {\r\n        Assert.True(Pangram.IsPangram(\"the 1 quick brown fox jumps over the 2 lazy dogs\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Missing_letters_replaced_by_numbers()\r\n    {\r\n        Assert.False(Pangram.IsPangram(\"7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Mixed_case_and_punctuation()\r\n    {\r\n        Assert.True(Pangram.IsPangram(\"\\\"Five quacking Zephyrs jolt my wax bed.\\\"\"));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void A_m_and_a_m_are_26_different_characters_but_not_a_pangram()\r\n    {\r\n        Assert.False(Pangram.IsPangram(\"abcdefghijklm ABCDEFGHIJKLM\"));\r\n    }\r\n}\r\n"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "language": "csharp",
+  "slug": "switch-expressions",
+  "title": "Switch Expressions",
+  "docs": {
+    "about": "# About\r\n\r\n[Switch expressions][switch-expressions] behave in a similar manner to [switch statements][switch-statements] covered in [concept:csharp/switch-statements](). They support a kind of decision table that maps input conditions to actions or values.\r\n\r\nAt the core of the switch expression is _pattern matching_. In the coding exercise we matched values against `const` patterns. In this case the inputs to the `switch` are a _range expression_ which is matched to const values and the values used by the _case guards_.\r\n\r\nThe cases (also known as _switch arms_) are evaluated in text order and the process is cut short and the associated value is returned as soon as a match is found.\r\n\r\nThe `_` case which is the last in the list is useful to ensure that the matching is exhaustive and to avoid possible run-time errors.\r\n\r\n```csharp\r\ndouble xx = 42d;\r\n\r\nstring interesting = xx switch\r\n{\r\n    0 => \"I suppose zero is interesting\",\r\n    3.14 when DateTime.Now.Day == 14 && DateTime.Now.Month == 3 => \"Mmm pie!\",\r\n    3.14 => \"π\",\r\n    42 => \"a bit of a cliché\",\r\n    1729 => \"only if you are a pure mathematician\",\r\n    _ => \"not interesting\"\r\n};\r\n\r\n// => interesting == \"a bit of a cliché\"\r\n```\r\n\r\nAn \"arm\" of the `switch` is selected when the pattern matches the range variable and any case guard evaluates to true.\r\n\r\nSwitch expression also support [type patterns][pattern-matching] and recursive matching.\r\n\r\n[switch-expressions]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression\r\n[switch-statements]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch\r\n[pattern-matching]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression#patterns-and-case-guards\r\n",
+    "introduction": "# Introduction\r\n\r\nA switch expression can match a value to one case in a set of patterns and return the associated value or take the associated action. The association is denoted by the `=>` symbol. In addition, each pattern can have an optional case guard introduced with the `when` keyword. The case guard expression must evaluate to true for that \"arm\" of the switch to be selected. The cases (also known as _switch arms_) are evaluated in text order and the process is cut short and the associated value is returned as soon as a match is found.\r\n\r\n```csharp\r\ndouble xx = 42d;\r\n\r\nstring interesting = xx switch\r\n{\r\n    0 => \"I suppose zero is interesting\",\r\n    3.14 when DateTime.Now.Day == 14 && DateTime.Now.Month == 3 => \"Mmm pie!\",\r\n    3.14 => \"π\",\r\n    42 => \"a bit of a cliché\",\r\n    1729 => \"only if you are a pure mathematician\",\r\n    _ => \"not interesting\"\r\n};\r\n\r\n// => interesting == \"a bit of a cliché\"\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression",
+      "description": "switch-expressions"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression#patterns-and-case-guards",
+      "description": "pattern-matching"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members",
+      "description": "expression-bodied-members"
+    }
+  ]
+}

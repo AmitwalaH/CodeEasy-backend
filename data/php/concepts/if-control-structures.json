@@ -1,0 +1,27 @@
+{
+  "language": "php",
+  "slug": "if-control-structures",
+  "title": "If Control Structures",
+  "docs": {
+    "about": "# If, Elseif, Else\r\n\r\nConditional statements using `if`, `elseif`, and `else` are a fundamental parts of program control flow.\r\nThe `if` statement evaluates an expression, and if `true`, will execute the code branch.\r\n\r\n```php\r\n<?php\r\n\r\nif ($expression) {\r\n    // .. executed if $expression is true\r\n}\r\n```\r\n\r\nIf the expression is not a boolean value, the evaluation determines the value's \"truthiness\" or \"not falsiness\".\r\nIn PHP, the following values are considered equal to false:\r\n\r\n- boolean `false`\r\n- integer `0`\r\n- float `0.0` and `-0.0`\r\n- an empty array `[]`\r\n- an empty string `\"\"` or a numeric string `\"0\"`\r\n- `null`\r\n\r\nAll other values are considered true.\r\n\r\n## Responding to multiple conditions\r\n\r\nFollowing an `if` statement, you may chain multiple conditions using `elseif` and `else`.\r\n\r\n```php\r\n<?php\r\n\r\nif ($value === 0) {\r\n    // .. do something\r\n} elseif ($value === 1) {\r\n    // .. do something else\r\n} else {\r\n    // ,, do this if nothing else\r\n}\r\n```\r\n\r\nOnly one conditional statement evaluated as true will be executed.\r\nSo if multiple conditions may evaluate to true, the order they are written is important.\r\n\r\n```php\r\n<?php\r\n\r\nif (true) {\r\n    // .. always do something\r\n} elseif (true)\r\n    // .. will never be executed\r\n} else {\r\n    // .. will never be executed\r\n}\r\n```\r\n",
+    "introduction": "# If, Elseif, Else\r\n\r\nConditional statements using `if`, `elseif`, and `else` are a fundamental parts of program control flow.\r\nThe `if` statement evaluates an expression, and if `true`, will execute the code branch.\r\n\r\n```php\r\n<?php\r\n\r\nif ($expression) {\r\n    // .. executed if $expression is true\r\n}\r\n```\r\n\r\nIf the expression is not a boolean value, the evaluation determines the value's \"truthiness\" or \"not falsiness\".\r\nIn PHP, the following values are considered equal to false:\r\n\r\n- boolean `false`\r\n- integer `0`\r\n- float `0.0` and `-0.0`\r\n- an empty array `[]`\r\n- an empty string `\"\"` or a numeric string `\"0\"`\r\n- `null`\r\n\r\nAll other values are considered true.\r\n\r\n## Responding to multiple conditions\r\n\r\nFollowing an `if` statement, you may chain multiple conditions using `elseif` and `else`.\r\n\r\n```php\r\n<?php\r\n\r\nif ($value === 0) {\r\n    // .. do something\r\n} elseif ($value === 1) {\r\n    // .. do something else\r\n} else {\r\n    // ,, do this if nothing else\r\n}\r\n```\r\n\r\nOnly one conditional statement evaluated as true will be executed.\r\nSo if multiple conditions may evaluate to true, the order they are written is important.\r\n\r\n```php\r\n<?php\r\n\r\nif (true) {\r\n    // .. always do something\r\n} elseif (true)\r\n    // .. will never be executed\r\n} else {\r\n    // .. will never be executed\r\n}\r\n```\r\n\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/control-structures.if.php",
+      "description": "PHP: Control Structures: if"
+    },
+    {
+      "url": "https://www.php.net/manual/en/control-structures.else.php",
+      "description": "PHP: Control Structures: else"
+    },
+    {
+      "url": "https://www.php.net/manual/en/control-structures.elseif.php",
+      "description": "PHP: Control Structures: elseif"
+    },
+    {
+      "url": "https://www.php.net/manual/en/language.types.boolean.php#language.types.boolean.casting",
+      "description": "PHP: Types: Boolean: Converting to boolean"
+    }
+  ]
+}

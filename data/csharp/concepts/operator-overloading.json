@@ -1,0 +1,31 @@
+{
+  "language": "csharp",
+  "slug": "operator-overloading",
+  "title": "Operator Overloading",
+  "docs": {
+    "about": "# About\r\n\r\nThe principal arithmetic and comparison operators can be adapted for use by your own classes and structs. This is known as _operator overloading_.\r\n\r\nThis [article][operator-overloading] is a thorough discussion of the syntax as well as which operators can be overloaded and those that can't.\r\n\r\nMost operators have the form:\r\n\r\n```csharp\r\nstatic <return type> operaator <operator symbols>(<parameters>);\r\n```\r\n\r\n[Cast operators][ud-conversion-operators] have the form:\r\n\r\n```csharp\r\nstatic (explicit|implicit) operator <cast-to-type>(<cast-from-type> <parameter name>);\r\n```\r\n\r\nOperators behave in the same way as static methods.\r\n\r\n- An operator symbol takes the place of a method identifier, and they have parameters and a return type. The type rules for parameters and return type follow your intuition and you can rely on the compiler to provide detailed guidance.\r\n- For binary operations the first parameter takes the left-hand argument to the operation.\r\n- Operators have a signature comprising two parameters (in the case of binary operations) and a return type or a single parameter and return type in the case of unary operators.\r\n- For binary operators, one of the parameter types must be that of the declaring class.\r\n- In the case of type conversions either the parameter or the return type must be the type of the declaring class.\r\n- For incrementing and decrementing operators the parameter and return type must be that of the declaring class.\r\n\r\nSyntax examples:\r\n\r\n```csharp\r\nstruct Point\r\n{\r\n    decimal x;\r\n    decimal y;\r\n\r\n    public static bool operator ==(Point pt, Point ptOther)\r\n    {\r\n        return pt.x == ptOther.x && pt.y == ptOther.y;\r\n    }\r\n\r\n    public static bool operator !=(Point pt, Point ptOther)\r\n    {\r\n        return !(pt == ptOther);\r\n    }\r\n\r\n    public static Point operator *(Point pt, decimal scale)\r\n    {\r\n        var ptNew = new Point();\r\n        ptNew.x = pt.x * scale;\r\n        ptNew.y = pt.y * scale;\r\n        return ptNew;\r\n    }\r\n\r\n    public static implicit operator Point((decimal x, decimal y) xy)\r\n    {\r\n        var pt = new Point();\r\n        pt.x = xy.x;\r\n        pt.y = xy.y;\r\n        return pt;\r\n    }\r\n\r\n    public static explicit operator (decimal x, decimal y)(Point pt)\r\n    {\r\n        return (pt.x, pt.y);\r\n    }\r\n}\r\n```\r\n\r\nIt is often productive to implement an [`Equals()`][equals] method and call it from the `==` operator. Similarly, for comparisons you can implement the [`IComparable`][icomparable] interface. In both cases you get to kill two birds with just over one stone.\r\n\r\nYou should note that you cannot create operators from symbols that are not part of the standard set of operators. You can use only existing symbols for those operations where the documentation specifies that they can be overloaded. The operators that can be overloaded are listed [here][overloadable-operators].\r\n\r\nNote that the order of parameters is important where they differ in type. In the above example code `pt * 10m` is a legal expression whereas `10m * pt` will not compile.\r\n\r\n## Reference\r\n\r\nThis documentation of [operator overloading][operator-overloading] details the syntax.\r\n\r\n[operator-overloading]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading\r\n[ud-conversion-operators]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/user-defined-conversion-operators\r\n[overloadable-operators]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading#overloadable-operators\r\n[equals]: https://docs.microsoft.com/en-us/dotnet/api/system.object.equals\r\n[icomparable]: https://docs.microsoft.com/en-us/dotnet/api/system.icomparable-1\r\n",
+    "introduction": "# Introduction\r\n\r\nThe principal arithmetic and comparison operators can be adapted for use by your own classes and structs. This is known as _operator overloading_.\r\n\r\nMost operators have the form:\r\n\r\n```csharp\r\nstatic <return type> operator <operator symbols>(<parameters>);\r\n```\r\n\r\nCast operators have the form:\r\n\r\n```csharp\r\nstatic (explicit|implicit) operator <cast-to-type>(<cast-from-type> <parameter name>);\r\n```\r\n\r\nOperators behave in the same way as static methods. An operator symbol takes the place of a method identifier, and they have parameters and a return type. The type rules for parameters and return type follow your intuition and you can rely on the compiler to provide detailed guidance.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading",
+      "description": "operator-overloading"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/user-defined-conversion-operators",
+      "description": "ud-conversion-operators"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.object.equals?view=netcore-3.1#System_Object_Equals_System_Object_",
+      "description": "equals"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.icomparable-1?view=netcore-3.1",
+      "description": "icomparable"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading#overloadable-operators",
+      "description": "overloadable-operators"
+    }
+  ]
+}

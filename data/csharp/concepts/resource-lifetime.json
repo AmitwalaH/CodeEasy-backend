@@ -1,0 +1,27 @@
+{
+  "language": "csharp",
+  "slug": "resource-lifetime",
+  "title": "Resource Lifetime",
+  "docs": {
+    "about": "# About\r\n\r\n[concept:csharp/resource-cleanup]() uses the `IDispose` interface to signal to callers of a class that there are resources or program state that need releasing or resetting in a timely fashion when the object in question is no longer required. In this exercise we have introduced some syntactic sugar, with the `using` keyword, that makes the code less verbose and less likely that significant calls will be omitted.\r\n\r\n`using` can be seen as replacing [`try/finally`][try-finally] for some use cases.\r\n\r\n```csharp\r\nFile file = null;\r\ntry\r\n{\r\n    file = new File(\"myStuff.txt\");\r\n    file.Write(\"more stuff\");\r\n}\r\nfinally\r\n{\r\n    file.Dispose();\r\n}\r\n```\r\n\r\nThis syntax is replaced with the more compact and foolproof:\r\n\r\n```csharp\r\nusing (var file = new File(\"myStuff.txt\")\r\n{\r\n    file.Write(\"more stuff\");\r\n}\r\n```\r\n\r\nNote that multiple resources can be conveniently combined following standard rules for single line blocks:\r\n\r\n```csharp\r\nusing (var file = new File(\"mystuff.txt\")\r\nusing (var fileWriter = new StreamWriter(file)\r\n{\r\n     ...\r\n}\r\n```\r\n\r\nIn C# 8 the following variation has been introduced where the `using` statement comes at the start of a block:\r\n\r\n```csharp\r\nusing var file = new File(\"myStuff.txt\");\r\nfile.Write(\"more stuff\");\r\n```\r\n\r\nThis allows you to have multiple disposable objects in the same block and to more naturally handle [`try/catch`][try-catch]:\r\n\r\n```csharp\r\nusing var fileIn = new File(\"myStuff.txt\");\r\nusing var fileOut = new File(\"yourStuff.txt\");\r\ntry\r\n{\r\n    var stuff = fileIn.Read();\r\n    fileOut.Write(stuff);\r\n}\r\ncatch (Exception)\r\n{\r\n    LogStuff();\r\n}\r\n```\r\n\r\nThe rules related to how the `using` keyword can be used and with instances of what sort of types are detailed [here][using-statement].\r\n\r\n## Note for Java Developers\r\n\r\nJava developers may recognize this as an analog of the [_automatic resource management_][automatic-resource-management] mechanism introduced in Java 7. They are very similar. Java's syntax, which repurposes `try` has the advantage of incorporating `catch` blocks more naturally than does C#'s `using`.\r\n\r\n## Versions\r\n\r\nNote that the more flexible version of `using` where it does not have its own syntactic block was introduced in C# 8 so you may need to check if the code base you are working on is using C# 8 or later.\r\n\r\n## Reference\r\n\r\n[using statement][using-statement] documentation describes how and when to use the `using` keyword.\r\n\r\n[using-statement]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement\r\n[automatic-resource-management]: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html\r\n[try-finally]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-finally\r\n[try-catch]: https://docs.microsoft.com/en-us/dotnet/standard/exceptions/how-to-use-the-try-catch-block-to-catch-exceptions\r\n",
+    "introduction": "# Introduction\r\n\r\n[concept:csharp/resource-cleanup]() uses the `IDispose` interface to signal that some object's resource or other program state needed to be released or reset when the object was no longer required (and that relying on the garbage collector would not achieve this or provide the required level of control) and that `IDisposable.Dispose()` method was the natural place for such cleanup operations.\r\n\r\nThere is another construct, the `using` block, that enables, from the caller's perspective, all the resource lifetime management to be gathered into a single statement.\r\n\r\n```csharp\r\nusing (var file = new File(\"my_secrets\"))\r\n{\r\n    file.WriteSecret(\"xxxxxxx\");\r\n}\r\n```\r\n\r\nIn the above example the file system resources associated with `file` will be released back to the operating system when the `using` block is exited.\r\n\r\nFor the pattern to work the variable in the using statement must be a reference type that implements the `IDisposable` interface and must release resources/reset program state in its `Dispose()` method.\r\n\r\nC# 8 introduces a refinement to the pattern. A using statement can placed at the beginning of a block.\r\n\r\n```csharp\r\nusing var drawingResource = some_provided_or_new_object;\r\ntry\r\n{\r\n    drawingResource.DrawSomething();\r\n}\r\ncatch (Exception)\r\n{\r\n    throw;\r\n}\r\n```\r\n\r\nJava developers may recognize this as an analog of the _automatic resource management_ mechanism introduced in Java 7.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/try-finally",
+      "description": "try-finally"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/exceptions/how-to-use-the-try-catch-block-to-catch-exceptions",
+      "description": "try-catch"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement",
+      "description": "using-statement"
+    },
+    {
+      "url": "https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html",
+      "description": "automatic-resource-management"
+    }
+  ]
+}

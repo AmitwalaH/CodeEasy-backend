@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "isogram",
+  "title": "Isogram",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nDetermine if a word or phrase is an isogram.\r\n\r\nAn isogram (also known as a \"non-pattern word\") is a word or phrase without a repeating letter, however spaces and hyphens are allowed to appear multiple times.\r\n\r\nExamples of isograms:\r\n\r\n- lumberjacks\r\n- background\r\n- downstream\r\n- six-year-old\r\n\r\nThe word _isograms_, however, is not an isogram, because the s repeats.\r\n",
+    "hints": ""
+  },
+  "starter_code": "package isogram\r\n\r\nfunc IsIsogram(word string) bool {\r\n\tpanic(\"Please implement the IsIsogram function\")\r\n}\r\n",
+  "tests": "package isogram\r\n\r\nimport \"testing\"\r\n\r\nfunc TestIsIsogram(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tif actual := IsIsogram(tc.input); actual != tc.expected {\r\n\t\t\t\tt.Fatalf(\"IsIsogram(%q) = %t, want: %t\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkIsIsogram(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, c := range testCases {\r\n\t\t\tIsIsogram(c.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

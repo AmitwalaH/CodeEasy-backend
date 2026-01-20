@@ -1,0 +1,42 @@
+{
+  "language": "go",
+  "slug": "packages",
+  "title": "Packages",
+  "docs": {
+    "about": "# About\r\n\r\nIn Go an application is organized in packages.\r\nA package is a collection of source files located in the same folder.\r\nAll source files in a folder must have the same package name at the top of the file.\r\nBy convention packages are named to be the same as the folder they are located in.\r\n\r\n```go\r\npackage greeting\r\n```\r\n\r\nGo provides an extensive standard library of packages which you can use in your program using the `import` keyword.\r\nStandard library packages are imported using their name.\r\n\r\n```go\r\npackage greeting\r\n\r\nimport \"fmt\"\r\n```\r\n\r\nMultiple packages can be imported at once by encoding them in parentheses.\r\n\r\n```go\r\npackage greeting\r\n\r\nimport (\r\n    \"errors\"\r\n    \"fmt\"\r\n)\r\n```\r\n\r\nThird party packages are imported using the url of the package's location.\r\nA package can be given an alias when importing.\r\nThis can be used to avoid package name conflicts:\r\n\r\n```go\r\npackage greeting\r\n\r\nimport (\r\n\t\"errors\"\r\n\r\n\terrs \"github.com/pkg/errors\"\r\n)\r\n```\r\n\r\nAn imported package is then addressed with the package name or alias:\r\n\r\n```go\r\n// using the internal errors package\r\nerrors.New(\"Connection not established\")\r\n\r\n// using the errors package located at github.com/pkg/errors by alias\r\nerrs.New(\"Connection not established\")\r\n```\r\n\r\nGo determines if an item can be called by code in other packages through how it is declared.\r\nTo make a function, type, variable, or constant externally visible (known as [`exported`](https://golang.org/ref/spec#Exported_identifiers)) the name must start with a capital letter.\r\nThis is analogous to how other programming languages like Java that use access modifiers such as `public` and `private`.\r\n\r\n```go\r\npackage greeting\r\n\r\n// Hello is a public function (callable from other packages).\r\nfunc Hello(name string) string {\r\n    return \"Hello \" + name\r\n}\r\n\r\n// hello is a private function (not callable from other packages).\r\nfunc hello(name string) string {\r\n    return \"Hello \" + name\r\n}\r\n```\r\n\r\nThe same applies for field names in custom `struct` types - field names beginning in a capital letter are externally visible, those beginning in a lower case letter are not.\r\n",
+    "introduction": "# Introduction\r\n\r\nIn Go an application is organized in packages.\r\nA package is a collection of source files located in the same folder.\r\nAll source files in a folder must have the same package name at the top of the file.\r\nBy convention packages are named to be the same as the folder they are located in.\r\n\r\n```go\r\npackage greeting\r\n```\r\n\r\nGo provides an extensive standard library of packages which you can use in your program using the `import` keyword.\r\nStandard library packages are imported using their name.\r\n\r\n```go\r\npackage greeting\r\n\r\nimport \"fmt\"\r\n```\r\n\r\nAn imported package is then addressed with the package name:\r\n\r\n```go\r\nworld := \"World\"\r\nfmt.Sprintf(\"Hello %s\", world)\r\n```\r\n\r\nGo determines if an item can be called by code in other packages through how it is declared.\r\nTo make a function, type, variable, constant or struct field externally visible (known as _exported_) the name must start with a capital letter.\r\nThis is analogous to how other programming languages like Java that use access modifiers such as `public` and `private`.\r\n\r\n```go\r\npackage greeting\r\n\r\n// Hello is a public function (callable from other packages).\r\nfunc Hello(name string) string {\r\n    return \"Hello \" + name\r\n}\r\n\r\n// hello is a private function (not callable from other packages).\r\nfunc hello(name string) string {\r\n    return \"Hello \" + name\r\n}\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Packages are the unit of code reuse in Go.",
+    "authors": [
+      "bobtfish"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://tour.golang.org/basics/1",
+      "description": "A Tour of Go: Packages"
+    },
+    {
+      "url": "https://tour.golang.org/basics/2",
+      "description": "A Tour of Go: Imports"
+    },
+    {
+      "url": "https://golang.org/doc/effective_go#package-names",
+      "description": "Effective Go: Package Names"
+    },
+    {
+      "url": "https://golang.org/ref/spec#Exported_identifiers",
+      "description": "Go Language Spec: Exported Identifiers"
+    },
+    {
+      "url": "https://golang.org/ref/spec#Import_declarations",
+      "description": "Go Language Spec: Import Declarations"
+    },
+    {
+      "url": "https://golang.org/ref/spec#Package_clause",
+      "description": "Go Language Spec: Package Clause"
+    }
+  ]
+}

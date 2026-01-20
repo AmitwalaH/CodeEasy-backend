@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "roman-numerals",
+  "title": "Roman Numerals",
+  "docs": {
+    "instructions": "# Introduction\r\n\r\nYour task is to convert a number from Arabic numerals to Roman numerals.\r\n\r\nFor this exercise, we are only concerned about traditional Roman numerals, in which the largest number is MMMCMXCIX (or 3,999).\r\n\r\n~~~~exercism/note\r\nThere are lots of different ways to convert between Arabic and Roman numerals.\r\nWe recommend taking a naive approach first to familiarise yourself with the concept of Roman numerals and then search for more efficient methods.\r\n\r\nMake sure to check out our Deep Dive video at the end to explore the different approaches you can take!\r\n~~~~\r\n",
+    "hints": ""
+  },
+  "starter_code": "package romannumerals\r\n\r\nfunc ToRomanNumeral(input int) (string, error) {\r\n\tpanic(\"Please implement the ToRomanNumeral function\")\r\n}\r\n",
+  "tests": "package romannumerals\r\n\r\nimport \"testing\"\r\n\r\nfunc TestRomanNumerals(t *testing.T) {\r\n\tfor _, tc := range validRomanNumeralTests {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual, err := ToRomanNumeral(tc.input)\r\n\t\t\tif err != nil {\r\n\t\t\t\t// expect no error for all valid tests cases (canonical-data.json contains only valid cases)\r\n\t\t\t\tt.Fatalf(\"ToRomanNumeral(%d) returned error: %v, want: %q\", tc.input, err, tc.expected)\r\n\t\t\t}\r\n\t\t\tif actual != tc.expected {\r\n\t\t\t\tt.Fatalf(\"ToRomanNumeral(%d) = %q, want: %q\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc TestRomanNumeralsInvalid(t *testing.T) {\r\n\tinvalidRomanNumeralTests := []romanNumeralTest{\r\n\t\t{description: \"0 is out of range\", input: 0},\r\n\t\t{description: \"-1 is out of range\", input: -1},\r\n\t\t{description: \"4000 is out of range\", input: 4000},\r\n\t}\r\n\tfor _, tc := range invalidRomanNumeralTests {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual, err := ToRomanNumeral(tc.input)\r\n\t\t\tif err == nil {\r\n\t\t\t\tt.Fatalf(\"ToRomanNumeral(%d) expected error, got: %q\", tc.input, actual)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkRomanNumerals(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, tc := range validRomanNumeralTests {\r\n\t\t\tToRomanNumeral(tc.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

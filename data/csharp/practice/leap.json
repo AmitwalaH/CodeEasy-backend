@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "leap",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to determine whether a given year is a leap year.\r\n",
+    "instructions_append": "# Notes\r\n\r\nThe DateTime class in C# provides a built-in [IsLeapYear](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.isleapyear)\r\nwhich you should pretend doesn't exist for the purposes of implementing this exercise.\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "Leap.cs": "public static class Leap\r\n{\r\n    public static bool IsLeapYear(int year)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}"
+  },
+  "tests": {
+    "LeapTests.cs": "public class LeapTests\r\n{\r\n    [Fact]\r\n    public void Year_not_divisible_by_4_in_common_year()\r\n    {\r\n        Assert.False(Leap.IsLeapYear(2015));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_2_not_divisible_by_4_in_common_year()\r\n    {\r\n        Assert.False(Leap.IsLeapYear(1970));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_4_not_divisible_by_100_in_leap_year()\r\n    {\r\n        Assert.True(Leap.IsLeapYear(1996));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_4_and_5_is_still_a_leap_year()\r\n    {\r\n        Assert.True(Leap.IsLeapYear(1960));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_100_not_divisible_by_400_in_common_year()\r\n    {\r\n        Assert.False(Leap.IsLeapYear(2100));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_100_but_not_by_3_is_still_not_a_leap_year()\r\n    {\r\n        Assert.False(Leap.IsLeapYear(1900));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_400_is_leap_year()\r\n    {\r\n        Assert.True(Leap.IsLeapYear(2000));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_400_but_not_by_125_is_still_a_leap_year()\r\n    {\r\n        Assert.True(Leap.IsLeapYear(2400));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Year_divisible_by_200_not_divisible_by_400_in_common_year()\r\n    {\r\n        Assert.False(Leap.IsLeapYear(1800));\r\n    }\r\n}\r\n"
+  }
+}

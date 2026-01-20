@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "spiral-matrix",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to return a square matrix of a given size.\r\n\r\nThe matrix should be filled with natural numbers, starting from 1 in the top-left corner, increasing in an inward, clockwise spiral order, like these examples:\r\n\r\n## Examples\r\n\r\n### Spiral matrix of size 3\r\n\r\n```text\r\n1 2 3\r\n8 9 4\r\n7 6 5\r\n```\r\n\r\n### Spiral matrix of size 4\r\n\r\n```text\r\n 1  2  3 4\r\n12 13 14 5\r\n11 16 15 6\r\n10  9  8 7\r\n```\r\n",
+    "instructions_append": "",
+    "hints": ""
+  },
+  "starter_code": {
+    "SpiralMatrix.cs": "public class SpiralMatrix\r\n{\r\n    public static int[,] GetMatrix(int size)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}\r\n"
+  },
+  "tests": {
+    "SpiralMatrixTests.cs": "public class SpiralMatrixTests\r\n{\r\n    [Fact]\r\n    public void Empty_spiral()\r\n    {\r\n        Assert.Empty(SpiralMatrix.GetMatrix(0));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Trivial_spiral()\r\n    {\r\n        int[,] expected =\r\n        {\r\n            { 1 }\r\n        };\r\n        Assert.Equal(expected, SpiralMatrix.GetMatrix(1));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Spiral_of_size_2()\r\n    {\r\n        int[,] expected =\r\n        {\r\n            { 1, 2 },\r\n            { 4, 3 }\r\n        };\r\n        Assert.Equal(expected, SpiralMatrix.GetMatrix(2));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Spiral_of_size_3()\r\n    {\r\n        int[,] expected =\r\n        {\r\n            { 1, 2, 3 },\r\n            { 8, 9, 4 },\r\n            { 7, 6, 5 }\r\n        };\r\n        Assert.Equal(expected, SpiralMatrix.GetMatrix(3));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Spiral_of_size_4()\r\n    {\r\n        int[,] expected =\r\n        {\r\n            { 1, 2, 3, 4 },\r\n            { 12, 13, 14, 5 },\r\n            { 11, 16, 15, 6 },\r\n            { 10, 9, 8, 7 }\r\n        };\r\n        Assert.Equal(expected, SpiralMatrix.GetMatrix(4));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Spiral_of_size_5()\r\n    {\r\n        int[,] expected =\r\n        {\r\n            { 1, 2, 3, 4, 5 },\r\n            { 16, 17, 18, 19, 6 },\r\n            { 15, 24, 25, 20, 7 },\r\n            { 14, 23, 22, 21, 8 },\r\n            { 13, 12, 11, 10, 9 }\r\n        };\r\n        Assert.Equal(expected, SpiralMatrix.GetMatrix(5));\r\n    }\r\n}\r\n"
+  }
+}

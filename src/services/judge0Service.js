@@ -24,5 +24,5 @@ export async function runCodeOnJudge0(source_code, language_id) {
   }
 
   const result = await resp.json();
-  return result;
+  return result; 
 }

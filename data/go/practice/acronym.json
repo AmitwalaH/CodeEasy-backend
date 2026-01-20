@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "acronym",
+  "title": "Acronym",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nConvert a phrase to its acronym.\r\n\r\nTechies love their TLA (Three Letter Acronyms)!\r\n\r\nHelp generate some jargon by writing a program that converts a long name like Portable Network Graphics to its acronym (PNG).\r\n\r\nPunctuation is handled as follows: hyphens are word separators (like whitespace); all other punctuation can be removed from the input.\r\n\r\nFor example:\r\n\r\n| Input                     | Output |\r\n| ------------------------- | ------ |\r\n| As Soon As Possible       | ASAP   |\r\n| Liquid-crystal display    | LCD    |\r\n| Thank George It's Friday! | TGIF   |\r\n",
+    "hints": ""
+  },
+  "starter_code": "// This is a \"stub\" file.  It's a little start on your solution.\r\n// It's not a complete solution though; you have to write some code.\r\n\r\n// Package acronym should have a package comment that summarizes what it's about.\r\n// https://golang.org/doc/effective_go.html#commentary\r\npackage acronym\r\n\r\n// Abbreviate should have a comment documenting it.\r\nfunc Abbreviate(s string) string {\r\n\t// Write some code here to pass the test suite.\r\n\t// Then remove all the stock comments.\r\n\t// They're here to help you get started but they only clutter a finished solution.\r\n\t// If you leave them in, reviewers may protest!\r\n\treturn \"\"\r\n}\r\n",
+  "tests": "package acronym\r\n\r\nimport (\r\n\t\"testing\"\r\n)\r\n\r\nfunc TestAcronym(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual := Abbreviate(tc.input)\r\n\t\t\tif actual != tc.expected {\r\n\t\t\t\tt.Errorf(\"Abbreviate(%q) = %q, want: %q\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkAcronym(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, test := range testCases {\r\n\t\t\tAbbreviate(test.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

@@ -1,0 +1,27 @@
+{
+  "language": "go",
+  "slug": "strings-package",
+  "title": "Strings Package",
+  "docs": {
+    "about": "# About\r\n\r\nThe [`strings` package](https://pkg.go.dev/strings) contains many useful functions to work on strings:\r\n\r\n| Function                                            | Purpose                                                             |\r\n| --------------------------------------------------- | ------------------------------------------------------------------- |\r\n| [ToLower](https://pkg.go.dev/strings#ToLower)       | Convert the string to lower case                                    |\r\n| [ToUpper](https://pkg.go.dev/strings#ToUpper)       | Convert the string to upper case                                    |\r\n| [TrimSpace](https://pkg.go.dev/strings#TrimSpace)   | Trim leading and trailing whitespace                                |\r\n| [Index](https://pkg.go.dev/strings#Index)           | Find the index of the first instance of a substring within a string |\r\n| [Replace](https://pkg.go.dev/strings#Replace)       | Replace one occurrence of a substring in a string                    |\r\n| [ReplaceAll](https://pkg.go.dev/strings#ReplaceAll) | Replace all occurrences of a substring in a string                   |\r\n| [Split](https://pkg.go.dev/strings#Split)           | Split a string into parts based on a separator                      |\r\n| [HasSuffix](https://pkg.go.dev/strings#HasSuffix)   | Check if a string ends with a specific substring                    |\r\n| [Count](https://pkg.go.dev/strings#Count)           | Count the number of occurrences of a substring within a string      |\r\n\r\n```go\r\nimport \"strings\"\r\n\r\nstrings.ToLower(\"Gopher\")    // => \"gopher\"\r\nstrings.Index(\"Apple\", \"le\") // => 3\r\nstrings.Count(\"test\", \"t\")   // => 2\r\n```\r\n",
+    "introduction": "# Introduction\r\n\r\nThe `strings` package contains many useful functions to work on strings.\r\n\r\n```go\r\nimport \"strings\"\r\n\r\nstrings.ToUpper(\"test\") // => \"TEST\"\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "The standard library strings package includes great utility functions to work with strings.",
+    "authors": [
+      "tehsphinx",
+      "erikschierboom"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://pkg.go.dev/strings",
+      "description": "Go Packages: strings package"
+    },
+    {
+      "url": "https://gobyexample.com/string-functions",
+      "description": "Go by Example: String Functions"
+    }
+  ]
+}

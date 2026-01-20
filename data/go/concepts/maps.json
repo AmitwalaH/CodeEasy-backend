@@ -1,0 +1,38 @@
+{
+  "language": "go",
+  "slug": "maps",
+  "title": "Maps",
+  "docs": {
+    "about": "# About\r\n\r\nIn Go, `map` is a built-in data type that represent hash table. In other programming languages, you might know map as `dict` or associative array or a key/value store. If you're not familiar with such concept, map you can think `map` like a dictionary, which every word is the `key` and the definition is the `element` of the map.\r\n\r\n> Before we begin, I'd like to point you to [go spec for map][gospec-map] and [go blog for map][goblog-map] to dig further into `map`.\r\n\r\nSyntactically, `map` looks like this:\r\n\r\n```go\r\nmap[KeyType]ElementType\r\n```\r\n\r\n_`KeyType` must be any [comparable type][gospec-comparable], while `ElementType` can be any valid type in Go, which means you can store anything from primitive variable to a slice._\r\n\r\nIt's important to remember that `map` in Go is **unordered**, if you try to loop trough a `map` and print the element, you might surprise yourself seeing that your elements printed in random order (give it a try if you like).\r\n\r\nIt is also important to know that each key is unique, meaning that assigning the same key twice will overwrite the value of the corresponding key.\r\n\r\n`map` is reference type, which means if you pass it around, Go won't copy the whole map. Instead what Go will do is copy the pointer of the map, this makes passing map to a function or variable cheap. The value of an uninitialized map is `nil`.\r\n\r\nYou can define map as follows (we also called this a **nil map**);\r\n\r\n```go\r\n  var foo map[string]int\r\n```\r\n\r\nTo initialize a map, you can do:\r\n\r\n```go\r\n  // With map literal\r\n  foo := map[string]int{}\r\n```\r\n\r\nor\r\n\r\n```go\r\n  // or with make function\r\n  foo := make(map[string]int)\r\n```\r\n\r\n> A nil map is different from initialized map, writing to an nil map will cause a runtime error\r\n>\r\n> ```txt\r\n> panic: assignment to entry in nil map\r\n> ```\r\n>\r\n> Therefore it's important to initialize a map before using it\r\n\r\nHere are some operations that you can do with a map\r\n\r\n```go\r\n  // Add a value in a map with the `=` operator:\r\n  foo[\"bar\"] = 42\r\n  // Here we update the element of `bar`\r\n  foo[\"bar\"] = 73\r\n  // To retrieve a map value, you can use\r\n  baz := foo[\"bar\"]\r\n  // To delete an item from a map, you can use\r\n  delete(foo, \"bar\")\r\n```\r\n\r\nIf you try to retrieve the value for a key which does not exist in the map, it will return the zero value of the value type.\r\nThis can confuse you, especially if the default value of your `ElementType` (for example, 0 for an int), is a valid value.\r\nTo check whether a key exists in your map, you can use\r\n\r\n```go\r\n  value, exists := foo[\"baz\"]\r\n  // If the key \"baz\" does not exist,\r\n  // value: 0; exists: false\r\n```\r\n\r\nAs we've seen before, detecting whether a `map` is initialized or not is easy, we can simply compare them to `nil` but what about other maps? Well, since `map` isn't a comparable, we can't use `==` operator, but `reflect` package has something to rescue us, it's called `DeepEqual`, we can use it like\r\n\r\n```go\r\nimport \"reflect\"\r\n\r\n// ....\r\n\r\nequal := reflect.DeepEqual(map[string]int{}, map[string]int{})\r\nfmt.Println(equal)\r\n// Output: true\r\n```\r\n\r\n_But wait, if map isn't a comparable why are we able to compare them with `nil`? Well, the spec has made an exception for this, see the [comparable spec][gospec-comparable]_\r\n\r\nThe last one, if you're trying to write to a `map` from multiple goroutines, that will trigger the race detector, [see this link][godoc-race-detector] and [here][goblog-race-detector]. Alternatively, you can use `sync.Map` or `atomic` or `mutex` to work around this issue.\r\n\r\n[godoc-race-detector]: https://golang.org/doc/articles/race_detector.html\r\n[goblog-race-detector]: https://blog.golang.org/race-detector\r\n[goblog-map]: https://blog.golang.org/maps\r\n[gospec-map]: https://golang.org/ref/spec#Map_types\r\n[gospec-comparable]: https://golang.org/ref/spec#Comparison_operators\r\n",
+    "introduction": "# Introduction\r\n\r\nIn Go, `map` is a built-in data type that maps keys to values. In other programming languages, you might be familiar with the concept of `map` as a dictionary, hash table, key/value store or an associative array.\r\n\r\nSyntactically, `map` looks like this:\r\n\r\n```go\r\nmap[KeyType]ElementType\r\n```\r\n\r\nIt is also important to know that each key is unique, meaning that assigning the same key twice will overwrite the value of the corresponding key.\r\n\r\nTo create a map, you can do:\r\n\r\n```go\r\n  // With map literal\r\n  foo := map[string]int{}\r\n```\r\n\r\nor\r\n\r\n```go\r\n  // or with make function\r\n  foo := make(map[string]int)\r\n```\r\n\r\nHere are some operations that you can do with a map\r\n\r\n```go\r\n  // Add a value in a map with the `=` operator:\r\n  foo[\"bar\"] = 42\r\n  // Here we update the element of `bar`\r\n  foo[\"bar\"] = 73\r\n  // To retrieve a map value, you can use\r\n  baz := foo[\"bar\"]\r\n  // To delete an item from a map, you can use\r\n  delete(foo, \"bar\")\r\n```\r\n\r\nIf you try to retrieve the value for a key which does not exist in the map, it will return the zero value of the value type.\r\nThis can confuse you, especially if the default value of your `ElementType` (for example, 0 for an int), is a valid value.\r\nTo check whether a key exists in your map, you can use\r\n\r\n```go\r\n  value, exists := foo[\"baz\"]\r\n  // If the key \"baz\" does not exist,\r\n  // value: 0; exists: false\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Maps are a bultin type in Go that associates values with keys.",
+    "authors": [
+      "chocopowwwa"
+    ],
+    "contributors": []
+  },
+  "links": [
+    {
+      "url": "https://tour.golang.org/moretypes/19",
+      "description": "A Tour of Go: Maps"
+    },
+    {
+      "url": "https://gobyexample.com/maps",
+      "description": "Go by Example: Maps"
+    },
+    {
+      "url": "https://go.dev/blog/maps",
+      "description": "Go Dev Blog: Go maps in action"
+    },
+    {
+      "url": "https://golang.org/doc/effective_go#maps",
+      "description": "Effective Go: Maps"
+    },
+    {
+      "url": "https://golang.org/ref/spec#Map_types",
+      "description": "Go Language Spec: Map Types"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "flatten-array",
+  "title": "Flatten Array",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nTake a nested array of any depth and return a fully flattened array.\r\n\r\nNote that some language tracks may include null-like values in the input array, and the way these values are represented varies by track.\r\nSuch values should be excluded from the flattened array.\r\n\r\nAdditionally, the input may be of a different data type and contain different types, depending on the track.\r\n\r\nCheck the test suite for details.\r\n\r\n## Example\r\n\r\ninput: `[1, [2, 6, null], [[null, [4]], 5]]`\r\n\r\noutput: `[1, 2, 6, 4, 5]`\r\n",
+    "hints": ""
+  },
+  "starter_code": "package flatten\r\n\r\nfunc Flatten(nested interface{}) []interface{} {\r\n\tpanic(\"Please implement the Flatten function\")\r\n}\r\n",
+  "tests": "package flatten\r\n\r\nimport (\r\n\t\"reflect\"\r\n\t\"testing\"\r\n)\r\n\r\nfunc TestFlatten(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual := Flatten(tc.input)\r\n\r\n\t\t\t// Clarify failures where an empty slice is expected, but a nil slice is given.\r\n\t\t\tif actual == nil && tc.expected != nil && len(tc.expected) == 0 {\r\n\t\t\t\tt.Fatalf(\"Flatten(%v) = %v (nil slice), want: %v (empty slice)\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\r\n\t\t\tif !reflect.DeepEqual(actual, tc.expected) {\r\n\t\t\t\tt.Fatalf(\"Flatten(%v) = %v, want: %v\", tc.input, &actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkFlatten(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, tc := range testCases {\r\n\t\t\tFlatten(tc.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

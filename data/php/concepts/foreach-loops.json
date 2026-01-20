@@ -1,0 +1,27 @@
+{
+  "language": "php",
+  "slug": "foreach-loops",
+  "title": "Foreach Loops",
+  "docs": {
+    "about": "# About\r\n\r\nThe `foreach` control structure provides a convenient way to iterate over _arrays_ and _objects_. `foreach` has two basic forms:\r\n\r\n```php\r\nforeach (iterable as $value) {\r\n  // statements\r\n}\r\n\r\nforeach (iterable as $key => $value) {\r\n  // statements\r\n}\r\n```\r\n\r\n",
+    "introduction": "# Introduction\r\n\r\nThe `foreach` control structure provides a convenient way to iterate over _arrays_ and _objects_. `foreach` has two basic forms:\r\n\r\n```php\r\nforeach (iterable as $value) {\r\n  // statements\r\n}\r\n\r\nforeach (iterable as $key => value) {\r\n  // statements\r\n}\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/control-structures.foreach.php",
+      "description": "PHP Manual: Foreach loop"
+    },
+    {
+      "url": "https://tutorials.supunkavinda.blog/php/loops#for-each",
+      "description": "PHP Tutorial: Foreach loop"
+    },
+    {
+      "url": "https://www.w3schools.com/php/php_looping_foreach.asp",
+      "description": "w3schools.com: Foreach loop"
+    },
+    {
+      "url": "https://www.tutorialspoint.com/php/php_loop_types.htm",
+      "description": "Tutorialspoint: Loop types"
+    }
+  ]
+}

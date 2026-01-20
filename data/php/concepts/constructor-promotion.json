@@ -1,0 +1,19 @@
+{
+  "language": "php",
+  "slug": "constructor-promotion",
+  "title": "Constructor Promotion",
+  "docs": {
+    "about": "# Constructor Property Promotion\r\n\r\nIn classes that declare many properties, separately declaring a class, its properties, and a constructor to set the properties requires repetition.\r\nUsing constructor property promotion we can reduce the amount of repetition.\r\n\r\n```php\r\n<?php\r\n\r\nclass Book\r\n{\r\n    private string $isbn;\r\n    private string $doi;\r\n    private string $title;\r\n\r\n    public function __construct(string $isbn, string, $doi, string $title)\r\n    {\r\n        $this->isbn = $isbn;\r\n        $this->doi = $doi;\r\n        $this->title = $title;\r\n    }\r\n}\r\n\r\n// Using constructor property promotion\r\nclass Book\r\n{\r\n    public function __construct(\r\n        private string $isbn,\r\n        private string $doi,\r\n        private string $title\r\n    ) {\r\n    }\r\n}\r\n",
+    "introduction": "# Constructor Property Promotion\r\n\r\nIn classes that declare many properties, separately declaring a class, its properties, and a constructor to set the properties requires repetition.\r\nUsing constructor property promotion we can reduce the amount of repetition.\r\n\r\n```php\r\n<?php\r\n\r\nclass Book\r\n{\r\n    private string $isbn;\r\n    private string $doi;\r\n    private string $title;\r\n\r\n    public function __construct(string $isbn, string, $doi, string $title)\r\n    {\r\n        $this->isbn = $isbn;\r\n        $this->doi = $doi;\r\n        $this->title = $title;\r\n    }\r\n}\r\n\r\n// Using constructor property promotion\r\nclass Book\r\n{\r\n    public function __construct(\r\n        private string $isbn,\r\n        private string $doi,\r\n        private string $title\r\n    ) {\r\n    }\r\n}\r\n\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion",
+      "description": "PHP: Classes and Objects: Constructors and Destructors: Constructor Promotion"
+    },
+    {
+      "url": "https://stitcher.io/blog/constructor-promotion-in-php-8",
+      "description": "Stitcher: PHP 8: Constructor property promotion"
+    }
+  ]
+}

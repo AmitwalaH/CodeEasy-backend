@@ -1,0 +1,27 @@
+{
+  "language": "php",
+  "slug": "for-loops",
+  "title": "For Loops",
+  "docs": {
+    "about": "# About\r\n\r\n`for` loops are the most complex type of loop in PHP. They behave like `for` loops in `C`, `Java`, and `JavaScript`. It's basic form is:\r\n\r\n```php\r\nfor (expr1; expr2; expr3) {\r\n  // statements\r\n}\r\n```\r\n\r\nThe first expression (_expr1_) is evaluated before the loop starts. The second expression (_expr2_) is evaluated before each iteration, if it evaluates to a _truthy_ value, the statements are executed. After the executed statements, the third expression (_expr3_) is evaluated.\r\n",
+    "introduction": "# Introduction\r\n\r\n`for` loops are the most complex type of loop in PHP. They behave like `for` loops in `C`, `Java`, and `JavaScript`. It's basic form is:\r\n\r\n```php\r\nfor (expr1; expr2; expr3) {\r\n  // statements\r\n}\r\n```\r\n\r\nThe first expression (_expr1_) is evaluated before the loop starts. The second expression (_expr2_) is evaluated before each iteration, if it evaluates to a _truthy_ value, the statements are executed. After the executed statements, the third expression (_expr3_) is evaluated.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/control-structures.for.php",
+      "description": "PHP Manual: For loop"
+    },
+    {
+      "url": "https://tutorials.supunkavinda.blog/php/loops#for",
+      "description": "PHP Tutorial: For loop"
+    },
+    {
+      "url": "https://www.w3schools.com/php/php_looping_for.asp",
+      "description": "w3schools.com: For loop"
+    },
+    {
+      "url": "https://www.tutorialspoint.com/php/php_loop_types.htm",
+      "description": "Tutorialspoint: Loop types"
+    }
+  ]
+}

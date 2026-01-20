@@ -1,0 +1,19 @@
+{
+  "language": "csharp",
+  "slug": "object-initializers",
+  "title": "Object Initializers",
+  "docs": {
+    "about": "# About\r\n\r\nObject initializers are an alternative to constructors. The syntax is a comma separated list of field name=value pairs, illustrated below:\r\n\r\n```csharp\r\npublic class Person\r\n{\r\n    public string Name;\r\n    public string Address;\r\n}\r\n\r\nvar person = new Person{Name=\"The President\", Address = \"Élysée Palace\"};\r\n```\r\n\r\nCollections can also be initialized in this way. Typically, this is accomplished with comma separated lists as shown here:\r\n\r\n```csharp\r\nIList<Person> people = new List<Person>{ new Person(), new Person{Name=\"Joe Shmo\"}};\r\n```\r\n\r\nThis approach (and syntax) can be used with any class that implements `IEnumerable` and has an `Add()` method.\r\n\r\nFields can be listed in any order or ommitted completely.\r\n\r\nDictionaries use the following syntax:\r\n\r\n```csharp\r\nIDictionary<int, string> numbers = new Dictionary<int, string>{ [0] = \"zero\", [1] = \"one\"...};\r\n\r\n// or\r\n\r\nIDictionary<int, string> numbers = new Dictionary<int, string>{ {0, \"zero\" }, {1,  \"one\"}...};\r\n```\r\n\r\nThe initialized fields must be accessible to the caller. Typically, this means they must be `public` or `internal`.\r\n\r\nThere is a strong trend promoting immutability amongst the language designers and leading practitioners, so the mutability of objects initialized in this way is seen as a disadvantage. There are proposals to introduce an `init` clause in the upcoming version of the language, C# 9, which may address this.\r\n\r\n- [object initializer][object-initializers] documentation describes how to use initialzers.\r\n- [collection initializer][collection-initializers] documentation gives a preview of how initializers can be used with collections like dictionaries and lists.\r\n\r\n[object-initializers]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#object-initializers\r\n[collection-initializers]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#collection-initializers\r\n",
+    "introduction": "# Introduction\r\n\r\nObject initializers are an alternative to constructors. The syntax is illustrated below. You provide a comma separated list of name-value pairs separated with `=` within curly brackets:\r\n\r\n```csharp\r\npublic class Person\r\n{\r\n    public string Name;\r\n    public string Address;\r\n}\r\n\r\nvar person = new Person{Name=\"The President\", Address = \"Élysée Palace\"};\r\n```\r\n\r\nCollections can also be initialized in this way. Typically, this is accomplished with comma separated lists as shown here:\r\n\r\n```csharp\r\nIList<Person> people = new List<Person>{ new Person(), new Person{Name=\"Joe Shmo\"}};\r\n```\r\n\r\nDictionaries use the following syntax:\r\n\r\n```csharp\r\nIDictionary<int, string> numbers = new Dictionary<int, string>{ [0] = \"zero\", [1] = \"one\"...};\r\n\r\n// or\r\n\r\nIDictionary<int, string> numbers = new Dictionary<int, string>{ {0, \"zero\" }, {1,  \"one\"}...};\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#object-initializers",
+      "description": "object-initializers"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#collection-initializers",
+      "description": "collection-initializers"
+    }
+  ]
+}

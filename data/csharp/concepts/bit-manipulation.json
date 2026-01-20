@@ -1,0 +1,39 @@
+{
+  "language": "csharp",
+  "slug": "bit-manipulation",
+  "title": "Bit Manipulation",
+  "docs": {
+    "about": "# About\r\n\r\nC# has several operators to do bitwise manipulation:\r\n\r\n- [`&`][and-operator]: bitwise AND\r\n- [`|`][or-operator]: bitwise OR\r\n- [`~`][complement-operator]: bitwise COMPLEMENT\r\n- [`<<`][left-shift-operator]: bitwise shift left\r\n- [`>>`][right-shift-operator]: bitwise shift right\r\n\r\n[or-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-or-operator-\r\n[and-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-and-operator-\r\n[complement-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#bitwise-complement-operator-\r\n[left-shift-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#left-shift-operator-\r\n[right-shift-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#right-shift-operator-\r\n",
+    "introduction": "# Introduction\r\n\r\nC# has several operators to do bitwise manipulation:\r\n\r\n- `&`: bitwise AND\r\n- `|`: bitwise OR\r\n- `~`: bitwise COMPLEMENT\r\n- `<<`: bitwise shift left\r\n- `>>`: bitwise shift right\r\n"
+  },
+  "links": [
+    {
+      "url": "https://riptutorial.com/csharp/example/6327/binary-literals",
+      "description": "binary-literals"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-or-operator-",
+      "description": "or-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-and-operator-",
+      "description": "and-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#bitwise-complement-operator-",
+      "description": "bitwise-complement-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.enum.hasflag?view=netcore-3.1",
+      "description": "has-flag"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/enumeration-types#enumeration-types-as-bit-flags",
+      "description": "docs.microsoft.com-enumeration-types-as-bit-flags"
+    },
+    {
+      "url": "https://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/",
+      "description": "alanzucconi.com-enum-flags-and-bitwise-operators"
+    }
+  ]
+}

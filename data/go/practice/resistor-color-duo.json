@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "resistor-color-duo",
+  "title": "Resistor Color Duo",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nIf you want to build something using a Raspberry Pi, you'll probably use _resistors_.\r\nFor this exercise, you need to know two things about them:\r\n\r\n- Each resistor has a resistance value.\r\n- Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.\r\n\r\nTo get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.\r\nEach band has a position and a numeric value.\r\n\r\nThe first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.\r\nFor example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.\r\n\r\nIn this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.\r\nThe program will take color names as input and output a two digit number, even if the input is more than two colors!\r\n\r\nThe band colors are encoded as follows:\r\n\r\n- black: 0\r\n- brown: 1\r\n- red: 2\r\n- orange: 3\r\n- yellow: 4\r\n- green: 5\r\n- blue: 6\r\n- violet: 7\r\n- grey: 8\r\n- white: 9\r\n\r\nFrom the example above:\r\nbrown-green should return 15, and\r\nbrown-green-violet should return 15 too, ignoring the third color.\r\n",
+    "hints": ""
+  },
+  "starter_code": "package resistorcolorduo\r\n\r\n// Value should return the resistance value of a resistor with a given colors.\r\nfunc Value(colors []string) int {\r\n\tpanic(\"Implement the Value function\")\r\n}\r\n",
+  "tests": "package resistorcolorduo\r\n\r\nimport \"testing\"\r\n\r\nfunc TestValue(t *testing.T) {\r\n\tfor _, tc := range valueTestCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual := Value(tc.input)\r\n\r\n\t\t\tif actual != tc.expected {\r\n\t\t\t\tt.Fatalf(\"Value(%+q): expected %d, actual %d\", tc.input, tc.expected, actual)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\n// valueBench is intended to be used in BenchmarkValue to avoid compiler optimizations.\r\nvar valueBench int\r\n\r\nfunc BenchmarkValue(b *testing.B) {\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, tc := range valueTestCases {\r\n\t\t\tvalueBench = Value(tc.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

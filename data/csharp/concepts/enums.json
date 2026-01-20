@@ -1,0 +1,23 @@
+{
+  "language": "csharp",
+  "slug": "enums",
+  "title": "Enums",
+  "docs": {
+    "about": "# About\r\n\r\nYou can use [Enumeration types][enumeration types] whenever you have a fixed set of constant values. Using an `enum` gives one a type-safe way of interacting with constant values. Defining an enum is done through the `enum` keyword. An enum member is referred to by prepending it with the enum name and a dot (e.g. `Status.Active`).\r\n\r\nEach enum member is an association of a name and an `int` value. If the first member does not have an explicit value, its value is set to `0`. If no value is explicitly defined for an enum member, its value is automatically assigned to the previous member's value plus `1`.\r\n\r\n```csharp\r\nenum Season\r\n{\r\n    Spring,     // Auto set 0\r\n    Summer = 2, // Set the value 2\r\n    Autumn,     // Auto set 3\r\n    Winter = 7  // Set the value 7\r\n}\r\n```\r\n\r\nEnums are very declarative. Compare the following two method calls:\r\n\r\n```csharp\r\nUsers.WithStatus(1)\r\nUsers.WithStatus(Status.Active)\r\n```\r\n\r\nFor someone reading the code, the second version (with enum) will be easier to comprehend.\r\n\r\n## Numeric type Enums\r\n\r\nWhile the default numeric type of the values is `int`, it can be changed by explicitly specifying any other [integral numeric][integral numeric] type.\r\n\r\nThe following enum use the `byte` numeric type for its values:\r\n\r\n```csharp\r\nenum Priority : byte\r\n{\r\n    Low = 0,\r\n    Medium = 127,\r\n    High = 255\r\n}\r\n```\r\n\r\n## Convert to an Enum member\r\n\r\nYou should always consider using an enum whenever you want to model something like a Boolean. Besides the aforementioned readability benefits, enums have another advantage over Booleans: new values can always be added to an enum, whereas a Boolean value will only ever be `true` or `false`. Using an enum is thus more future proof.\r\n\r\n```csharp\r\nenum Status\r\n{\r\n    Inactive = 0,\r\n    Active = 1\r\n}\r\n\r\nStatus active = (Status) 1;\r\nactive == Status.Active; // True\r\n```\r\n\r\nNote that while one _can_ cast integer values to an enum, doing so can lead to unexpected results when the integer value doesn't map to some enum value:\r\n\r\n```csharp\r\nStatus status = (Status) 2;\r\nstatus == Status.Inactive; // False\r\nstatus == Status.Active;   // False\r\n```\r\n\r\n## Parsing an enum\r\n\r\nIt's sometimes useful to convert a string to an enum member based on its name with [`Enum.Parse`][enum parse]:\r\n\r\n```csharp\r\nvar input = \"Inactive\";\r\nStatus status = (Status)Enum.Parse(typeof(Status), input);\r\n// Inactive\r\n```\r\n\r\nTo check if a name or a value exists in the enum, you can use [`Enum.TryParse`][enum tryparse] or [`Enum.IsDefined`][enum isdefined], both return a Boolean indicating if the enum member exists:\r\n\r\n```csharp\r\nbool doesExist = Enum.IsDefined(typeof(Status), \"Inexistent\");\r\n// False\r\n```\r\n\r\nMore examples and best practices are available [here][enum examples].\r\n\r\n[enumeration types]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum\r\n[integral numeric]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types\r\n[enum parse]: https://docs.microsoft.com/en-us/dotnet/api/system.enum.parse\r\n[enum tryparse]: https://docs.microsoft.com/en-us/dotnet/api/system.enum.tryparse\r\n[enum isdefined]: https://docs.microsoft.com/en-us/dotnet/api/system.enum.isdefined\r\n[enum examples]: https://docs.microsoft.com/en-us/dotnet/api/system.enum\r\n",
+    "introduction": "# Introduction\r\n\r\nThe C# `enum` type represents a fixed set of named constants (an enumeration). Its chief purpose is to provide a type-safe way of interacting with numeric constants, limiting the available values to a pre-defined set. A simple enum can be defined as follows:\r\n\r\n```csharp\r\nenum Season\r\n{\r\n    Spring,\r\n    Summer,\r\n    Autumn,\r\n    Winter\r\n}\r\n```\r\n\r\nIf not defined explicitly, enum members will automatically get assigned incrementing integer values, with the first value being zero. It is also possible to assign values explicitly:\r\n\r\n```csharp\r\nenum Answer\r\n{\r\n    Maybe = 1,\r\n    Yes = 3,\r\n    No = 5\r\n}\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum",
+      "description": "Enumeration types"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.enum.parse?view=net-6.0",
+      "description": "Parsing enums"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.enum?view=net-6.0#examples",
+      "description": "Enum examples"
+    }
+  ]
+}

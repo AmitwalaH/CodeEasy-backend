@@ -1,0 +1,19 @@
+{
+  "language": "php",
+  "slug": "ternary-operator",
+  "title": "Ternary Operator",
+  "docs": {
+    "about": "# Ternary Operator\r\n\r\nThe ternary operator provides an alternate syntax to perform an `if..else..` comparison and return a value.\r\n\r\n## Syntax\r\n\r\nPHP provides an if statement where an action can be evaluated on the basis of the \"truthiness\" of a condition.\r\n\r\n```php\r\nif ($condition) {\r\n  $value = 1;\r\n} else {\r\n  $value = 2\r\n}\r\n```\r\n\r\nAlternatively, the ternary operator can represent the same operation:\r\n\r\n```php\r\n$value = $condition\r\n  ? 1  // True branch\r\n  : 2; // False branch\r\n```\r\n\r\nThe comparison syntax is short, represented by `(condition) ? (evaluate if true) : (evaluate if false);`.\r\n\r\n## Benefits\r\n\r\nThe obvious benefit of using a ternary operator is brevity, such that it is short to write the conditional expression compared to an `if..else..` statement, but there are several others as well:\r\n\r\n- It is an expression which can be used inside of another expression\r\n- It facilitates lazy evaluation of each branch.\r\n\r\n  ```php\r\n  function expensiveCalculation(): int\r\n  {\r\n    // An expensive calculation is performed\r\n    $answerToEverything = 42;\r\n    return $answerToEverything;\r\n  }\r\n\r\n  $needExactAnswer = false;\r\n  $estimatedAnswer = 40;\r\n  $answer = $needExactAnswer ? expensiveCalculation() : $estimatedAnswer;\r\n  ```\r\n\r\n  In this example, if the exact answer is not required, the expensive calculation is not invoked.\r\n\r\n## Drawbacks\r\n\r\nTernary operators have several drawbacks, making it important to consider their use:\r\n\r\n- A ternary operator can be more difficult to read as it depends on interpreting symbols rather than the use of keywords.\r\n- A ternary operator may inadvertently lead to bugs because the ternary operator in PHP is left-associative in contrast to most contemporary languages (e.g. C, Java, JavaScript).\r\n- The evaluated expression in the true or false branches must return a value.\r\n\r\n## Even Shorter\r\n\r\nThe Ternary syntax can be shortened further to `(condition) ?: (evaluate if falsey)`.\r\nOne such use would be to be able to provide a fallback value in an expression:\r\n\r\n```php\r\n$fruit = null;\r\neat($fruit ?: 'apple');\r\n```\r\n\r\nThis is also sometimes known as the _Elvis operator_ (`?:`)\r\n",
+    "introduction": "# Ternary Operator\r\n\r\nThe ternary operator provides an alternate syntax to perform an `if..else..` comparison and return a value.\r\n\r\n## Syntax\r\n\r\nPHP provides an if statement where an action can be evaluated on the basis of the \"truthiness\" of a condition.\r\n\r\n```php\r\nif ($condition) {\r\n  $value = 1;\r\n} else {\r\n  $value = 2\r\n}\r\n```\r\n\r\nAlternatively, the ternary operator can represent the same operation:\r\n\r\n```php\r\n$value = $condition\r\n  ? 1  // True branch\r\n  : 2; // False branch\r\n```\r\n\r\nThe comparison syntax is short, represented by `(condition) ? (evaluate if true) : (evaluate if false);`.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary",
+      "description": "Comparison Operators: Ternary Operator"
+    },
+    {
+      "url": "https://stitcher.io/blog/shorthand-comparisons-in-php",
+      "description": "Shorthand Comparisons in PHP"
+    }
+  ]
+}

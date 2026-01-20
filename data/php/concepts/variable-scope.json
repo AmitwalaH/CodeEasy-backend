@@ -1,0 +1,15 @@
+{
+  "language": "php",
+  "slug": "variable-scope",
+  "title": "Variable Scope",
+  "docs": {
+    "about": "# About\r\n\r\nBy default, variables are limited to the scope they are defined in. If defined in a file outside of a function or class, they are limited to the scope of the file. If defined in a function or class, they are limited to the scope of the function or class.\r\n\r\n```php\r\n<?php\r\n\r\n$file_scoped = \"I am file scoped\";\r\n\r\nfunction example(): void\r\n{\r\n  $function_scoped = \"I am function scoped!\";\r\n}\r\n```\r\n\r\n## Global Scope\r\n\r\nUsing the keyword `global` before a variable assignment creates a globally scoped variable. This pattern is often discouraged as it creates [tightly-coupled code](<https://en.wikipedia.org/wiki/Coupling_(computer_programming)#Disadvantages_of_tight_coupling>).\r\n\r\n```php\r\nfunction example(): void\r\n{\r\n  global $hello = \"World!\";\r\n}\r\n\r\necho $hello; // #=> \"World!\"\r\n```\r\n\r\n## Static Scope\r\n\r\nUsing the keyword `static` before a variable assignment or declaration will preserve the variables scope, but its value is preserved between execution scopes.\r\n\r\n```php\r\nfunction counter(): int\r\n{\r\n  static $count = 0;\r\n  $count += 1;\r\n  return $count;\r\n}\r\n```\r\n\r\nIn this example, the `$count` variable is initialized to 0 _only on the first function call_. Every call after, the value will be carried over to the next call. So every invocation of the function returns an increasing integer response.\r\n",
+    "introduction": "# Introduction\r\n\r\nBy default, variables are limited to the scope they are defined in. If defined in a file outside of a function or class, they are limited to the scope of the file. If defined in a function or class, they are limited to the scope of the function or class.\r\n\r\n```php\r\n<?php\r\n\r\n$file_scoped = \"I am file scoped\";\r\n\r\nfunction example(): void\r\n{\r\n  $function_scoped = \"I am function scoped!\";\r\n}\r\n```\r\n\r\nVariables may also be declared specifically to be `global` or `static` scoped.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.variables.scope.php",
+      "description": "PHP Manual: Variables: Scope"
+    }
+  ]
+}

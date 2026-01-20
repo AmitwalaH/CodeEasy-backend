@@ -1,0 +1,19 @@
+{
+  "language": "php",
+  "slug": "class-static-keyword",
+  "title": "Class Static Keyword",
+  "docs": {
+    "about": "# Class Static Keywords\r\n\r\nA class is a unit of code organization in PHP, often representing an instance of a thing/service/procedure.\r\nUsing the `static` and `self` keywords, properties and methods may exist in reference to the class for all instances (or no instance).\r\n\r\n```php\r\n<?php\r\n\r\nclass Book\r\n{\r\n    static $genre = 'Adventure';\r\n\r\n    static function getGenre()\r\n    {\r\n        return self::$genre;\r\n    }\r\n}\r\n\r\n// Usage\r\n$genre = Book::$genre;\r\n$genre = Book::getGenre();\r\n```\r\n\r\n## Limitation\r\n\r\nStatic class methods can only call other static class properties or class methods from its own class.\r\n\r\n```php\r\n<?php\r\n\r\nclass Book\r\n{\r\n    $name = 'Treasure Island';\r\n\r\n    static function getName()\r\n    {\r\n        // This static method cannot access the instance variable\r\n        return $this->name;\r\n    }\r\n}\r\n```\r\n",
+    "introduction": "# Class Static Keywords\r\n\r\nA class is a unit of code organization in PHP, often representing an instance of a thing/service/procedure.\r\nUsing the `static` and `self` keywords, properties and methods may exist in reference to the class for all instances (or no instance).\r\n\r\n```php\r\n<?php\r\n\r\nclass Book\r\n{\r\n    static $genre = 'Adventure';\r\n\r\n    static function getGenre()\r\n    {\r\n        return self::$genre;\r\n    }\r\n}\r\n\r\n// Usage\r\n$genre = Book::$genre;\r\n$genre = Book::getGenre();\r\n```\r\n\r\n## Limitation\r\n\r\nStatic class methods can only call other static class properties or class methods from its own class.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.oop5.static.php#language.oop5.static.methods",
+      "description": "PHP: Static keyword: Static Methods"
+    },
+    {
+      "url": "https://www.php.net/manual/en/language.oop5.static.php#language.oop5.static.properties",
+      "description": "PHP: Static keyword: Static Properties"
+    }
+  ]
+}

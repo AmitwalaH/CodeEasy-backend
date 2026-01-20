@@ -1,0 +1,55 @@
+{
+  "language": "csharp",
+  "slug": "tuples",
+  "title": "Tuples",
+  "docs": {
+    "about": "# About\r\n\r\nIn C#, a tuple is a data structure which organizes data, holding two or more fields\r\nof any type.\r\n\r\nA tuple is typically created by placing 2 or more expressions separated by commas,\r\nwithin a set of parentheses.\r\n\r\n```csharp\r\nstring boast = \"All you need to know\";\r\nbool success = !string.IsNullOrWhiteSpace(boast);\r\n(bool, int, string) tripple = (success, 42, boast);\r\n```\r\n\r\nAs an expression like any other, a tuple can be used in a range of ways: in [assignments][tuple-assignment],\r\nto initialize a field or variable, [return value][tuple-return-values] from a method or passed as a parameter.\r\nThey can be tested for [equality][tuple-equality]. Equality of tuples is illustrated fully in the `pattern-matching-tuples` exercise but an example is provided in the code below for the sake of completeness.\r\n\r\nFields are extracted using dot syntax. By default, the first field is `Item1`,\r\nthe second `Item2`, etc. Non-default names are discussed below under _Naming_.\r\n\r\nA tuple can be used as a generic parameter, e.g. `IList<(bool, string)>`\r\n\r\nIn addition, tuples support \"deconstruction\", discussed below\r\n, and can be used in pattern matching which is covered in a later exercise.\r\n\r\n```csharp\r\n// initialization\r\n(int, int, int) vertices = (90, 45, 45);\r\n\r\n// assignment\r\nvertices = (60, 60, 60);\r\n\r\n//  return value\r\n(bool, int) GetSameOrBigger(int num1, int num2)\r\n{\r\n    return (num1 == num2, num1 > num2 ? num1 : num2);\r\n}\r\n\r\n// method argument\r\nint Add((int, int) operands)\r\n{\r\n    return operands.Item1 + operands.Item2;\r\n}\r\n\r\n// equality testing\r\nvar estimateA = (42, 1729);\r\nvar estimateB = (2*3*7, 7*13*19);\r\nbool result = estimateA == estimateB;\r\n// => result == true\r\n```\r\n\r\nThis [introduction][tuples] shows how to define and use tuples.\r\n\r\n## Naming\r\n\r\nField names `Item1` etc. do not make for readable code. There are 3 ways to\r\nprovide names to the fields a) in the type declaration or b) in the expression that\r\ncreates it, c) by means of [tuple projection initializers][tuple-projection-initializers]\r\n(not illustrated here).\r\n\r\n```csharp\r\n// name items in declaration\r\n(bool success, string message) results = (true, \"well done!\");\r\nbool mySuccess = results.success;\r\nstring myMessaage = results.message;\r\n\r\n// name items in creating expression\r\nvar results2 = (success: true, message: \"well done!\");\r\nbool mySuccess2 = results2.success;\r\nstring myMessaage2 = results2.message;\r\n```\r\n\r\nDon't try to be too clever with the naming mechanism. It is really just syntactic\r\nsugar. For example, you cannot change the names of a tuple when you assign to it\r\nfrom another tuple.\r\n\r\n## Deconstruction\r\n\r\nSometimes it is convenient to take a tuple and assign the fields to multiple variables\r\nand initialize them if appropriate.\r\nThis mechanism is called [deconstruction][tuple-deconstruction]. (It can also\r\nbe applied to your own objects. See [here][udt-deconstruction]).\r\n\r\n```csharp\r\nvar goodNumbers = (42, 3.142, 1729);\r\n(int ultimateQuestion, var π, var ramanujan) = goodNumbers;\r\nreturn ultimateQuestion;\r\n// => 42\r\n```\r\n\r\n## Field Assignment\r\n\r\nThe fields of tuples can be individually assigned to.\r\nHowever, given the trend in C# towards immutability this\r\nsort of usage is not widespread. Tuples are often used as if they were immutable\r\nwhich of course they are not.\r\n\r\n```csharp\r\n(int, string) tpl;\r\ntpl.Item1 = 1;\r\ntpl.Item2 = \"bad\";\r\ntpl.Item2 = \"even worse\";\r\n// => (1, \"even worse\";\r\n```\r\n\r\n## Background\r\n\r\nThe tuples we are discussing should not be confused with [`System.Tuple`][system-tuple]\r\nwhich will probably be found only in legacy code bases.\r\n\r\nThe position is slightly more confusing when it comes to `System.ValueTuple`.\r\nThe [docs][system-value-tuple] for the final overload of [`System.ValueTuple`][system-value-tuple]state that\r\n\"The value tuple types provide the runtime implementation that supports tuples in C# \".\r\nBy \"value tuple types\" here they are referring to the generic overloads of `System.ValueTuple`.\r\nBy \"tuples\" they mean the things that have concerned us in this exercise.\r\nEffectively they are saying that `System.ValueTuple` is an implementation detail of tuples. This is\r\nunlikely to be of much interest, most of the time, to most people. Unfortunately much of the\r\ndocumentation on \"tuples\" including Microsoft's own is liberally sprinkled with references\r\nto `System.ValueTuple`. It is probably safe to skate over such references.\r\n\r\n## Other Uses and Limitations\r\n\r\nPattern matching is a particularly productive use for tuples. This\r\nis covered in a later exercise.\r\n\r\nTuples allow for some other minor stylistic flourishes:\r\n\r\n- Multiple assignment (particularly in constructors) .e.g `(this.field1, this.field2) = (arg1, arg2);`\r\n- Swapping or recycling values e.g. `(a, b) = (b, a);`\r\n- Use instead of a `struct` in a list\r\n- Use as a dictionary key or the contents of a set.\r\n- Use in LINQ. (LINQ is covered by later exercises).\r\n\r\nThe documentation describes tuples as a lightweight mechanism and that is the key to\r\nits successful use. Using a tuple instead of a class or struct can lead to tedious\r\nrepetition of its field types and possibly names. This applies particularly to\r\nits use as a method argument or as the generic argument in collections.\r\n\r\nIt is best to make use of tricks like multiple assignment and swapping judiciously.\r\n\r\nRelational operations other than equality and inequality are not supported.\r\n\r\nNote that tuples were introduced into the language relatively recently (C# 7)\r\nso if you want to use them you should make sure your code base\r\nis using [version][language-version] 7 or later of the language.\r\n\r\n[tuples]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples\r\n[tuple-projection-initializers]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#tuple-projection-initializers\r\n[tuple-equality]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#equality-and-tuples\r\n[tuple-assignment]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#assignment-and-tuples\r\n[tuple-return-values]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#tuples-as-method-return-values\r\n[tuple-deconstruction]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#deconstruction\r\n[udt-deconstruction]: https://docs.microsoft.com/en-us/dotnet/csharp/tuples#deconstructing-user-defined-types\r\n[system-tuple]: https://docs.microsoft.com/en-us/dotnet/api/system.tuple\r\n[system-value-tuple]: https://docs.microsoft.com/en-us/dotnet/api/system.valuetuple-8\r\n[language-version]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version\r\n",
+    "introduction": "# Introduction\r\n\r\nIn C#, a tuple is a data structure which organizes data, holding two or more fields\r\nof any type.\r\n\r\nA tuple is typically created by placing 2 or more expressions separated by commas,\r\nwithin a set of parentheses.\r\n\r\n```csharp\r\nstring boast = \"All you need to know\";\r\nbool success = !string.IsNullOrWhiteSpace(boast);\r\n(bool, int, string) triple = (success, 42, boast);\r\n```\r\n\r\nA tuple can be used in assignment and initialization operations, as a return value or a method argument.\r\n\r\nFields are extracted using dot syntax. By default, the first field is `Item1`,\r\nthe second `Item2`, etc. Non-default names are discussed below.\r\n\r\n```csharp\r\n// initialization\r\n(int, int, int) vertices = (90, 45, 45);\r\n\r\n// assignment\r\nvertices = (60, 60, 60);\r\n\r\n//  return value\r\n(bool, int) GetSameOrBigger(int num1, int num2)\r\n{\r\n    return (num1 == num2, num1 > num2 ? num1 : num2);\r\n}\r\n\r\n// method argument\r\nint Add((int, int) operands)\r\n{\r\n    return operands.Item1 + operands.Item2;\r\n}\r\n```\r\n\r\nField names `Item1` etc. do not make for readable code. The code below shows\r\n2 ways to name the fields of tuples. Note also, in the code below, that `var` can be used with tuples and the type inferred. This works equally well for tuples with named and unnamed fields.\r\n\r\n```csharp\r\n// name items in declaration\r\n(bool success, string message) results = (true, \"well done!\");\r\nbool mySuccess = results.success;\r\nstring myMessage = results.message;\r\n\r\n// name items in creating expression\r\nvar results2 = (success: true, message: \"well done!\");\r\nbool mySuccess2 = results2.success;\r\nstring myMessage2 = results2.message;\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#assignment-and-tuples",
+      "description": "tuple-assignment"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#tuples-as-method-return-values",
+      "description": "tuple-return-values"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#equality-and-tuples",
+      "description": "tuple-equality"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples",
+      "description": "tuples"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#tuple-projection-initializers",
+      "description": "tuple-projection-initializers"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#deconstruction",
+      "description": "tuple-deconstruction"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tuples#deconstructing-user-defined-types",
+      "description": "udt-deconstruction"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.tuple?view=netcore-3.1",
+      "description": "system-tuple"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.valuetuple-8?view=netcore-3.1",
+      "description": "system-value-tuple"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.valuetuple-8?view=netcore-3.1",
+      "description": "system-value-tuple"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version",
+      "description": "language-version"
+    }
+  ]
+}

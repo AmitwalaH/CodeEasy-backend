@@ -1,0 +1,53 @@
+{
+  "language": "go",
+  "slug": "basics",
+  "title": "Basics",
+  "docs": {
+    "about": "# Basics About\r\n\r\nThe Basics concept introduced [Go](https://golang.org) as a statically typed, compiled programming language.\r\nThe language is often referred to as Golang because of its previous domain name, golang.org, but the proper name is Go.\r\n\r\nThe Basics concept introduces three major language features: Packages, Functions, and Variables.\r\n\r\n## Packages\r\n\r\nGo applications are organized in packages.\r\nA package is a collection of source files located in the same directory.\r\nAll source files in a directory must share the same package name.\r\nIt is conventional for the package name to be the last directory in the import path. For example, the files in the [\"math/rand\" package](https://golang.org/src/math/rand/) begin with the statement `package rand`.\r\nWhen a package is imported, only entities (functions, types, variables, constants) whose names start with a capital letter can be used / accessed.\r\nThe recommended style of naming in Go is that identifiers will be named using `camelCase`, except for those meant to be accessible across packages which should be `PascalCase`.\r\n\r\n```go\r\npackage lasagna\r\n```\r\n\r\n## Variables\r\n\r\nGo is statically-typed, which means all variables [must have a defined type](https://en.wikipedia.org/wiki/Type_system) at compile-time.\r\n\r\nVariables can be defined by explicitly specifying a type:\r\n\r\n```go\r\nvar explicit int // Explicitly typed\r\n```\r\n\r\nYou can also use an initializer, and the compiler will assign the variable type to match the type of the initializer.\r\n\r\n```go\r\nimplicit := 10   // Implicitly typed as an int\r\n```\r\n\r\nOnce declared, variables can be assigned values using the `=` operator.\r\nOnce declared, a variable's type can never change.\r\n\r\n```go\r\ncount := 1 // Assign initial value\r\ncount = 2  // Update to new value\r\n\r\ncount = false // This throws a compiler error due to assigning a non `int` type\r\n```\r\n\r\n## Constants\r\n\r\nConstants hold a piece of data just like variables, but their value cannot change during the execution of the program.\r\n\r\nConstants are defined using the `const` keyword and can be numbers, characters, strings or booleans:\r\n\r\n```go\r\nconst Age = 21 // Defines a numeric constant 'Age' with the value of 21\r\n```\r\n\r\n## Functions\r\n\r\nGo functions accept zero or more parameters.\r\nParameters must be explicitly typed, there is no type inference.\r\n\r\nValues are returned from functions using the `return` keyword.\r\n\r\nA function is invoked by specifying the function name and passing arguments for each of the function's parameters.\r\n\r\nNote that Go supports two types of comments.\r\nSingle line comments are preceded by `//` and multiline comments are inserted between `/*` and `*/`.\r\n\r\n```go\r\npackage greeting\r\n\r\n// Hello is a public function.\r\nfunc Hello (name string) string {\r\n    return hi(name)\r\n}\r\n\r\n// hi is a private function.\r\nfunc hi (name string) string {\r\n    return \"hi \" + name\r\n}\r\n```\r\n",
+    "introduction": "# Basics Introduction\r\n\r\n[Go](https://golang.org) is a statically typed, compiled programming language.\r\nGo is syntactically similar to C.\r\nThe language is often referred to as Golang because of its previous domain name, golang.org, but the proper name is Go.\r\n\r\nThe Basics concept will introduce three major language features: Packages, Functions, and Variables.\r\n\r\n## Packages\r\n\r\nGo applications are organized in packages.\r\nA package is a collection of source files located in the same directory.\r\nAll source files in a directory must share the same package name.\r\nIt is conventional for the package name to be the last directory in the import path. For example, the files in the [\"math/rand\" package](https://golang.org/src/math/rand/) begin with the statement `package rand`.\r\nWhen a package is imported, only entities (functions, types, variables, constants) whose names start with a capital letter can be used / accessed.\r\nThe recommended style of naming in Go is that identifiers will be named using `camelCase`, except for those meant to be accessible across packages which should be `PascalCase`.\r\n\r\n```go\r\npackage lasagna\r\n```\r\n\r\n## Variables\r\n\r\nGo is statically-typed, which means all variables [must have a defined type](https://en.wikipedia.org/wiki/Type_system) at compile-time.\r\n\r\nVariables can be defined by explicitly specifying a type:\r\n\r\n```go\r\nvar explicit int // Explicitly typed\r\n```\r\n\r\nYou can also use an initializer, and the compiler will assign the variable type to match the type of the initializer.\r\n\r\n```go\r\nimplicit := 10   // Implicitly typed as an int\r\n```\r\n\r\nOnce declared, variables can be assigned values using the `=` operator.\r\nOnce declared, a variable's type can never change.\r\n\r\n```go\r\ncount := 1 // Assign initial value\r\ncount = 2  // Update to new value\r\n\r\ncount = false // This throws a compiler error due to assigning a non `int` type\r\n```\r\n\r\n## Constants\r\n\r\nConstants hold a piece of data just like variables, but their value cannot change during the execution of the program.\r\n\r\nConstants are defined using the `const` keyword and can be numbers, characters, strings or booleans:\r\n\r\n```go\r\nconst Age = 21 // Defines a numeric constant 'Age' with the value of 21\r\n```\r\n\r\n## Functions\r\n\r\nGo functions accept zero or more parameters.\r\nParameters must be explicitly typed, there is no type inference.\r\n\r\nValues are returned from functions using the `return` keyword.\r\n\r\nA function is invoked by specifying the function name and passing arguments for each of the function's parameters.\r\n\r\nNote that Go supports two types of comments.\r\nSingle line comments are preceded by `//` and multiline comments are inserted between `/*` and `*/`.\r\n\r\n```go\r\npackage greeting\r\n\r\n// Hello is a public function.\r\nfunc Hello (name string) string {\r\n    return hi(name)\r\n}\r\n\r\n// hi is a private function.\r\nfunc hi (name string) string {\r\n    return \"hi \" + name\r\n}\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Introduction to Packages, Functions, and Variables",
+    "authors": [
+      "tehsphinx"
+    ],
+    "contributors": [
+      "ekingery",
+      "andrerfcsantos"
+    ]
+  },
+  "links": [
+    {
+      "url": "https://golang.org/doc/#getting-started",
+      "description": "Official \"Getting Started\" Docs"
+    },
+    {
+      "url": "https://tour.golang.org/",
+      "description": "A Tour of Go"
+    },
+    {
+      "url": "https://gobyexample.com/",
+      "description": "Go by Example"
+    },
+    {
+      "url": "https://golang.org/doc/effective_go.html",
+      "description": "Effective Go"
+    },
+    {
+      "url": "https://play.golang.org/",
+      "description": "Go Playground"
+    },
+    {
+      "url": "https://pkg.go.dev/",
+      "description": "Go Packages"
+    },
+    {
+      "url": "https://github.com/avelino/awesome-go",
+      "description": "Awesome Go"
+    },
+    {
+      "url": "https://golang.org/ref/spec",
+      "description": "Go Language Specification"
+    }
+  ]
+}

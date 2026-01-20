@@ -1,0 +1,39 @@
+{
+  "language": "csharp",
+  "slug": "arrays",
+  "title": "Arrays",
+  "docs": {
+    "about": "# About\r\n\r\nData structures that can hold zero or more elements are known as _collections_. An **array** is a collection that has a fixed size/length and whose elements must all be of the same type. Elements can be assigned to an array or retrieved from it using an index. C# arrays are zero-based, meaning that the first element's index is always zero:\r\n\r\n```csharp\r\n// Declare array with explicit size (size is 2)\r\nint[] twoInts = new int[2];\r\n\r\n// Assign second element by index\r\ntwoInts[1] = 8;\r\n\r\n// Retrieve the second element by index\r\ntwoInts[1] == 8; // => true\r\n\r\n// Check the length of the array\r\ntwoInts.Length == 2; // => true\r\n```\r\n\r\nArrays can also be defined using a shortcut notation that allows you to both create the array and set its value. As the compiler can now tell how many elements the array will have, the length can be omitted:\r\n\r\n```csharp\r\n// Three equivalent ways to declare and initialize an array (size is 3)\r\nint[] threeIntsV1 = new int[] { 4, 9, 7 };\r\nint[] threeIntsV2 = new[] { 4, 9, 7 };\r\nint[] threeIntsV3 = { 4, 9, 7 };\r\n```\r\n\r\nArrays can be manipulated by either calling an array instance's [methods][array-methods] or [properties][array-properties], or by using the static methods defined in the [`Array` class][array-class].\r\n\r\n## Iteration\r\n\r\nAn array is also a _collection_, which means that you can iterate over _all_ its values using a [`foreach` loop][foreach-statement]:\r\n\r\n```csharp\r\nchar[] vowels = new [] { 'a', 'e', 'i', 'o', 'u' };\r\n\r\nforeach (char vowel in vowels)\r\n{\r\n    // Output the vowel\r\n    System.Console.Write(vowel);\r\n}\r\n\r\n// => aeiou\r\n```\r\n\r\nOne could use a [`for` loop][for-statement] to iterate over an array:\r\n\r\n```csharp\r\nchar[] vowels = new [] { 'a', 'e', 'i', 'o', 'u' };\r\n\r\nfor (int i = 0; i < vowels.Length; i++)\r\n{\r\n    // Output the vowel\r\n    System.Console.Write(vowels[i]);\r\n}\r\n\r\n// => aeiou\r\n```\r\n\r\nHowever, generally a `foreach` loop is preferrable over a `for` loop for the following reasons:\r\n\r\n- A `foreach` loop is guaranteed to iterate over _all_ values. With a `for` loop, it is easy to miss elements, for example due to an off-by-one error.\r\n- A `foreach` loop is more _declarative_, your code is communicating _what_ you want it to do, instead of a `for` loop that communicates _how_ you want to do it.\r\n- A `foreach` loop is foolproof, whereas with `for` loops it is easy to have an off-by-one error.\r\n- A `foreach` loop works on all collection types, including those that don't support using an indexer to access elements.\r\n\r\nTo guarantee that a `foreach` loop will iterate over _all_ values, the compiler will not allow updating of a collection within a `foreach` loop:\r\n\r\n```csharp\r\nchar[] vowels = new [] { 'a', 'e', 'i', 'o', 'u' };\r\n\r\nforeach (char vowel in vowels)\r\n{\r\n    // This would result in a compiler error\r\n    // vowel = 'Y';\r\n}\r\n```\r\n\r\nA `for` loop does have some advantages over a `foreach` loop:\r\n\r\n- You can start or stop at the index you want.\r\n- You can use any (Boolean) termination condition you want.\r\n- You can skip elements by customizing the incrementing of the loop variable.\r\n- You can process collections from back to front by counting down.\r\n- You can use `for` loops in scenarios that don't involve collections.\r\n\r\nRelated Topics:\r\n\r\n- You should be aware that C# supports [multi-dimensional arrays][multi-dimensional-arrays] like `int[,] arr = new int[10, 5]` which can be very useful.\r\n- You should also be aware that you can instantiate objects of type [`System.Array`][system-array-object] with `Array.CreateInstance`. Such objects are of little use - mainly for interop with VB.NET code. They are not interchangeable with standard arrays (`T[]`). They can have a non-zero lower bound.\r\n\r\nBoth the above topics are discussed more fully in a later exercise.\r\n\r\n[implicitly-typed-arrays]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/implicitly-typed-arrays\r\n[array-foreach]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/using-foreach-with-arrays\r\n[single-dimensional-arrays]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/single-dimensional-arrays\r\n[array-class]: https://docs.microsoft.com/en-us/dotnet/api/system.array\r\n[array-properties]: https://docs.microsoft.com/en-us/dotnet/api/system.array\r\n[array-methods]: https://docs.microsoft.com/en-us/dotnet/api/system.array\r\n[foreach-statement]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/foreach-in\r\n[for-statement]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/for\r\n[break-keyword]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/break\r\n[multi-dimensional-arrays]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays\r\n[system-array-object]: https://docs.microsoft.com/en-us/dotnet/api/system.array.createinstance\r\n",
+    "introduction": "# Introduction\r\n\r\nIn C#, data structures that can hold zero or more elements are known as _collections_. An **array** is a collection that has a fixed size/length and whose elements must all be of the same type. Elements can be assigned to an array or retrieved from it using an index. C# arrays are zero-based, meaning that the first element's index is always zero:\r\n\r\n```csharp\r\n// Declare array with explicit size (size is 2)\r\nint[] twoInts = new int[2];\r\n\r\n// Assign second element by index\r\ntwoInts[1] = 8;\r\n\r\n// Retrieve the second element by index\r\ntwoInts[1] == 8; // => true\r\n```\r\n\r\nArrays can also be defined using a shortcut notation that allows you to both create the array and set its value. As the compiler can now tell how many elements the array will have, the length can be omitted:\r\n\r\n```csharp\r\n// Three equivalent ways to declare and initialize an array (size is 3)\r\nint[] threeIntsV1 = new int[] { 4, 9, 7 };\r\nint[] threeIntsV2 = new[] { 4, 9, 7 };\r\nint[] threeIntsV3 = { 4, 9, 7 };\r\n```\r\n\r\nArrays can be manipulated by either calling an array instance's methods or properties, or by using the static methods defined in the `Array` class.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1#methods",
+      "description": "array-methods"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1#properties",
+      "description": "array-properties"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1",
+      "description": "array-class"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/foreach-in",
+      "description": "foreach-statement"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/for",
+      "description": "for-statement"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays",
+      "description": "multi-dimensional-arrays"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.array.createinstance?view=netcore-3.1#System_Array_CreateInstance_System_Type_System_Int32_",
+      "description": "system-array-object"
+    }
+  ]
+}

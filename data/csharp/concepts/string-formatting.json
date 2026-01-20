@@ -1,0 +1,87 @@
+{
+  "language": "csharp",
+  "slug": "string-formatting",
+  "title": "String Formatting",
+  "docs": {
+    "about": "# About\r\n\r\nMechanisms for formatting strings are many and various in C#/.NET: everything from simple concatenation of objects through calls to the overridden `object.ToString()` method to use of [`ICustomFormatter`][custom-formatter] (not covered in this exercise).\r\n\r\nThe two most common mechanisms for formatting strings are [string interpolation][string-interpolation] and [String.Format()][string-format]. The [`StringBuilder`][string-builder] (cross-ref-tba) class can also be used to build up a string if there is complexity such as multiple lines involved.\r\n\r\n## Using `ToString()`\r\n\r\n`System.Object()` from which all classes and structs inherit has a `ToString()` method. For example `new DateTime(2019, 5, 23).ToString()` will render \"05/23/2019 00:00:00\" (on a thread with US culture - [see below](#culture)). There are situations such as string concatenation where this default `ToString()` method may be invoked implicitly, `\"\" + new DateTime(2019, 5, 23)` gives the same result.\r\n\r\nIn addition to the default `ToString()` method, types where formatting is an issue will have overloads which take a [_format string_](#bcl-formatters-and-format-strings) or even a [format provider][format-provider]. Notably in the BCL (Base Class Library) these are numbers, dates, enums and GUIDs.\r\n\r\n## Composite Formatting\r\n\r\n`String.Format()` takes a string (referred to in the documentation as a _composite format_) comprising fixed text and placeholders (known in the documentation as a _format items_) and a variable number of arguments. The return value resolves each _format item_ using the corresponding argument and combines the resolved values with the fixed text.\r\n\r\n```csharp\r\nstring.Format(\"I had {0} bitcoins on {1}, the day I forgot my password.\", 55.5, new DateTime(2010, 2, 25))\r\n// => \"I had 55.5 bitcoins on 2/25/2010 00:00:00, the day I forgot my password.\" - US settings\r\n```\r\n\r\n`Format()` may be a better choice than interpolation where the format is being used in multiple expressions as a kind of template or where incorporating the format, and the expressions to be formatted is too cumbersome such as when [verbatim strings][verbatim-strings] are involved.\r\n\r\nThis mechanism is technically known as [_composite formatting_][composite-formatting].\r\n\r\nA fuller list of string producing methods that take advantage _composite formatting_ is given in this [article][composite-formatting].\r\n\r\n## String Interpolation\r\n\r\nInterpolated strings are prefixed with a `$` and include run-time expressions enclosed in braces. The format item has the following syntax: `$\"{<interpolationExpression>[,<alignment>][:<formatString>]}\"`. They do away with the need for a separate list of arguments. The result is functionally equivalent to the `String.Format()` mechanism.\r\n\r\nThe expression can comprise anything in scope. _Alignment_ is the length of the \"field\" in which the text sits. If the _alignment_ is positive then the text is padded with spaces on the left and if it is negative then the padding is to the right of the text.\r\n\r\n```csharp\r\nvar loadsOf = 55.5;\r\nvar thatDay = new DateTime(2010, 2, 25);\r\n$\"I had {loadsOf} bitcoins on {thatDay}, the day I forgot my password.\"\r\n// => \"I had 55.5 bitcoins on 2/25/2010 00:00:00, the day I forgot my password.\" - US settings\r\n```\r\n\r\n## Format Items\r\n\r\nThe text in braces, placeholders in the case of the composite format and interpolated expressions in the case of string interpolation is known as a _format item_.\r\n\r\nA format item can comprise up to 3 parts. The first is the mandatory expression or argument placeholder as seen in the example code above. In addition, there is an optional alignment (introduced with a comma, \",\") and an optional _format string_ (introduced with a colon, \":\").\r\n\r\n`{<interpolationExpression>[,<alignment>][:<formatString>]}`\r\n\r\nThe _alignment_ specifies the length of the \"field\" in which the text is placed, padded to the left with spaces if the alignment is positive or to the right if it is negative.\r\n\r\nThe _format string_ specifies the shape of the text output such as whether thousands separators should be included for a number or whether the date part only of a `DateTime` object should be output.\r\n\r\nThe following code illustrates display of the date portion of a `DateTime` object and a floating-point number in exponential form.\r\n\r\n```csharp\r\nvar loadsOf = 55.5;\r\nvar thatDay = new DateTime(2010, 2, 25);\r\n$\"I had {loadsOf:E} bitcoins on {thatDay:d}, the day I forgot my password.\"\r\n// => I had 5.550000E+001 bitcoins on 02/25/2010, the day I forgot my password. - US settings\r\n\r\nstring.Format(\r\n    \"I had {0:E} bitcoins on {1:d}, the day I forgot my password.\",\r\n    loadsOf, thatDay)\r\n// => I had 5.550000E+001 bitcoins on 02/25/2010, the day I forgot my password. - US settings\r\n\r\n```\r\n\r\nThere is both standard and custom formatting for both numbers and dates. There is no vital difference between _custom_ and _standard_ except that you have a chance to compose custom format strings out of format characters. \"custom\" in this context has nothing to do with the [`ICustomFormatter`][custom-formatter] interface which is used when developing your own custom formatters.\r\n\r\n## BCL Formatters and Format Strings\r\n\r\nThe Base Class Library (BCL) provides 2 formatters: `DateTimeFormatInfo` and `NumberFormatInfo` and 6 groups of format strings.\r\n\r\nThe various lists of _format strings_ are below:\r\n\r\n- [Standard numeric format strings][standard-numeric-format-strings]\r\n- [Custom numeric format strings][custom-numeric-format-strings]\r\n- [Standard date and time format strings][standard-date-and-time-format-strings]\r\n- [Custom date and time format strings][custom-date-and-time-format-strings]\r\n- [Enumeration format strings][enum-format-strings]\r\n- [GUID format strings][guid-format-strings]\r\n\r\n`Enum` and `GUID` _format strings_ can be classed as _standard_. Although `enum` and `GUID` have `ToString()` overloads that take an `IFormatProvider` it is not clear that it does anything.\r\n\r\nAn attempt is made in the library to instill some consistency into _format strings_ (beyond the fact that they are represented as strings). This push for consistency is found in the standard strings. In reality as a developer you rarely care about the difference between standard and custom strings. Although it is a good idea, if you are implementing formatters for your own classes to echo the existing standard strings if your classes appear to call for it, you can pretty well ignore the difference.\r\n\r\n## Culture\r\n\r\nEach thread of execution has a default culture `Thread.CurrentThread.CurrentCulture` encapsulated in an instance of `CultureInfo`. The thread's culture determines how dates and numbers are formatted by default with respect to regional variations such as the difference in conventional date format between the UK _DD/MM/YYYY_ and the US _MM/DD/YYYY_.\r\n\r\n`CultureInfo` implements the `IFormatProvider` interface which can be passed to certain overloads of `String.Format()`. This can be used to override the thread culture.\r\n\r\n## Reference Material\r\n\r\n[string-interpolation]: https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation\r\n[string-interpolation-in-depth]: https://weblog.west-wind.com/posts/2016/Dec/27/Back-to-Basics-String-Interpolation-in-C#\r\n[string-interpolation-advanced]: https://www.meziantou.net/interpolated-strings-advanced-usages.htm\r\n[formatting-types]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/formatting-types\r\n[standard-numeric-format-strings]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings\r\n[custom-numeric-format-strings]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings\r\n[standard-date-and-time-format-strings]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings\r\n[custom-date-and-time-format-strings]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings\r\n[string-builder]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder\r\n[format-provider]: https://docs.microsoft.com/en-us/dotnet/api/system.iformatprovider\r\n[custom-formatter]: https://docs.microsoft.com/en-us/dotnet/api/system.icustomformatter\r\n[string-format]: https://docs.microsoft.com/en-us/dotnet/api/system.string.format\r\n[culture-info]: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo\r\n[composite-formatting]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting\r\n[custom-string-interpolation]: https://thomaslevesque.com/2015/02/24/customizing-string-interpolation-in-c-6/\r\n[enum-format-strings]: https://docs.microsoft.com/en-us/dotnet/standard/base-types/enumeration-format-strings\r\n[guid-format-strings]: https://docs.microsoft.com/en-us/dotnet/api/system.guid.tostring\r\n",
+    "introduction": "# Introduction\r\n\r\nThere are two principal mechanisms for formatting strings in C#/.NET. Use of `String.Format()` and string interpolation.\r\n\r\n## Composite Formatting\r\n\r\n`String.Format()` takes a string (referred to in the documentation as a _composite format_) comprising fixed text and placeholders (known in the documentation as format items), and a variable number of arguments. The return value resolves each format item using the corresponding argument and combines the resolved values with the fixed text.\r\n\r\n```csharp\r\nstring.Format(\"I had {0} bitcoins on {1}, the day I forgot my password.\", 55.5, new DateTime(2010, 2, 25));\r\n// => \"I had 55.5 bitcoins on 2/25/2010 00:00:00, the day I forgot my password.\" - US settings\r\n```\r\n\r\nThis mechanism is technically known as _composite formatting_.\r\n\r\n## String Interpolation\r\n\r\nInterpolated strings are prefixed with a `$` and include run-time expressions enclosed in braces. The format item has the following syntax: `$\"{<interpolationExpression>}\"`. They do away with the need for a separate list of arguments. The result is functionally equivalent to the `String.Format()` mechanism.\r\n\r\n```csharp\r\nvar loadsOf = 55.5;\r\nvar thatDay = new DateTime(2010, 2, 25);\r\n$\"I had {loadsOf} bitcoins on {thatDay}, the day I forgot my password.\"\r\n// => \"I had 55.5 bitcoins on 2/25/2010 00:00:00, the day I forgot my password.\" - US settings\r\n```\r\n\r\n## Format Items\r\n\r\nThe text in braces, placeholders in the case of the composite format and interpolated expressions in the case of string interpolation is known as a _format item_.\r\n\r\nA format item can comprise up to 3 parts. The first is the mandatory expression or argument placeholder as seen in the example code above. In addition, there is an optional alignment (introduced with a comma, \",\") and an optional _format string_ (introduced with a colon \":\").\r\n\r\n`{<interpolationExpression>[,<alignment>][:<formatString>]}`\r\n\r\nThe _alignment_ specifies the length of the \"field\" in which the text is placed, padded to the left with spaces if the alignment is positive or to the right if it is negative.\r\n\r\nThe _format string_ specifies the shape of the text output such as whether thousands separators should be included for a number or whether the date part only of a `DateTime` object should be output.\r\n\r\nThe following code illustrates display of the data portion of a `DateTime` object and a floating-point number in exponential form.\r\n\r\n```csharp\r\nvar loadsOf = 55.5;\r\nvar thatDay = new DateTime(2010, 2, 25);\r\n$\"I had {loadsOf:E} bitcoins on {thatDay:d}, the day I forgot my password.\"\r\n// => I had 5.550000E+001 bitcoins on 02/25/2010, the day I forgot my password. - US settings\r\n\r\nstring.Format(\r\n    \"I had {0:E} bitcoins on {1:d}, the day I forgot my password.\",\r\n    loadsOf, thatDay)\r\n// => I had 5.550000E+001 bitcoins on 02/25/2010, the day I forgot my password. - US settings\r\n```\r\n\r\nThere are both standard and custom formatting for both numbers and dates. There is no vital difference between _custom_ and _standard_ except that you have a chance to compose custom format strings out of format letters.\r\n\r\n## Culture\r\n\r\nEach thread has a default culture `Thread.CurrentThread.CurrentCulture` encapsulated in an instance of `CultureInfo`. The thread's culture determines how dates and numbers are formatted with respect to regional variations such as the difference in conventional date format between the UK _DD/MM/YYYY_ and the US _MM/DD/YYYY_.\r\n\r\n`CultureInfo` implements the `IFormatProvider` interface which can be passed to certain overloads of `String.Format()`. This can be used to override the thread culture.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.icustomformatter?view=netcore-3.1",
+      "description": "custom-formatter"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation",
+      "description": "string-interpolation"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netcore-3.1#System_String_Format_System_String_System_Object_System_Object_System_Object_",
+      "description": "string-format"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder",
+      "description": "string-builder"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.iformatprovider?view=netcore-3.1",
+      "description": "format-provider"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/#regular-and-verbatim-string-literals",
+      "description": "verbatim-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting",
+      "description": "composite-formatting"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting",
+      "description": "composite-formatting"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.icustomformatter?view=netcore-3.1",
+      "description": "custom-formatter"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings",
+      "description": "standard-numeric-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings",
+      "description": "custom-numeric-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings",
+      "description": "standard-date-and-time-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings",
+      "description": "custom-date-and-time-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/enumeration-format-strings",
+      "description": "enum-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/api/system.guid.tostring?view=netcore-3.1",
+      "description": "guid-format-strings"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation",
+      "description": "string-interpolation"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/formatting-types",
+      "description": "formatting-types"
+    },
+    {
+      "url": "https://weblog.west-wind.com/posts/2016/Dec/27/Back-to-Basics-String-Interpolation-in-C#",
+      "description": "string-interpolation-in-depth"
+    },
+    {
+      "url": "https://www.meziantou.net/interpolated-strings-advanced-usages.htm",
+      "description": "string-interpolation-advanced"
+    }
+  ]
+}

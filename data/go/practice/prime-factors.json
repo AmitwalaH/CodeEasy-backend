@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "prime-factors",
+  "title": "Prime Factors",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nCompute the prime factors of a given natural number.\r\n\r\nA prime number is only evenly divisible by itself and 1.\r\n\r\nNote that 1 is not a prime number.\r\n\r\n## Example\r\n\r\nWhat are the prime factors of 60?\r\n\r\n- Our first divisor is 2.\r\n  2 goes into 60, leaving 30.\r\n- 2 goes into 30, leaving 15.\r\n  - 2 doesn't go cleanly into 15.\r\n    So let's move on to our next divisor, 3.\r\n- 3 goes cleanly into 15, leaving 5.\r\n  - 3 does not go cleanly into 5.\r\n    The next possible factor is 4.\r\n  - 4 does not go cleanly into 5.\r\n    The next possible factor is 5.\r\n- 5 does go cleanly into 5.\r\n- We're left only with 1, so now, we're done.\r\n\r\nOur successful divisors in that computation represent the list of prime factors of 60: 2, 2, 3, and 5.\r\n\r\nYou can check this yourself:\r\n\r\n```text\r\n2 * 2 * 3 * 5\r\n= 4 * 15\r\n= 60\r\n```\r\n\r\nSuccess!\r\n",
+    "hints": ""
+  },
+  "starter_code": "package prime\r\n\r\nfunc Factors(n int64) []int64 {\r\n\tpanic(\"Please implement the Factors function\")\r\n}\r\n",
+  "tests": "package prime\r\n\r\nimport (\r\n\t\"slices\"\r\n\t\"testing\"\r\n)\r\n\r\nfunc TestPrimeFactors(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual := Factors(tc.input)\r\n\t\t\tslices.Sort(actual)\r\n\t\t\tslices.Sort(tc.expected)\r\n\t\t\tif !slices.Equal(actual, tc.expected) {\r\n\t\t\t\tt.Fatalf(\"Factors(%d)\\n got:%#v\\nwant:%#v\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkPrimeFactors(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, test := range testCases {\r\n\t\t\tFactors(test.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

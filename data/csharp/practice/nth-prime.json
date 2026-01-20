@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "nth-prime",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nGiven a number n, determine what the nth prime is.\r\n\r\nBy listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.\r\n\r\nIf your language provides methods in the standard library to deal with prime numbers, pretend they don't exist and implement them yourself.\r\n",
+    "instructions_append": "# Hints\r\n\r\nFor this exercise the following C# feature comes in handy:\r\nEnumerables are evaluated lazily. They allow you to work with an infinite sequence of values.\r\nSee [this article](https://blogs.msdn.microsoft.com/pedram/2007/06/02/lazy-evaluation-in-c/).\r\n\r\nNote: to help speedup calculation, you should not check numbers which you know beforehand will never be prime. For more information, see the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes).\r\n",
+    "hints": ""
+  },
+  "starter_code": {
+    "NthPrime.cs": "public static class NthPrime\r\n{\r\n    public static int Prime(int nth)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}"
+  },
+  "tests": {
+    "NthPrimeTests.cs": "public class NthPrimeTests\r\n{\r\n    [Fact]\r\n    public void First_prime()\r\n    {\r\n        Assert.Equal(2, NthPrime.Prime(1));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Second_prime()\r\n    {\r\n        Assert.Equal(3, NthPrime.Prime(2));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Sixth_prime()\r\n    {\r\n        Assert.Equal(13, NthPrime.Prime(6));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Big_prime()\r\n    {\r\n        Assert.Equal(104743, NthPrime.Prime(10001));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void There_is_no_zeroth_prime()\r\n    {\r\n        Assert.Throws<ArgumentOutOfRangeException>(() => NthPrime.Prime(0));\r\n    }\r\n}\r\n"
+  }
+}

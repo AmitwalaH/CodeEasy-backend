@@ -1,0 +1,36 @@
+{
+  "language": "go",
+  "slug": "methods",
+  "title": "Methods",
+  "docs": {
+    "about": "# About\r\n\r\nA [method][methods] is a function with a special _receiver_ argument. The receiver appears in its own argument list between `func` keyword and the name of the method.\r\n\r\n```go\r\nfunc (receiver type) MethodName(parameters) (returnTypes) {\r\n\r\n}\r\n```\r\n\r\nYou can only define a method with a receiver whose type is defined in the same package as the method.\r\n\r\n```go\r\ntype Person struct {\r\n\tName string\r\n}\r\n\r\nfunc (p Person) Greetings() string {\r\n\treturn fmt.Sprintf(\"Welcome %s!\", p.Name)\r\n}\r\n\r\ns := Person{Name: \"Bronson\"}\r\nfmt.Println(s.Greetings())\r\n// Output: Welcome Bronson!\r\n\r\n```\r\n\r\nThere are two types of receivers, value receivers, and pointer receivers.\r\n\r\nMethods with a value receiver operate on a copy of the value passed to it, meaning that any modification done to the receiver inside the method is not visible to the caller.\r\n\r\nYou can declare methods with pointer receivers in order to modify the value to which the receiver points.\r\nSuch modifications are visible to the caller of the method as well.\r\n\r\n```go\r\ntype rect struct {\r\n\twidth, height int\r\n}\r\n\r\nfunc (r *rect) squareIt() {\r\n\tr.height = r.width\r\n}\r\n\r\nr := rect{width: 10, height: 20}\r\nfmt.Printf(\"Width: %d, Height: %d\\n\", r.width, r.height)\r\n// Output: Width: 10, Height: 20\r\n\r\nr.squareIt()\r\nfmt.Printf(\"Width: %d, Height: %d\\n\", r.width, r.height)\r\n// Output: Width: 10, Height: 10\r\n```\r\n\r\nYou can find several examples [here][pointers_receivers]. Also checkout this short tutorial about [methods][methods_tutorial].\r\n\r\nRemember: a method is just a function with a receiver argument.\r\n\r\n[methods]: https://tour.golang.org/methods/1\r\n[pointers_receivers]: https://tour.golang.org/methods/4\r\n[methods_tutorial]: https://www.callicoder.com/golang-methods-tutorial/\r\n",
+    "introduction": "# Introduction\r\n\r\nA method is a function with a special _receiver_ argument.\r\nThe receiver appears in its own argument list between `func` keyword and the name of the method.\r\n\r\n```go\r\nfunc (receiver type) MethodName(parameters) (returnTypes) {\r\n\r\n}\r\n```\r\n\r\nYou can only define a method with a receiver whose type is defined in the same package as the method.\r\n\r\n```go\r\ntype Person struct {\r\n    Name string\r\n}\r\n\r\nfunc (p Person) Greetings() string {\r\n\treturn fmt.Sprintf(\"Welcome %s!\", p.Name)\r\n}\r\n\r\ns := Person{Name: \"Bronson\"}\r\nfmt.Println(s.Greetings())\r\n// Output: Welcome Bronson!\r\n```\r\n\r\nThere are two types of receivers, value receivers, and pointer receivers.\r\n\r\nMethods with a value receiver operate on a copy of the value passed to it, meaning that any modification done to the receiver inside the method is not visible to the caller.\r\n\r\nYou can declare methods with pointer receivers in order to modify the value to which the receiver points.\r\nThis is done by prefixing the type name with a `*`, for example with the `rect` type, a pointer receiver would be declared as `*rect`.\r\nSuch modifications are visible to the caller of the method as well.\r\n\r\n```go\r\ntype rect struct {\r\n\twidth, height int\r\n}\r\nfunc (r *rect) squareIt() {\r\n\tr.height = r.width\r\n}\r\n\r\nr := rect{width: 10, height: 20}\r\nfmt.Printf(\"Width: %d, Height: %d\\n\", r.width, r.height)\r\n// Output: Width: 10, Height: 20\r\n\r\nr.squareIt()\r\nfmt.Printf(\"Width: %d, Height: %d\\n\", r.width, r.height)\r\n// Output: Width: 10, Height: 10\r\n\r\n```\r\n"
+  },
+  "meta": {
+    "blurb": "Methods are functions with a special receiver argument that can be called on an instance of the receiver type.",
+    "authors": [
+      "tehsphinx"
+    ],
+    "contributors": [
+      "oanaOM"
+    ]
+  },
+  "links": [
+    {
+      "url": "https://tour.golang.org/methods/1",
+      "description": "A Tour of Go: Methods"
+    },
+    {
+      "url": "https://tour.golang.org/methods/4",
+      "description": "A Tour of Go: Pointer receivers"
+    },
+    {
+      "url": "https://gobyexample.com/methods",
+      "description": "Go By Example: Methods"
+    },
+    {
+      "url": "https://www.callicoder.com/golang-methods-tutorial/",
+      "description": "Article: Golang Methods Tutorial with Examples"
+    }
+  ]
+}

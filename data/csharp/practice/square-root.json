@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "square-root",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to calculate the square root of a given number.\r\n\r\n- Try to avoid using the pre-existing math libraries of your language.\r\n- As input you'll be given a positive whole number, i.e. 1, 2, 3, 4…\r\n- You are only required to handle cases where the result is a positive whole number.\r\n\r\nSome potential approaches:\r\n\r\n- Linear or binary search for a number that gives the input number when squared.\r\n- Successive approximation using Newton's or Heron's method.\r\n- Calculating one digit at a time or one bit at a time.\r\n\r\nYou can check out the Wikipedia pages on [integer square root][integer-square-root] and [methods of computing square roots][computing-square-roots] to help with choosing a method of calculation.\r\n\r\n[integer-square-root]: https://en.wikipedia.org/wiki/Integer_square_root\r\n[computing-square-roots]: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots\r\n",
+    "instructions_append": "",
+    "hints": ""
+  },
+  "starter_code": {
+    "SquareRoot.cs": "public static class SquareRoot\r\n{\r\n    public static int Root(int number)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}\r\n"
+  },
+  "tests": {
+    "SquareRootTests.cs": "public class SquareRootTests\r\n{\r\n    [Fact]\r\n    public void Root_of_1()\r\n    {\r\n        Assert.Equal(1, SquareRoot.Root(1));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Root_of_4()\r\n    {\r\n        Assert.Equal(2, SquareRoot.Root(4));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Root_of_25()\r\n    {\r\n        Assert.Equal(5, SquareRoot.Root(25));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Root_of_81()\r\n    {\r\n        Assert.Equal(9, SquareRoot.Root(81));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Root_of_196()\r\n    {\r\n        Assert.Equal(14, SquareRoot.Root(196));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Root_of_65025()\r\n    {\r\n        Assert.Equal(255, SquareRoot.Root(65025));\r\n    }\r\n}\r\n"
+  }
+}

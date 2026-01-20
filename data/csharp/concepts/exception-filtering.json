@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "exception-filtering",
+  "title": "Exception Filtering",
+  "docs": {
+    "about": "# About\r\n\r\n`when` is the keyword in filtering exceptions. It is placed after the catch\r\nstatement and can take a Boolean expression containing any values in scope at the time. They don't just have to be members of the exception itself. If the type of the exception matches and the expression evaluates to true then the block associated with that `catch` statement is executed otherwise the next `catch` statement, if any, is checked.\r\n\r\n```csharp\r\ntry\r\n{\r\n    // do stuff\r\n}\r\ncatch (Exception ex) when (ex.Message != \"\")\r\n{\r\n    // output the message when it is not empty\r\n}\r\ncatch (Exception ex)\r\n{\r\n    // show stack trace or something.\r\n}\r\n```\r\n\r\n- This [Exception filters][exception-filters] article shows how to filter exceptions.\r\n\r\n[exception-filters]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/when\r\n",
+    "introduction": "# Introduction\r\n\r\n`when` is the keyword in filtering exceptions. It is placed after the catch\r\nstatement and can take a Boolean expression containing any values in scope at the time. If the expression evaluates to true then the block associated with that `catch` statement is executed otherwise the next `catch` statement, if any, is checked.\r\n\r\n```csharp\r\ntry\r\n{\r\n    // do stuff\r\n}\r\ncatch (Exception ex) when (ex.Message != \"\")\r\n{\r\n    // output the message when it is not empty\r\n}\r\ncatch (Exception ex)\r\n{\r\n    // show stack trace or something.\r\n}\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/when",
+      "description": "exception-filters"
+    }
+  ]
+}

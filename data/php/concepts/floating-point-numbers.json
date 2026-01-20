@@ -1,0 +1,27 @@
+{
+  "language": "php",
+  "slug": "floating-point-numbers",
+  "title": "Floating Point Numbers",
+  "docs": {
+    "about": "# Floating Point Numbers\r\n\r\nFloating point numbers are used in PHP to represent a subset of real numbers.\r\nThey start with one or more digits separated by a decimal separator.\r\n\r\n```php\r\n<?php\r\n\r\n$a = 1.234; \r\n$b = 1.2e3; \r\n$c = 7E-10;\r\n$d = 1_234.567; // as of PHP 7.4.0\r\n```\r\n\r\n## Common pitfalls\r\n\r\nNot all numbers and arithmetic operations can be performed with floating point numbers.\r\nUsing floating point numbers to represent dollars and cents can often lead to rounding errors.\r\n\r\n```php\r\n<?php\r\n\r\n$result = 0.1 + 0.2; // => 0.30000000000000004\r\n```\r\n",
+    "introduction": "# Floating Point Numbers\r\n\r\nFloating point numbers are used in PHP to represent a subset of real numbers.\r\nThey start with one or more digits separated by a decimal separator.\r\n\r\n```php\r\n<?php\r\n\r\n$a = 1.234; \r\n$b = 1.2e3; \r\n$c = 7E-10;\r\n$d = 1_234.567; // as of PHP 7.4.0\r\n```\r\n\r\n## Common pitfalls\r\n\r\nNot all numbers and arithmetic operations can be performed with floating point numbers.\r\nUsing floating point numbers to represent dollars and cents can lead to rounding errors.\r\n\r\n```php\r\n<?php\r\n\r\n$result = 0.1 + 0.2; // => 0.30000000000000004\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.types.float.php",
+      "description": "PHP: Types: Floating point numbers"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Real_number",
+      "description": "Wikipedia: Real numbers"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Floating-point_arithmetic",
+      "description": "Wikipedia: Floating-point arithmetic"
+    },
+    {
+      "url": "https://0.30000000000000004.com",
+      "description": "0.30000000000000004.com: Floating Point Math"
+    }
+  ]
+}

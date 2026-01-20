@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "change",
+  "title": "Change",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nDetermine the fewest number of coins to give a customer so that the sum of their values equals the correct amount of change.\r\n\r\n## Examples\r\n\r\n- An amount of 15 with available coin values [1, 5, 10, 25, 100] should return one coin of value 5 and one coin of value 10, or [5, 10].\r\n- An amount of 40 with available coin values [1, 5, 10, 25, 100] should return one coin of value 5, one coin of value 10, and one coin of value 25, or [5, 10, 25].\r\n",
+    "hints": ""
+  },
+  "starter_code": "package change\r\n\r\nfunc Change(coins []int, target int) ([]int, error) {\r\n\tpanic(\"Please implement the Change function\")\r\n}\r\n",
+  "tests": "package change\r\n\r\nimport (\r\n\t\"reflect\"\r\n\t\"testing\"\r\n)\r\n\r\nfunc TestChange(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tactual, err := Change(tc.coins, tc.target)\r\n\t\t\tif tc.valid {\r\n\t\t\t\tif err != nil {\r\n\t\t\t\t\tt.Fatalf(\"Change(%v, %d): expected %v, got error %v\", tc.coins, tc.target, tc.expectedChange, err)\r\n\t\t\t\t} else if !reflect.DeepEqual(actual, tc.expectedChange) {\r\n\t\t\t\t\tt.Fatalf(\"Change(%v, %d): expected %#v, actual %#v\", tc.coins, tc.target, tc.expectedChange, actual)\r\n\t\t\t\t}\r\n\t\t\t} else {\r\n\t\t\t\tif err == nil {\r\n\t\t\t\t\tt.Fatalf(\"Change(%v, %d): expected error, got %v\", tc.coins, tc.target, actual)\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkChange(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor i := 0; i < b.N; i++ {\r\n\t\tfor _, tc := range testCases {\r\n\t\t\tChange(tc.coins, tc.target)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

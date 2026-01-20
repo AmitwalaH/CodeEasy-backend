@@ -1,0 +1,12 @@
+{
+  "language": "go",
+  "type": "practice",
+  "slug": "armstrong-numbers",
+  "title": "Armstrong Numbers",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nAn [Armstrong number][armstrong-number] is a number that is the sum of its own digits each raised to the power of the number of digits.\r\n\r\nFor example:\r\n\r\n- 9 is an Armstrong number, because `9 = 9^1 = 9`\r\n- 10 is _not_ an Armstrong number, because `10 != 1^2 + 0^2 = 1`\r\n- 153 is an Armstrong number, because: `153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153`\r\n- 154 is _not_ an Armstrong number, because: `154 != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190`\r\n\r\nWrite some code to determine whether a number is an Armstrong number.\r\n\r\n[armstrong-number]: https://en.wikipedia.org/wiki/Narcissistic_number\r\n",
+    "hints": ""
+  },
+  "starter_code": "package armstrong\r\n\r\nfunc IsNumber(n int) bool {\r\n\tpanic(\"Please implement the IsNumber function\")\r\n}\r\n",
+  "tests": "package armstrong\r\n\r\nimport (\r\n\t\"testing\"\r\n)\r\n\r\nfunc TestArmstrong(t *testing.T) {\r\n\tfor _, tc := range testCases {\r\n\t\tt.Run(tc.description, func(t *testing.T) {\r\n\t\t\tif actual := IsNumber(tc.input); actual != tc.expected {\r\n\t\t\t\tt.Fatalf(\"IsNumber(%d) = %t, want: %t\", tc.input, actual, tc.expected)\r\n\t\t\t}\r\n\t\t})\r\n\t}\r\n}\r\n\r\nfunc BenchmarkIsNumber(b *testing.B) {\r\n\tif testing.Short() {\r\n\t\tb.Skip(\"skipping benchmark in short mode.\")\r\n\t}\r\n\tfor _, tc := range testCases {\r\n\t\tfor i := 0; i < b.N; i++ {\r\n\t\t\tIsNumber(tc.input)\r\n\t\t}\r\n\t}\r\n}\r\n"
+}

@@ -1,0 +1,27 @@
+{
+  "language": "csharp",
+  "slug": "optional-parameters",
+  "title": "Optional Parameters",
+  "docs": {
+    "about": "# About\r\n\r\nA method parameter can be made optional by assigning it a default value. When a parameter is optional, the caller is not required to supply an argument for that parameter, in which case the default value will be used. [Optional parameters][optional-arguments] _must_ be at the end of the parameter list; they cannot be followed by non-optional parameters. If a method has multiple optional parameters, you can specify only some of them using [named arguments][named-arguments].\r\n\r\n```csharp\r\nclass Card\r\n{\r\n    static string NewYear(int year = 2020, string sender = \"me\")\r\n    {\r\n        return $\"Happy {year} from {sender}!\";\r\n    }\r\n}\r\n\r\nCard.NewYear();     // => \"Happy 2020 from me!\"\r\nCard.NewYear(1999); // => \"Happy 1999 from me!\"\r\nCard.NewYear(sender: \"mom\"); // => \"Happy 2020 from mom!\"\r\n```\r\n\r\nAn optional parameter's value must be either:\r\n\r\n- A constant expression (e.g. `\"hi\"`, `2`, `DayOfWeek.Friday`, `null` etc.)\r\n- A `new` expression of a value type\r\n- A `default` expression of a value type\r\n\r\n[optional-arguments]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments#optional-arguments\r\n[named-arguments]: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments#named-arguments\r\n",
+    "introduction": "# Introduction\r\n\r\nA method parameter can be made optional by assigning it a default value. When calling a method with optional parameters, the caller is not required to pass a value for them. If no value is passed for an optional parameter, its default value will be used.\r\n\r\nOptional parameters _must_ be at the end of the parameter list; they cannot be followed by non-optional parameters.\r\n\r\n```csharp\r\nclass Card\r\n{\r\n    static string NewYear(int year = 2020)\r\n    {\r\n        return $\"Happy {year}!\";\r\n    }\r\n}\r\n\r\nCard.NewYear();     // => \"Happy 2020!\"\r\nCard.NewYear(1999); // => \"Happy 1999!\"\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/member-overloading",
+      "description": "member-overloading"
+    },
+    {
+      "url": "https://csharpindepth.com/articles/Overloading",
+      "description": "overloading"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments#optional-arguments",
+      "description": "optional-arguments"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments#named-arguments",
+      "description": "named-arguments"
+    }
+  ]
+}

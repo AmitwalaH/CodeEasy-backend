@@ -1,0 +1,31 @@
+{
+  "language": "php",
+  "slug": "readonly-properties",
+  "title": "Readonly Properties",
+  "docs": {
+    "about": "# Readonly Classes and Properties\r\n\r\nReadonly classes and properties allow classes to specify public properties for easy access but prevent modification.\r\nTo declare a property as readonly, it must have `readonly` added before the type specification.\r\nThe property is allowed to be assigned once, but any attempt to re-assign or modify the value will result in an Error.\r\n\r\n```php\r\n<?php\r\n\r\nclass Block\r\n{\r\n    public function __construct(\r\n        public readonly int $length,\r\n        public readonly int $width,\r\n    ) {\r\n    }\r\n}\r\n```\r\n\r\nReadonly classes build on this behaviour which, if declared as `readonly`, apply the read only declaration to each property.\r\nAdditionally it prevents the addition of dynamic properties.\r\n\r\n```php\r\n<?php\r\n\r\nreadonly class Block\r\n{\r\n    public function __construct(\r\n        public int $length,\r\n        public int $width,\r\n    ) {\r\n    }\r\n}\r\n```\r\n",
+    "introduction": "# Readonly Classes and Properties\r\n\r\nReadonly classes and properties allow classes to specify public properties for easy access but prevent modification.\r\nTo declare a property as readonly, it must have `readonly` added before the type specification.\r\nThe property is allowed to be assigned once, but any attempt to re-assign or modify the value will result in an Error.\r\n\r\n```php\r\n<?php\r\n\r\nclass Block\r\n{\r\n    public function __construct(\r\n        public readonly int $length;\r\n        public readonly int $width;\r\n    ) {\r\n    }\r\n}\r\n```\r\n\r\nReadonly classes build on this behaviour which, if declared as `readonly`, apply the read only declaration to each property.\r\nAdditionally it prevents the addition of dynamic properties.\r\n\r\n```php\r\n<?php\r\n\r\nreadonly class Block\r\n{\r\n    public function __construct(\r\n        public int $length;\r\n        public int $width;\r\n    ) {\r\n    }\r\n}\r\n```\r\n\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.oop5.properties.php#language.oop5.properties.readonly-properties",
+      "description": "PHP: Classes and Objects: Properties: Readonly Properties"
+    },
+    {
+      "url": "https://php.watch/versions/8.1/readonly",
+      "description": "PHP.Watch: PHP 8.1: Readonly Properties"
+    },
+    {
+      "url": "https://stitcher.io/blog/php-81-readonly-properties",
+      "description": "Stitcher: PHP 8.1: Readonly Properties"
+    },
+    {
+      "url": "https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.readonly",
+      "description": "PHP: Classes and Objects: The Basics: Readonly Classes"
+    },
+    {
+      "url": "https://stitcher.io/blog/readonly-classes-in-php-82",
+      "description": "Stitcher: Readonly classes in PHP 8.2"
+    }
+  ]
+}

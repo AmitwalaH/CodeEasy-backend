@@ -1,0 +1,27 @@
+{
+  "language": "csharp",
+  "slug": "numbers",
+  "title": "Numbers",
+  "docs": {
+    "about": "# About\r\n\r\nOne of the key aspects of working with numbers in C# is the distinction between integers (numbers with no digits after the decimal separator) and floating-point numbers (numbers with zero or more digits after the decimal separator).\r\n\r\nThe two most commonly used numeric types in C# are `int` (a 32-bit integer) and `double` (a 64-bit floating-point number).\r\n\r\n```csharp\r\nint i = 123;\r\ndouble d = 54.29;\r\n```\r\n\r\nBoth integers and floating-point numbers can use the `_` character as a _digit separator_, which can help when defining large numbers:\r\n\r\n```csharp\r\nint largeInt = 1_000_000;\r\n// => 1000000\r\n\r\ndouble largeDouble = 9_876_543.21;\r\n// => 9876543.21\r\n```\r\n\r\nArithmetic is done using the standard [arithmetic operators][arithmetic-operators] (`+`, `-`, `*`, etc.). Numbers can be compared using the standard [comparison operators][comparison-operators] (`<`, `>=`, etc.) and the [equality-][equality-operators] operator (`==`) and [inequality][equality-operators] operator (`!=`).\r\n\r\n```csharp\r\n5 * 6;\r\n// => 30\r\n\r\n1.2 > 0.8\r\n// => true\r\n\r\n2 != 4\r\n// => true\r\n```\r\n\r\nWhen converting between numeric types, there are two types of numeric conversions:\r\n\r\n1. Implicit conversions: no data will be lost and no additional syntax is required.\r\n2. Explicit conversions: data could be lost and additional syntax in the form of a _cast_ is required.\r\n\r\nAs an `int` has less precision than a `double`, converting from an `int` to a `double` is safe and is thus an implicit conversion. However, converting from a `double` to an `int` could mean losing data, so that requires an explicit conversion.\r\n\r\n```csharp\r\nint i = 9;\r\ndouble d = 2.66;\r\n\r\n// Safe conversion, thus implicit conversion\r\ndouble fromInt = i;\r\n\r\n// Potentially unsafe conversion, thus explicit conversion\r\nint fromDouble = (int)d;\r\n```\r\n\r\n[arithmetic-operators]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators\r\n[equality-operators]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators\r\n[comparison-operators]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/comparison-operators\r\n",
+    "introduction": "# Introduction\r\n\r\nThere are two different types of numbers in C#:\r\n\r\n- Integers: numbers with no digits behind the decimal separator (whole numbers). Examples are `-6`, `0`, `1`, `25`, `976` and `500000`.\r\n- Floating-point numbers: numbers with zero or more digits behind the decimal separator. Examples are `-2.4`, `0.1`, `3.14`, `16.984025` and `1024.0`.\r\n\r\nThe two most common numeric types in C# are `int` and `double`. An `int` is a 32-bit integer and a `double` is a 64-bit floating-point number.\r\n\r\nArithmetic is done using the standard arithmetic operators. Numbers can be compared using the standard numeric comparison operators and the equality (`==`) and inequality (`!=`) operators.\r\n\r\nC# has two types of numeric conversions:\r\n\r\n1. Implicit conversions: no data will be lost and no additional syntax is required.\r\n2. Explicit conversions: data could be lost and additional syntax in the form of a _cast_ is required.\r\n\r\nAs an `int` has less precision than a `double`, converting from an `int` to a `double` is safe and is thus an implicit conversion. However, converting from a `double` to an `int` could mean losing data, so that requires an explicit conversion.\r\n\r\n```csharp\r\nint softCool = 1358938113;\r\ndouble notLost = 4.8151623;\r\n\r\n// implicit cast: no loss of information\r\ndouble macDebug = softCool;         // 1358938113.0\r\n\r\n// explicit cast: possible loss of information \r\nint somethingLost = (int)notLost;   // 4\r\n```\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators",
+      "description": "arithmetic-operators"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/comparison-operators",
+      "description": "comparison-operators"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators",
+      "description": "equality-operators"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators",
+      "description": "equality-operators"
+    }
+  ]
+}

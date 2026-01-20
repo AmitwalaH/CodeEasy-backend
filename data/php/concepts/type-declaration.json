@@ -1,0 +1,23 @@
+{
+  "language": "php",
+  "slug": "type-declaration",
+  "title": "Type Declaration",
+  "docs": {
+    "about": "# Type Declaration\r\n\r\nPHP is a _dynamically typed_ language, meaning that a variable may contain any type of information.\r\nPHP does allow for _optional_ strong type declaration for class properties, function arguments and function return values.\r\nStrong type declarations in PHP provide type assertions at run time, however, PHP will attempt to coerce scalar types to match the declaration if possible.\r\nThe coercion behaviour may be disabled using the `strict_types` declaration at the top of the file.\r\n\r\n```php\r\n<?php\r\ndeclare(strict_types=1);\r\n```\r\n\r\nAdditionally functions may return a `void` return type to indicate that no value is to be returned from the function.\r\n\r\n```php\r\n<?php\r\ndeclare(strict_types=1);\r\n\r\nclass Driver\r\n{\r\n    string $serial_number;\r\n\r\n    function setSerialNumber(string $number): void\r\n    {\r\n        $this->serial_number = $number;\r\n    }\r\n\r\n    function getSerialNumber(): string\r\n    {\r\n        return $this->serial_number; \r\n    }\r\n}\r\n\r\n$driver = new Driver(); \r\n$driver->setSerialNumber(1234);\r\n// => This will throw a TypeError with strict_types=1\r\n```\r\n\r\n## Type Unions\r\n\r\nIf a function argument, return value or class property can be more than one type a type union may be declared.\r\n\r\n```php\r\n<?php\r\n\r\nclass IdentityCard\r\n{\r\n    private int|float $id = 0;\r\n\r\n    public function assign(int|float $id): void\r\n    {\r\n        $this->id = intval($id);\r\n    }\r\n}\r\n\r\n$card = new IdentityCard();\r\n$card->assign(5.0);\r\n```\r\n\r\n## Mixed Types\r\n\r\nWhen working with code, we may not be able to specify a type.\r\nStarting in PHP 8.0,an escape-hatch type named `mixed` is provided.\r\nMixed is equivalent to a type union of `object|resource|array|string|float|int|bool|null`.\r\n",
+    "introduction": "# Type Declaration\r\n\r\nType declarations in PHP provide type assertions at run time for function arguments, return values and class properties.\r\nOn functions, a `void` return type can be added to indicate that no value is returned from the function.\r\nDeclared types also serve as run time assertions that functions are returning a reasonably typed response.\r\n\r\n```php\r\n<?php\r\n\r\nclass Driver\r\n{\r\n    private int $serial_number;\r\n\r\n    public function setSerialNumber(int $number): void\r\n    {\r\n        $this->serial_number = $number;\r\n    }\r\n\r\n    public function getSerialNumber(): int\r\n    {\r\n        return $this->serial_number; \r\n    }\r\n}\r\n\r\n$driver = new Driver();\r\n$driver->setSerialNumber(\"Version 1b\"); // This will throw a TypeError\r\n```\r\n\r\n## Type Unions\r\n\r\nIf a function argument, return value or class property can be more than one type a type union may be declared.\r\n\r\n```php\r\n<?php\r\n\r\nclass IdentityCard\r\n{\r\n    private int|null $id = null;\r\n\r\n    public function assign(int|float $id): void\r\n    {\r\n        $this->id = intval($id);\r\n    }\r\n}\r\n\r\n$card = new IdentityCard();\r\n$card->assign(5.0);\r\n```\r\n\r\n## Mixed Types\r\n\r\nWhen working with code, we may not be able to specify a type.\r\nStarting in PHP 8.0,an escape-hatch type named `mixed` is provided.\r\nMixed is equivalent to a type union of `object|resource|array|string|float|int|bool|null`.\r\n"
+  },
+  "links": [
+    {
+      "url": "https://www.php.net/manual/en/language.types.declarations.php",
+      "description": "PHP: Types: Type Declarations"
+    },
+    {
+      "url": "https://www.php.net/manual/en/language.types.mixed.php",
+      "description": "PHP: Types: Mixed"
+    },
+    {
+      "url": "https://www.php.net/manual/en/language.types.void.php",
+      "description": "PHP: Types: Void"
+    }
+  ]
+}

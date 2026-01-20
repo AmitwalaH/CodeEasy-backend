@@ -1,0 +1,15 @@
+{
+  "language": "csharp",
+  "slug": "gigasecond",
+  "docs": {
+    "instructions": "# Instructions\r\n\r\nYour task is to determine the date and time one gigasecond after a certain date.\r\n\r\nA gigasecond is one thousand million seconds.\r\nThat is a one with nine zeros after it.\r\n\r\nIf you were born on _January 24th, 2015 at 22:00 (10:00:00pm)_, then you would be a gigasecond old on _October 2nd, 2046 at 23:46:40 (11:46:40pm)_.\r\n",
+    "instructions_append": "",
+    "hints": ""
+  },
+  "starter_code": {
+    "Gigasecond.cs": "public static class Gigasecond\r\n{\r\n    public static DateTime Add(DateTime moment)\r\n    {\r\n        throw new NotImplementedException(\"You need to implement this method.\");\r\n    }\r\n}"
+  },
+  "tests": {
+    "GigasecondTests.cs": "public class GigasecondTests\r\n{\r\n    [Fact]\r\n    public void Date_only_specification_of_time()\r\n    {\r\n        Assert.Equal(new DateTime(2043, 1, 1, 1, 46, 40), Gigasecond.Add(new DateTime(2011, 4, 25)));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Second_test_for_date_only_specification_of_time()\r\n    {\r\n        Assert.Equal(new DateTime(2009, 2, 19, 1, 46, 40), Gigasecond.Add(new DateTime(1977, 6, 13)));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Third_test_for_date_only_specification_of_time()\r\n    {\r\n        Assert.Equal(new DateTime(1991, 3, 27, 1, 46, 40), Gigasecond.Add(new DateTime(1959, 7, 19)));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Full_time_specified()\r\n    {\r\n        Assert.Equal(new DateTime(2046, 10, 2, 23, 46, 40), Gigasecond.Add(new DateTime(2015, 1, 24, 22, 0, 0)));\r\n    }\r\n\r\n    [Fact(Skip = \"Remove this Skip property to run this test\")]\r\n    public void Full_time_with_day_roll_over()\r\n    {\r\n        Assert.Equal(new DateTime(2046, 10, 3, 1, 46, 39), Gigasecond.Add(new DateTime(2015, 1, 24, 23, 59, 59)));\r\n    }\r\n}\r\n"
+  }
+}

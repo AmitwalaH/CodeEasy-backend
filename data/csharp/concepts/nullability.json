@@ -1,0 +1,47 @@
+{
+  "language": "csharp",
+  "slug": "nullability",
+  "title": "Nullability",
+  "docs": {
+    "about": "# About\r\n\r\nIn C#, the [`null` literal][null-keyword] is used to denote the absence of a value. A _nullable_ type is a type that allows for `null` values.\r\n\r\nPrior to C# 8.0, reference types were always nullable and value types were not. A [value type can be made nullable][nullable-value-types] though by appending it with a question mark (`?`).\r\n\r\n```csharp\r\nstring nullableReferenceType = \"hello\";\r\nnullableReferenceType = null; // Valid as type is nullable\r\n\r\nint nonNullableValueType = 5;\r\nnonNullableValueType = null; // Compile error as type is not nullable\r\n\r\nint? nullableValueType = 5; // Define nullable value type\r\nnullableValueType = null;   // Valid as type is nullable\r\n```\r\n\r\nAccessing a member of a variable which value is `null` will compile fine, but result in a `NullReferenceException` being thrown at runtime:\r\n\r\n```csharp\r\nstring sentence = \"What a nice day!\";\r\n\r\n// Throws NullReferenceException at runtime\r\nsentence.Length;\r\n```\r\n\r\nTo counter this common type of mistake, C# 8 allows one to [opt-into a feature][nullable-csharp-8] that makes [reference types non-nullable by default][nullable-reference-types]:\r\n\r\n```csharp\r\nstring nonNullableReferenceType = \"book\";\r\nnonNullableReferenceType = null; // Compile warning (no error!)\r\n\r\nstring? nullableReferenceType = \"movie\";\r\nnullableReferenceType = null; // Valid as type is nullable\r\n```\r\n\r\nTo [safely work with nullable values][nullable-types-tutorial], one should check if they are `null` before working with them:\r\n\r\n```csharp\r\nstring NormalizedName(string? name)\r\n{\r\n    if (name == null)\r\n    {\r\n        return \"UNKNOWN\";\r\n    }\r\n    else\r\n    {\r\n        // Value is not null at this point, so no compile warning\r\n        // and no runtime NullReferenceException being thrown\r\n        return name.ToUpper();\r\n    }\r\n}\r\n\r\nNormalizedName(null); // => \"UNKNOWN\"\r\nNormalizedName(\"Elisabeth\"); // => \"ELISABETH\"\r\n```\r\n\r\nThe [`??` operator][null-coalescing-operator] allows one to return a default value when the value is `null`:\r\n\r\n```csharp\r\nstring? name1 = \"John\";\r\nname1 ?? \"Paul\"; // => \"John\"\r\n\r\nstring? name2 = null;\r\nname2 ?? \"George\"; // => \"George\"\r\n```\r\n\r\nThe [`?.` operator][null-conditional-operator] allows one to call members safely on a possibly `null` value:\r\n\r\n```csharp\r\nstring? fruit = \"apple\";\r\nfruit?.Length; // => 5\r\n\r\nstring? vegetable = null;\r\nvegetable?.Length; // => null\r\n```\r\n\r\nIf the compiler thinks a value could be `null` but you are certain it won't be, the [`!.` operator][null-forgiving-operator] can be used to suppress the warning. Only use this operator as a last resort though.\r\n\r\n```csharp\r\nvoid PrintName(string? name)\r\n{\r\n    // Assume that the IsValid() method only return true\r\n    // when its argument is not null\r\n    if (IsValid(name))\r\n    {\r\n        // No compile warning\r\n        Console.WriteLine(name!.Length);\r\n    }\r\n}\r\n```\r\n\r\nIf you'd like to learn more about working with nullable reference, check out [this tutorial][nullable-reference-types-tutorial].\r\n\r\n[nullable-csharp-8]: https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references\r\n[null-keyword]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null\r\n[nullable-types-tutorial]: https://csharp.net-tutorials.com/data-types/nullable-types/\r\n[nullable-reference-types]: https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references\r\n[nullable-value-types]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types\r\n[nullable-csharp-8]: https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references\r\n[null-forgiving-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving\r\n[null-coalescing-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator\r\n[null-conditional-operator]: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-\r\n[nullable-reference-types-tutorial]: https://docs.microsoft.com/en-us/archive/msdn-magazine/2018/february/essential-net-csharp-8-0-and-nullable-reference-types\r\n",
+    "introduction": "# Introduction\r\n\r\nIn C#, the `null` literal is used to denote the absence of a value. A _nullable_ type is a type that allows for `null` values.\r\n\r\nPrior to C# 8.0, reference types were always nullable and value types were not. A value type can be made nullable though by appending it with a question mark (`?`).\r\n\r\n```csharp\r\nstring nullableReferenceType = \"hello\";\r\nnullableReferenceType = null; // Valid as type is nullable\r\n\r\nint nonNullableValueType = 5;\r\nnonNullableValueType = null; // Compile error as type is not nullable\r\n\r\nint? nullableValueType = 5; // Define nullable value type\r\nnullableValueType = null;   // Valid as type is nullable\r\n```\r\n\r\nAccessing a member of a variable which value is `null` will compile fine, but result in a `NullReferenceException` being thrown at runtime:\r\n\r\n```csharp\r\nstring sentence = null;\r\n\r\n// Throws NullReferenceException at runtime\r\nsentence.Length;\r\n```\r\n\r\nTo counter this common type of mistake, C# 8 allows one to opt-into a feature that makes reference types non-nullable by default:\r\n\r\n```csharp\r\nstring nonNullableReferenceType = \"book\";\r\nnonNullableReferenceType = null; // Compile warning (no error!)\r\n\r\nstring? nullableReferenceType = \"movie\";\r\nnullableReferenceType = null; // Valid as type is nullable\r\n```\r\n\r\nTo safely work with nullable values, one should check if they are `null` before working with them:\r\n\r\n```csharp\r\nstring NormalizedName(string? name)\r\n{\r\n    if (name == null)\r\n    {\r\n        return \"UNKNOWN\";\r\n    }\r\n    else\r\n    {\r\n        // Value is not null at this point, so no compile warning\r\n        // and no runtime NullReferenceException being thrown\r\n        return name.ToUpper();\r\n    }\r\n}\r\n\r\nNormalizedName(null); // => \"UNKNOWN\"\r\nNormalizedName(\"Elisabeth\"); // => \"ELISABETH\"\r\n```\r\n\r\nThe `??` operator allows one to return a default value when the value is `null`:\r\n\r\n```csharp\r\nstring? name1 = \"John\";\r\nname1 ?? \"Paul\"; // => \"John\"\r\n\r\nstring? name2 = null;\r\nname2 ?? \"George\"; // => \"George\"\r\n```\r\n\r\nThe `?.` operator allows one to call members safely on a possibly `null` value:\r\n\r\n```csharp\r\nstring? fruit = \"apple\";\r\nfruit?.Length; // => 5\r\n\r\nstring? vegetable = null;\r\nvegetable?.Length; // => null\r\n```\r\n\r\n[nullable-csharp-8]: https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references\r\n"
+  },
+  "links": [
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null",
+      "description": "null-keyword"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types",
+      "description": "nullable-value-types"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references",
+      "description": "nullable-csharp-8"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references",
+      "description": "nullable-reference-types"
+    },
+    {
+      "url": "https://csharp.net-tutorials.com/data-types/nullable-types/",
+      "description": "nullable-types-tutorial"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator",
+      "description": "null-coalescing-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-",
+      "description": "null-conditional-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving",
+      "description": "null-forgiving-operator"
+    },
+    {
+      "url": "https://docs.microsoft.com/en-us/archive/msdn-magazine/2018/february/essential-net-csharp-8-0-and-nullable-reference-types",
+      "description": "nullable-reference-types-tutorial"
+    }
+  ]
+}
