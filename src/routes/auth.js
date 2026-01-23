@@ -1,98 +1,98 @@
-import express from "express";
-import User from "../models/User.js";
-import { protect } from "../middlewares/auth.js";
+  import express from "express";
+  import User from "../models/User.js";
+  import { protect } from "../middlewares/auth.js";
 
-const router = express.Router();
+  const router = express.Router();
 
-// POST /api/auth/register
-router.post("/register", async (req, res) => {
-  try {
-    // ADD THIS DEBUG LOGGING
-    console.log("=== REGISTRATION DEBUG ===");
-    console.log("Full request body:", req.body);
-    console.log("Username:", req.body.username);
-    console.log("Email:", req.body.email);
-    console.log("Password:", req.body.password);
-    console.log("========================");
+  // POST /api/auth/register
+  router.post("/register", async (req, res) => {
+    try {
+      // ADD THIS DEBUG LOGGING
+      console.log("=== REGISTRATION DEBUG ===");
+      console.log("Full request body:", req.body);
+      console.log("Username:", req.body.username);
+      console.log("Email:", req.body.email);
+      console.log("Password:", req.body.password);
+      console.log("========================");
 
-    const { username, email, password } = req.body;
+      const { username, email, password } = req.body;
 
-    // ADD VALIDATION
-    if (!username || !email || !password) {
-      return res.status(400).json({
-        error: "Username, email, and password are required",
+      // ADD VALIDATION
+      if (!username || !email || !password) {
+        return res.status(400).json({
+          error: "Username, email, and password are required",
+        });
+      }
+
+      const user = new User({ username, email, password });
+      await user.save();
+      const token = user.generateAuthToken();
+
+      res.status(201).json({
+        message: "User registered successfully",
+        token,
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
       });
+    } catch (error) {
+      console.error("Registration error:", error);
+      res.status(500).json({ error: "Server error during registration" });
     }
+  });
 
-    const user = new User({ username, email, password });
-    await user.save();
-    const token = user.generateAuthToken();
+  // POST /api/auth/login
+  router.post("/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email }).select("+password");
 
-    res.status(201).json({
-      message: "User registered successfully",
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).json({ error: "Server error during registration" });
-  }
-});
+      if (!user) {
+        return res.status(401).json({ error: "Invalid email or password" });
+      }
 
-// POST /api/auth/login
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password");
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ error: "Invalid email or password" });
+      }
 
-    if (!user) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      const token = user.generateAuthToken();
+      res.status(200).json({
+        message: "User logged in successfully",
+        token,
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ error: "Server error during login" });
     }
+  });
 
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid email or password" });
+  // GET /api/auth/profile
+  router.get("/profile", protect, async (req, res) => {
+    try {
+      const user = req.user;
+      res.status(200).json({
+        message: "Profile data fetched successfully",
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.error("Profile fetch error:", error);
+      res.status(500).json({ error: "Server error fetching profile" });
     }
+  });
 
-    const token = user.generateAuthToken();
-    res.status(200).json({
-      message: "User logged in successfully",
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ error: "Server error during login" });
-  }
-});
-
-// GET /api/auth/profile
-router.get("/profile", protect, async (req, res) => {
-  try {
-    const user = req.user;
-    res.status(200).json({
-      message: "Profile data fetched successfully",
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Profile fetch error:", error);
-    res.status(500).json({ error: "Server error fetching profile" });
-  }
-});
-
-export default router;
+  export default router;

@@ -42,20 +42,30 @@ import * as trackController from "../controllers/trackController.js";
 import * as exerciseController from "../controllers/exerciseController.js";
 import * as conceptController from "../controllers/conceptController.js";
 
+// GET /api/tracks - List all tracks
+router.get("/", trackController.getAllTracks);
 
-router.get("/tracks", trackController.getAllTracks);
-router.get("/tracks/:trackSlug/config", trackController.getTrackConfig);
-router.get("/tracks/:trackSlug/exercises", exerciseController.getCategories);
+// GET /api/tracks/:trackSlug/config
+router.get("/:trackSlug/config", trackController.getTrackConfig);
+
+// GET /api/tracks/:trackSlug/exercises
+router.get("/:trackSlug/exercises", exerciseController.getCategories);
+
+// GET /api/tracks/:trackSlug/exercises/:category
 router.get(
-  "/tracks/:trackSlug/exercises/:category",
+  "/:trackSlug/exercises/:category",
   exerciseController.getExerciseSlugs,
 );
+
+// GET /api/tracks/:trackSlug/exercises/:category/:exerciseSlug
 router.get(
-  "/tracks/:trackSlug/exercises/:category/:exerciseSlug",
+  "/:trackSlug/exercises/:category/:exerciseSlug",
   exerciseController.getExerciseDetail,
 );
+
+// GET /api/tracks/:trackSlug/concepts/:conceptSlug
 router.get(
-  "/tracks/:trackSlug/concepts/:conceptSlug",
+  "/:trackSlug/concepts/:conceptSlug",
   conceptController.getConceptDetail,
 );
 

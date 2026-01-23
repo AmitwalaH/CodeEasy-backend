@@ -47,7 +47,7 @@ export const getExerciseDetail = (req, res) => {
     trackSlug,
     "exercises",
     category,
-    exerciseSlug
+    exerciseSlug,
   );
 
   if (!fs.existsSync(exerciseDir)) {
@@ -57,7 +57,6 @@ export const getExerciseDetail = (req, res) => {
   // Read docs
   const docsDir = path.join(exerciseDir, ".docs");
   const docs = {};
-
   ["introduction.md", "instructions.md", "hints.md"].forEach((file) => {
     const filePath = path.join(docsDir, file);
     if (fs.existsSync(filePath)) {
@@ -72,11 +71,9 @@ export const getExerciseDetail = (req, res) => {
     metaConfig = JSON.parse(fs.readFileSync(metaConfigPath, "utf8"));
   }
 
-  // Read starter code (solution files)
-  const starterCode = {};
-  const solutionFiles = metaConfig.files?.solution || [];
-  solutionFiles.forEach((pattern) => {
-    const fileName = pattern
+  // Helper to replace slug placeholders
+  const replaceSlugPatterns = (pattern) => {
+    return pattern
       .replace("%{snake_slug}", exerciseSlug.replace(/-/g, "_"))
       .replace("%{kebab_slug}", exerciseSlug)
       .replace(
@@ -84,46 +81,67 @@ export const getExerciseDetail = (req, res) => {
         exerciseSlug
           .split("-")
           .map((w) => w[0].toUpperCase() + w.slice(1))
-          .join("")
+          .join(""),
       );
+  };
 
+  // Read EDITOR files (starter code for users) - NOT solution!
+  const starterCode = {};
+  const editorFiles =
+    metaConfig.files?.editor || metaConfig.files?.solution || [];
+  editorFiles.forEach((pattern) => {
+    const fileName = replaceSlugPatterns(pattern);
     const filePath = path.join(exerciseDir, fileName);
     if (fs.existsSync(filePath)) {
       starterCode[fileName] = fs.readFileSync(filePath, "utf8");
     }
   });
 
-  // Read test files
-  const testFiles = metaConfig.files?.test || [];
-  let tests = "";
-  testFiles.forEach((pattern) => {
-    const fileName = pattern
-      .replace("%{snake_slug}", exerciseSlug.replace(/-/g, "_"))
-      .replace("%{kebab_slug}", exerciseSlug)
-      .replace(
-        "%{pascal_slug}",
-        exerciseSlug
-          .split("-")
-          .map((w) => w[0].toUpperCase() + w.slice(1))
-          .join("")
-      );
+  // Read solution files (for "show solution" feature)
+  const solutionCode = {};
+  const solutionFiles = metaConfig.files?.solution || [];
+  solutionFiles.forEach((pattern) => {
+    const fileName = replaceSlugPatterns(pattern);
+    const filePath = path.join(exerciseDir, ".meta", fileName);
+    if (fs.existsSync(filePath)) {
+      solutionCode[fileName] = fs.readFileSync(filePath, "utf8");
+    }
+  });
 
+  // Read test files
+  const testCode = {};
+  const testFiles = metaConfig.files?.test || [];
+  testFiles.forEach((pattern) => {
+    const fileName = replaceSlugPatterns(pattern);
     const filePath = path.join(exerciseDir, fileName);
     if (fs.existsSync(filePath)) {
-      tests = fs.readFileSync(filePath, "utf8");
+      testCode[fileName] = fs.readFileSync(filePath, "utf8");
+    }
+  });
+
+  // Read exemplar (alternative solution location)
+  const exemplarFiles = metaConfig.files?.exemplar || [];
+  exemplarFiles.forEach((pattern) => {
+    const fileName = replaceSlugPatterns(pattern);
+    const filePath = path.join(exerciseDir, ".meta", fileName);
+    if (fs.existsSync(filePath)) {
+      solutionCode[fileName] = fs.readFileSync(filePath, "utf8");
     }
   });
 
   res.json({
+    success: true,
     track: trackSlug,
     category,
     exercise: {
       slug: exerciseSlug,
       title: metaConfig.title || exerciseSlug,
       blurb: metaConfig.blurb,
+      authors: metaConfig.authors || [],
       docs,
       starter_code: starterCode,
-      tests,
+      solution_code: solutionCode,
+      tests: testCode,
       source: metaConfig.source,
       source_url: metaConfig.source_url,
     },
