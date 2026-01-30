@@ -45,6 +45,9 @@ import * as conceptController from "../controllers/conceptController.js";
 // GET /api/tracks - List all tracks
 router.get("/", trackController.getAllTracks);
 
+// GET /api/tracks/:trackSlug/about
+router.get("/:trackSlug/about", trackController.getTrackAbout);
+
 // GET /api/tracks/:trackSlug/config
 router.get("/:trackSlug/config", trackController.getTrackConfig);
 
