@@ -2,43 +2,61 @@ import path from "path";
 import fs from "fs/promises";
 import { http, getRuntime, findExerciseDir, parseTestLines } from "./common.js";
 
-function unityMini() {
-  return `#include <stdio.h>
+
+function unityLite() {
+  return `
+#include <stdio.h>
 #include <string.h>
 
+static int g_failures = 0;
 static const char* CURRENT_TEST = "test";
 
-void UnityAssertEqualString(const char* exp, const char* act) {
+/* Only define if tests didn't define them */
+#ifndef UNITY_BEGIN
+void UnityBegin(const char* file) { (void)file; g_failures = 0; }
+int UnityEnd(void) { return g_failures == 0 ? 0 : 1; }
+#define UNITY_BEGIN() UnityBegin(__FILE__)
+#define UNITY_END()   UnityEnd()
+#endif
+
+#ifndef RUN_TEST
+#define RUN_TEST(fn) do { CURRENT_TEST = #fn; fn(); } while (0)
+#endif
+
+void UnityAssertEqualString(const char* exp, const char* act, int line) {
+  (void)line;
+  if (!exp) exp = "";
+  if (!act) act = "";
+
   if (strcmp(exp, act) == 0) {
     printf("TEST: %s - PASS \\xE2\\x9C\\x93\\n", CURRENT_TEST);
   } else {
     printf("TEST: %s - FAIL \\xE2\\x9C\\x97\\n", CURRENT_TEST);
     printf("  Error: Expected \\"%s\\" but got \\"%s\\"\\n", exp, act);
+    g_failures++;
   }
 }
 
-#define TEST_ASSERT_EQUAL_STRING(expected, actual) UnityAssertEqualString(expected, actual)
-#define RUN_TEST(fn) do { CURRENT_TEST = #fn; fn(); } while(0)
-`;
+#ifndef TEST_ASSERT_EQUAL_STRING
+#define TEST_ASSERT_EQUAL_STRING(exp, act) UnityAssertEqualString((exp), (act), __LINE__)
+#endif
+`.trim();
 }
 
-function removeQuoteIncludes(code) {
+function removeQuotedIncludes(code) {
   return String(code || "")
     .split("\n")
-    .filter((line) => !line.trim().match(/^#include\s+"[^"]+"/))
+    .filter((l) => !l.trim().startsWith('#include "'))
     .join("\n");
 }
 
-function cleanHeader(headerContent) {
-  return String(headerContent || "")
+function cleanHeader(header) {
+  return String(header || "")
     .split("\n")
-    .filter((line) => {
-      const t = line.trim();
+    .filter((l) => {
+      const t = l.trim();
       if (!t) return false;
-      if (t.startsWith("#include")) return false;
-      if (t.startsWith("#ifndef")) return false;
-      if (t.startsWith("#define")) return false;
-      if (t.startsWith("#endif")) return false;
+      if (t.startsWith("#")) return false;
       return true;
     })
     .join("\n");
@@ -46,34 +64,32 @@ function cleanHeader(headerContent) {
 
 export async function runC({ track, category, exerciseSlug, userCode, stdin }) {
   const exerciseDir = await findExerciseDir(track, category, exerciseSlug);
-  if (!exerciseDir) return { success: false, error: `Exercise not found` };
+  if (!exerciseDir) return { success: false, error: "Exercise not found" };
 
   const rt = await getRuntime("c");
-  if (!rt?.version)
-    return { success: false, error: "C runtime not found in Piston" };
+  if (!rt?.version) return { success: false, error: "C runtime not found" };
 
   const base = exerciseSlug.replace(/-/g, "_");
-  const headerFile = path.join(exerciseDir, `${base}.h`);
-  const testFile = path.join(exerciseDir, `test_${base}.c`);
 
-  let headerContent = "";
-  let testContent = "";
+  let header = "";
+  let test = "";
 
   try {
-    headerContent = await fs.readFile(headerFile, "utf8");
+    header = await fs.readFile(path.join(exerciseDir, `${base}.h`), "utf8");
   } catch {}
+
   try {
-    testContent = await fs.readFile(testFile, "utf8");
+    test = await fs.readFile(path.join(exerciseDir, `test_${base}.c`), "utf8");
   } catch {}
 
   const combined = `
-${unityMini()}
+${unityLite()}
 
-${cleanHeader(headerContent)}
+${cleanHeader(header)}
 
-${removeQuoteIncludes(userCode)}
+${removeQuotedIncludes(userCode)}
 
-${removeQuoteIncludes(testContent)}
+${removeQuotedIncludes(test)}
 `.trim();
 
   const payload = {
@@ -84,18 +100,17 @@ ${removeQuoteIncludes(testContent)}
   };
 
   const r = await http.post("/execute", payload);
-  const output = r.data;
+  const out = r.data;
 
-  // compilation check
-  if (output.compile && output.compile.code !== 0) {
+  if (out.compile && out.compile.code !== 0) {
     return {
       success: true,
       submission: {
         result: {
           status: "Compilation Error",
-          stdout: output.compile.stdout || "",
-          stderr: output.compile.stderr || "",
-          compileOutput: output.compile.stderr || "",
+          stdout: out.compile.stdout || "",
+          stderr: out.compile.stderr || "",
+          compileOutput: out.compile.stderr || "",
           time: "0",
           memory: 0,
         },
@@ -112,34 +127,23 @@ ${removeQuoteIncludes(testContent)}
     };
   }
 
-  const stdout = output.run?.stdout || "";
-  const exitCode = output.run?.code ?? 0;
-
-  const testResults = parseTestLines(stdout);
-  if (testResults.length === 0) {
-    testResults.push({
-      input: "Execution",
-      expectedOutput: "Success",
-      actualOutput: exitCode === 0 ? "Success" : "Failed",
-      passed: exitCode === 0,
-    });
-  }
-
-  const allPassed = testResults.every((t) => t.passed);
+  const stdout = out.run?.stdout || "";
+  const tests = parseTestLines(stdout);
+  const passed = tests.every((t) => t.passed);
 
   return {
     success: true,
     submission: {
       result: {
-        status: allPassed ? "Accepted" : "Wrong Answer",
+        status: passed ? "Accepted" : "Wrong Answer",
         stdout,
-        stderr: output.run?.stderr || "",
-        compileOutput: output.compile?.stderr || null,
-        time: ((output.run?.time || 0) / 1000).toFixed(3),
-        memory: output.run?.memory || 0,
+        stderr: out.run?.stderr || "",
+        compileOutput: null,
+        time: ((out.run?.time || 0) / 1000).toFixed(3),
+        memory: out.run?.memory || 0,
       },
-      passed: allPassed,
-      testResults,
+      passed,
+      testResults: tests,
     },
   };
 }

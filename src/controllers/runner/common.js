@@ -7,31 +7,25 @@ import fsSync from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const DATA_DIR = path.join(__dirname, "..", "data");
+export const DATA_DIR = path.join(__dirname, "..", "..", "data");
 
-// Piston URL
-export const PISTON_URL =
-  process.env.PISTON_URL || "https://emkc.org/api/v2/piston";
+const PISTON_URL = process.env.PISTON_URL || "https://emkc.org/api/v2/piston";
 
-// Axios client
 export const http = axios.create({
   baseURL: PISTON_URL,
   timeout: 180000,
   headers: { "Content-Type": "application/json" },
 });
 
-let cachedRuntimes = null;
+let runtimesCache = null;
 
 export async function getRuntime(language) {
-  if (!cachedRuntimes) {
+  if (!runtimesCache) {
     const r = await http.get("/runtimes");
-    cachedRuntimes = Array.isArray(r.data) ? r.data : [];
+    runtimesCache = Array.isArray(r.data) ? r.data : [];
   }
-
-  const list = cachedRuntimes.filter((x) => x.language === language);
+  const list = runtimesCache.filter((x) => x.language === language);
   if (!list.length) return null;
-
-  // picking latest version
   list.sort((a, b) => String(b.version).localeCompare(String(a.version)));
   return list[0];
 }
@@ -39,13 +33,11 @@ export async function getRuntime(language) {
 export async function findExerciseDir(track, category, exerciseSlug) {
   const base = path.join(DATA_DIR, track, "exercises");
 
-  // if category exists (practice/concept)
   if (category) {
     const p = path.join(base, category, exerciseSlug);
     if (fsSync.existsSync(p)) return p;
   }
 
-  // fallback common
   const p1 = path.join(base, "practice", exerciseSlug);
   if (fsSync.existsSync(p1)) return p1;
 
@@ -56,18 +48,16 @@ export async function findExerciseDir(track, category, exerciseSlug) {
 }
 
 export async function readMetaConfig(exerciseDir) {
-  const filePath = path.join(exerciseDir, ".meta", "config.json");
-  if (!fsSync.existsSync(filePath)) return null;
-
+  const p = path.join(exerciseDir, ".meta", "config.json");
+  if (!fsSync.existsSync(p)) return null;
   try {
-    const raw = await fs.readFile(filePath, "utf8");
+    const raw = await fs.readFile(p, "utf8");
     return JSON.parse(raw);
   } catch {
     return null;
   }
 }
 
-// Replace %{snake_slug} etc
 export function applySlugPattern(exerciseSlug, pattern) {
   const snake = exerciseSlug.replace(/-/g, "_");
   const pascal = exerciseSlug
@@ -75,32 +65,53 @@ export function applySlugPattern(exerciseSlug, pattern) {
     .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : ""))
     .join("");
 
-  return pattern
+  return String(pattern || "")
     .replaceAll("%{snake_slug}", snake)
     .replaceAll("%{kebab_slug}", exerciseSlug)
     .replaceAll("%{pascal_slug}", pascal);
 }
 
-// =======================
-// Parse "TEST: xxx - PASS ✓" like JS
-// =======================
 export function parseTestLines(stdout) {
-  const out = [];
+  const testResults = [];
   const lines = String(stdout || "").split("\n");
 
   for (const line of lines) {
-    if (!line.includes("TEST:")) continue;
-
-    const passed = line.includes("PASS") || line.includes("✓");
-    const name = line.split("TEST:")[1]?.split("-")[0]?.trim() || "Test";
-
-    out.push({
-      input: name,
-      expectedOutput: "Pass",
-      actualOutput: passed ? "Pass" : "Fail",
-      passed,
-    });
+    if (line.includes("TEST:")) {
+      const passed = line.includes("PASS") || line.includes("✓");
+      const testName = line.split("TEST:")[1]?.split("-")[0]?.trim() || "Test";
+      testResults.push({
+        input: testName,
+        expectedOutput: "Pass",
+        actualOutput: passed ? "Pass" : "Fail",
+        passed,
+      });
+    }
   }
 
-  return out;
+  return testResults;
+}
+
+export function errorSubmission(message) {
+  return {
+    success: true,
+    submission: {
+      result: {
+        status: "Error",
+        stdout: "",
+        stderr: String(message || "Error"),
+        compileOutput: null,
+        time: "0.000",
+        memory: 0,
+      },
+      passed: false,
+      testResults: [
+        {
+          input: "Execution",
+          expectedOutput: "Success",
+          actualOutput: "Error",
+          passed: false,
+        },
+      ],
+    },
+  };
 }
