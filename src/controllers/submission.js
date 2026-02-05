@@ -2,6 +2,7 @@ import { runJavascript } from "./runner/runJavascript.js";
 import { runC } from "./runner/runC.js";
 import { runCpp } from "./runner/runCpp.js";
 import { runPython } from "./runner/runPython.js";
+import { runPhp } from "./runner/runPhp.js";
 
 // Judge0-like ID -> language
 const languageMap = {
@@ -9,6 +10,7 @@ const languageMap = {
   50: "c",
   54: "cpp",
   71: "python",
+  68: "php",
 };
 
 // Always return same shape so frontend never crashes
@@ -80,6 +82,14 @@ export const submitCode = async (req, res) => {
       result = await runCpp({ track, category, exerciseSlug, userCode, stdin });
     } else if (lang === "python") {
       result = await runPython({
+        track,
+        category,
+        exerciseSlug,
+        userCode,
+        stdin,
+      });
+    } else if (lang === "php") {
+      result = await runPhp({
         track,
         category,
         exerciseSlug,
