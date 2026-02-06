@@ -1,26 +1,38 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import UserProgress from "../models/UserProgress.js";
 
-// Fix __dirname for ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, "..", "data");
 
-// GET /api/tracks - List all available tracks
-export const getAllTracks = (req, res) => {
+// helper: count students for a track from UserProgress
+const getStudentCount = async (trackSlug) => {
+  return UserProgress.countDocuments({
+    trackSlug,
+    category: "track",
+    exerciseSlug: null,
+  });
+};
+
+// GET /api/tracks - List all available tracks (now includes studentCount)
+export const getAllTracks = async (req, res) => {
   try {
-    const tracks = fs
-      .readdirSync(DATA_DIR)
-      .filter((dir) => {
-        const configPath = path.join(DATA_DIR, dir, "config.json");
-        return fs.existsSync(configPath);
-      })
-      .map((slug) => {
+    const slugs = fs.readdirSync(DATA_DIR).filter((dir) => {
+      const configPath = path.join(DATA_DIR, dir, "config.json");
+      return fs.existsSync(configPath);
+    });
+
+    const tracks = await Promise.all(
+      slugs.map(async (slug) => {
         const config = JSON.parse(
-          fs.readFileSync(path.join(DATA_DIR, slug, "config.json"), "utf8"),
+          fs.readFileSync(path.join(DATA_DIR, slug, "config.json"), "utf8")
         );
+
+        const studentCount = await getStudentCount(slug);
+
         return {
           slug,
           name: config.language,
@@ -30,12 +42,47 @@ export const getAllTracks = (req, res) => {
           exerciseCount:
             (config.exercises?.concept?.length || 0) +
             (config.exercises?.practice?.length || 0),
+          studentCount, 
         };
-      });
+      })
+    );
 
     res.json({ success: true, tracks });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// GET /api/tracks/:slug  (this is what TrackDetail.tsx calls)
+export const getTrackBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const configPath = path.join(DATA_DIR, slug, "config.json");
+    if (!fs.existsSync(configPath)) {
+      return res.status(404).json({ success: false, error: "Track not found" });
+    }
+
+    const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+
+    const studentCount = await getStudentCount(slug);
+
+    return res.json({
+      success: true,
+      track: {
+        slug,
+        name: config.language,
+        description: config.blurb,
+        active: config.active,
+        conceptCount: config.concepts?.length || 0,
+        exerciseCount:
+          (config.exercises?.concept?.length || 0) +
+          (config.exercises?.practice?.length || 0),
+        studentCount, 
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
