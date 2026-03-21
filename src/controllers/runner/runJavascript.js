@@ -12,12 +12,10 @@ import {
 
 function cleanUserJS(userCode) {
   let code = String(userCode ?? "");
-
   code = code
     .replace(/^\s*export\s+default\s+/gm, "")
     .replace(/^\s*export\s+\{[^}]+\}\s*;?\s*$/gm, "")
     .replace(/^\s*export\s+/gm, "");
-
   code = code.replace(/^\s*import\s+.*?;?\s*$/gm, "");
   return code.trim();
 }
@@ -215,7 +213,12 @@ export async function runJavascript({
     const testCode = rawTest
       ? convertJestToPlainJS(rawTest)
       : makeNoTestsRunner();
+
     const combinedCode = `${cleanUserJS(userCode)}\n\n${testCode}`;
+
+    console.log("=== JS COMBINED CODE ===");
+    console.log(combinedCode.slice(0, 500));
+    console.log("========================");
 
     const payload = {
       language: "javascript",
@@ -226,6 +229,12 @@ export async function runJavascript({
 
     const result = await http.post("/execute", payload);
     const output = result.data;
+
+    console.log("=== JS PISTON OUTPUT ===");
+    console.log("stdout:", output.run?.stdout);
+    console.log("stderr:", output.run?.stderr);
+    console.log("code:", output.run?.code);
+    console.log("========================");
 
     const stdout = output.run?.stdout || "";
     const exitCode = output.run?.code ?? 0;
@@ -258,6 +267,9 @@ export async function runJavascript({
       },
     };
   } catch (e) {
+    console.error("=== JS RUNNER ERROR ===");
+    console.error(e?.message);
+    console.error(e?.response?.data);
     return errorSubmission(e?.message || "JavaScript runner failed");
   }
 }

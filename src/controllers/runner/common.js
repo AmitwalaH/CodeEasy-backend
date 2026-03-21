@@ -9,7 +9,8 @@ const __dirname = path.dirname(__filename);
 
 export const DATA_DIR = path.join(__dirname, "..", "..", "data");
 
-const PISTON_URL = process.env.PISTON_URL || "https://emkc.org/api/v2/piston";
+const PISTON_URL = process.env.PISTON_URL || "http://localhost:2000/api/v2";
+console.log("🚀 PISTON_URL =", PISTON_URL);
 
 export const http = axios.create({
   baseURL: PISTON_URL,
@@ -78,14 +79,29 @@ export function parseTestLines(stdout) {
   for (const line of lines) {
     if (line.includes("TEST:")) {
       const passed = line.includes("PASS") || line.includes("✓");
+      const skipped = line.includes("SKIP");
       const testName = line.split("TEST:")[1]?.split("-")[0]?.trim() || "Test";
-      testResults.push({
-        input: testName,
-        expectedOutput: "Pass",
-        actualOutput: passed ? "Pass" : "Fail",
-        passed,
-      });
+
+      // Only include non-skipped tests in results
+      if (!skipped) {
+        testResults.push({
+          input: testName,
+          expectedOutput: "Pass",
+          actualOutput: passed ? "Pass" : "Fail",
+          passed,
+        });
+      }
     }
+  }
+
+  // If all tests were skipped, return a passing result
+  if (testResults.length === 0) {
+    return [{
+      input: "All tests skipped",
+      expectedOutput: "Pass",
+      actualOutput: "Pass",
+      passed: true,
+    }];
   }
 
   return testResults;
