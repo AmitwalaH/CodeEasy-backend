@@ -104,7 +104,6 @@ export function parseTestLines(stdout) {
 
   return testResults;
 }
-
 export function errorSubmission(message) {
   return {
     success: true,

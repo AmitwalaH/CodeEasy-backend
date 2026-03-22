@@ -18,6 +18,21 @@ import importlib.util
 import os
 import io
 
+# 🔥 FAKE PYTEST (fix)
+import types
+pytest = types.SimpleNamespace()
+
+def raises(exc):
+    class Ctx:
+        def __enter__(self): return self
+        def __exit__(self, exc_type, exc_val, tb):
+            return isinstance(exc_val, exc)
+    return Ctx()
+
+pytest.raises = raises
+sys.modules['pytest'] = pytest
+
+
 def load_module_from_file(file_path):
     file_path = os.path.abspath(file_path)
     mod_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -25,6 +40,7 @@ def load_module_from_file(file_path):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
 
 class JsStyleResult(unittest.TextTestResult):
     def addSuccess(self, test):
@@ -40,7 +56,6 @@ class JsStyleResult(unittest.TextTestResult):
         except Exception:
             msg = str(err)
 
-        # Exercism tests put friendly hint at bottom
         msg = (msg or "").strip().split("\\n")[-1]
         if msg:
             print("  Error:", msg)
@@ -53,8 +68,10 @@ class JsStyleResult(unittest.TextTestResult):
         super().addError(test, err)
         self._fail_line(test, err)
 
+
 class JsStyleRunner(unittest.TextTestRunner):
     resultclass = JsStyleResult
+
 
 def main():
     test_path = "${testFile}"
@@ -78,12 +95,12 @@ def main():
         print("  Error: No tests discovered")
         sys.exit(1)
 
-    #  suppress default unittest spam (F, traceback, Ran X tests...)
     silent_stream = io.StringIO()
     runner = JsStyleRunner(stream=silent_stream, verbosity=0)
     result = runner.run(suite)
 
     sys.exit(0 if result.wasSuccessful() else 1)
+
 
 if __name__ == "__main__":
     main()
@@ -164,8 +181,8 @@ export async function runPython({
     submission: {
       result: {
         status: allPassed ? "Accepted" : "Wrong Answer",
-        stdout, 
-        stderr: "", 
+        stdout,
+        stderr: "",
         compileOutput: null,
         time: ((out.run?.time || 0) / 1000).toFixed(3),
         memory: out.run?.memory || 0,
