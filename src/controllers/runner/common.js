@@ -78,9 +78,13 @@ export function parseTestLines(stdout) {
 
   for (const line of lines) {
     if (line.includes("TEST:")) {
-      const passed = line.includes("PASS") && !line.includes("FAIL");
+      const passed =
+        (line.includes("PASS") || line.includes("✓")) &&
+        !line.includes("FAIL") &&
+        !line.includes("✗");
       const skipped = line.includes("SKIP");
-      const testName = line.split("TEST:")[1]?.split(" - ")[0]?.trim() || "Test";
+      const testName =
+        line.split("TEST:")[1]?.split(" - ")[0]?.trim() || "Test";
 
       if (!skipped) {
         testResults.push({
@@ -94,16 +98,19 @@ export function parseTestLines(stdout) {
   }
 
   if (testResults.length === 0) {
-    return [{
-      input: "All tests skipped",
-      expectedOutput: "Pass",
-      actualOutput: "Pass",
-      passed: true,
-    }];
+    return [
+      {
+        input: "All tests skipped",
+        expectedOutput: "Pass",
+        actualOutput: "Pass",
+        passed: true,
+      },
+    ];
   }
 
   return testResults;
 }
+
 export function errorSubmission(message) {
   return {
     success: true,
