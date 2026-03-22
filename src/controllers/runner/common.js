@@ -14,7 +14,7 @@ console.log("🚀 PISTON_URL =", PISTON_URL);
 
 export const http = axios.create({
   baseURL: PISTON_URL,
-  timeout: 180000,
+  timeout: 30000,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -78,11 +78,10 @@ export function parseTestLines(stdout) {
 
   for (const line of lines) {
     if (line.includes("TEST:")) {
-      const passed = line.includes("PASS") || line.includes("✓");
+      const passed = line.includes("PASS") && !line.includes("FAIL");
       const skipped = line.includes("SKIP");
-      const testName = line.split("TEST:")[1]?.split("-")[0]?.trim() || "Test";
+      const testName = line.split("TEST:")[1]?.split(" - ")[0]?.trim() || "Test";
 
-      // Only include non-skipped tests in results
       if (!skipped) {
         testResults.push({
           input: testName,
@@ -94,7 +93,6 @@ export function parseTestLines(stdout) {
     }
   }
 
-  // If all tests were skipped, return a passing result
   if (testResults.length === 0) {
     return [{
       input: "All tests skipped",

@@ -29,142 +29,106 @@ function makeNoTestsRunner() {
 `.trim();
 }
 
-function indentBlock(text, spaces) {
-  const pad = " ".repeat(spaces);
-  return text
-    .split("\n")
-    .map((l) => (l.trim() ? pad + l : l))
-    .join("\n");
-}
+// 🔥 FINAL UNIVERSAL PARSER (supports equal + toThrow)
+function convertJestToPlainJS(jestCode) {
+  const code = String(jestCode);
+  const tests = [];
 
-function escapeForTemplate(s) {
-  return s.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$/g, "\\$");
-}
-
-function extractExpects(body) {
-  const out = [];
-
+  // ✅ toEqual / toBe
   const re1 =
-    /expect\s*\(\s*([\s\S]*?)\s*\)\s*\.\s*(toBe|toEqual|toStrictEqual)\s*\(\s*([\s\S]*?)\s*\)\s*;?/g;
+    /expect\s*\(\s*([\s\S]*?)\s*\)\s*\.\s*(toBe|toEqual|toStrictEqual)\s*\(\s*([\s\S]*?)\s*\)/g;
+
   let m;
-  while ((m = re1.exec(body)) !== null) {
-    out.push({
+  while ((m = re1.exec(code)) !== null) {
+    tests.push({
+      type: "equal",
       actual: m[1].trim(),
-      matcher: m[2].trim(),
       expected: m[3].trim(),
     });
   }
 
+  // ✅ toThrow
   const re2 =
-    /expect\s*\(\s*\(\s*\)\s*=>\s*([\s\S]*?)\s*\)\s*\.\s*toThrow\s*\(\s*\)\s*;?/g;
-  while ((m = re2.exec(body)) !== null) {
-    out.push({ actual: m[1].trim(), matcher: "toThrow", expected: null });
+    /expect\s*\(\s*\(\s*\)\s*=>\s*([\s\S]*?)\s*\)\s*\.\s*toThrow\s*\(\s*\)/g;
+
+  while ((m = re2.exec(code)) !== null) {
+    tests.push({
+      type: "throw",
+      actual: m[1].trim(),
+    });
   }
 
-  return out;
-}
-
-function convertJestToPlainJS(jestCode) {
-  let code = String(jestCode);
-
-  code = code.replace(/^\s*import\s+[\s\S]*?;\s*$/gm, "");
-
-  code = code.replace(
-    /(?:xtest|xit)\s*\(\s*['"`][\s\S]*?['"`]\s*,\s*\(\)\s*=>\s*\{[\s\S]*?\}\s*\)\s*;?/g,
-    "",
-  );
-
-  code = code.replace(
-    /describe\s*\(\s*['"`]([^'"`]+)['"`]\s*,\s*\(\)\s*=>\s*\{/,
-    (_m, suite) => `
-function __runTests__() {
-  let passedCount = 0;
-  let failedCount = 0;
-  console.log("Running tests...");
-  console.log("Suite: ${escapeForTemplate(String(suite))}\\n");
-`,
-  );
-
-  code = code.replace(
-    /(?:test|it)\s*\(\s*['"`]([^'"`]+)['"`]\s*,\s*\(\)\s*=>\s*\{([\s\S]*?)\}\s*\)\s*;?/g,
-    (_m, testName, body) => {
-      const expects = extractExpects(String(body));
-
-      if (expects.length === 0) {
-        return `
-  try {
-${indentBlock(String(body).trim(), 4)}
-    console.log("TEST: ${escapeForTemplate(String(testName))} - PASS ✓");
-    passedCount++;
-  } catch (error) {
-    console.log("TEST: ${escapeForTemplate(String(testName))} - FAIL ✗");
-    console.log("  Error:", error?.message || String(error));
-    failedCount++;
+  if (tests.length === 0) {
+    return `console.log("No tests found");process.exit(0);`;
   }
-`;
-      }
 
-      const checks = expects
-        .map((ex) => {
-          if (ex.matcher === "toThrow") {
-            return `
-    {
-      let __threw__ = false;
-      try { (${ex.actual}); } catch { __threw__ = true; }
-      if (!__threw__) throw new Error("Expected function to throw");
-    }
-`;
-          }
-
-          return `
-    {
-      const __actual__ = (${ex.actual});
-      const __expected__ = (${ex.expected});
-      if (JSON.stringify(__actual__) !== JSON.stringify(__expected__)) {
-        throw new Error("Expected " + JSON.stringify(__expected__) + " but got " + JSON.stringify(__actual__));
-      }
-    }
-`;
-        })
-        .join("");
-
-      return `
-  try {
-${checks}
-    console.log("TEST: ${escapeForTemplate(String(testName))} - PASS ✓");
-    passedCount++;
-  } catch (error) {
-    console.log("TEST: ${escapeForTemplate(String(testName))} - FAIL ✗");
-    console.log("  Error:", error?.message || String(error));
-    failedCount++;
-  }
-`;
-    },
-  );
-
-  code = code.replace(/^\s*\}\);\s*$/gm, "");
-  code = code.replace(/^\s*describe\s*\(.*$/gm, "");
-
-  if (!code.includes("function __runTests__()")) {
-    return `
+  let runner = `
 (function () {
-  console.log("No runnable tests found in spec.");
-  process.exit(0);
-})();
-`.trim();
-  }
+  let passed = 0;
+  let failed = 0;
 
-  code += `
-  console.log("\\n" + "=".repeat(40));
-  console.log("Results:", passedCount, "passed,", failedCount, "failed");
-  console.log("=".repeat(40));
-  if (failedCount > 0) process.exit(1);
-}
-
-__runTests__();
+  console.log("Running tests...\\n");
 `;
 
-  return code.trim();
+  tests.forEach((t, i) => {
+    if (t.type === "equal") {
+      runner += `
+  try {
+    const actual = (${t.actual});
+    const expected = (${t.expected});
+
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      throw new Error(
+        "Expected " + JSON.stringify(expected) +
+        " but got " + JSON.stringify(actual)
+      );
+    }
+
+    console.log("TEST ${i + 1}: PASS ✓");
+    passed++;
+  } catch (e) {
+    console.log("TEST ${i + 1}: FAIL ✗");
+    console.log("  Error:", e.message);
+    failed++;
+  }
+`;
+    }
+
+    if (t.type === "throw") {
+      runner += `
+  try {
+    let threw = false;
+    try {
+      ${t.actual};
+    } catch (e) {
+      threw = true;
+    }
+
+    if (!threw) {
+      throw new Error("Expected function to throw");
+    }
+
+    console.log("TEST ${i + 1}: PASS ✓");
+    passed++;
+  } catch (e) {
+    console.log("TEST ${i + 1}: FAIL ✗");
+    console.log("  Error:", e.message);
+    failed++;
+  }
+`;
+    }
+  });
+
+  runner += `
+  console.log("\\n========================================");
+  console.log("Results:", passed, "passed,", failed, "failed");
+  console.log("========================================");
+
+  if (failed > 0) process.exit(1);
+})();
+`;
+
+  return runner;
 }
 
 async function findJsTestFile(exerciseDir, exerciseSlug) {
@@ -202,12 +166,9 @@ export async function runJavascript({
 
     let rawTest = "";
     const testFilePath = await findJsTestFile(exerciseDir, exerciseSlug);
+
     if (testFilePath) {
-      try {
-        rawTest = await fs.readFile(testFilePath, "utf-8");
-      } catch {
-        rawTest = "";
-      }
+      rawTest = await fs.readFile(testFilePath, "utf-8");
     }
 
     const testCode = rawTest
@@ -216,60 +177,34 @@ export async function runJavascript({
 
     const combinedCode = `${cleanUserJS(userCode)}\n\n${testCode}`;
 
-    console.log("=== JS COMBINED CODE ===");
-    console.log(combinedCode.slice(0, 500));
-    console.log("========================");
-
-    const payload = {
+    const result = await http.post("/execute", {
       language: "javascript",
       version: "18.15.0",
       files: [{ name: "main.js", content: combinedCode }],
       stdin: stdin || "",
-    };
+    });
 
-    const result = await http.post("/execute", payload);
-    const output = result.data;
-
-    console.log("=== JS PISTON OUTPUT ===");
-    console.log("stdout:", output.run?.stdout);
-    console.log("stderr:", output.run?.stderr);
-    console.log("code:", output.run?.code);
-    console.log("========================");
-
-    const stdout = output.run?.stdout || "";
-    const exitCode = output.run?.code ?? 0;
+    const stdout = result.data.run?.stdout || "";
+    const exitCode = result.data.run?.code ?? 0;
 
     const testResults = parseTestLines(stdout);
-    if (testResults.length === 0) {
-      testResults.push({
-        input: "Execution",
-        expectedOutput: "Success",
-        actualOutput: exitCode === 0 ? "Success" : "Failed",
-        passed: exitCode === 0,
-      });
-    }
-
-    const allPassed = testResults.every((t) => t.passed);
 
     return {
       success: true,
       submission: {
         result: {
-          status: allPassed ? "Accepted" : "Wrong Answer",
+          status: exitCode === 0 ? "Accepted" : "Wrong Answer",
           stdout,
-          stderr: output.run?.stderr || "",
+          stderr: result.data.run?.stderr || "",
           compileOutput: null,
-          time: ((output.run?.time || 0) / 1000).toFixed(3),
-          memory: output.run?.memory || 0,
+          time: ((result.data.run?.time || 0) / 1000).toFixed(3),
+          memory: result.data.run?.memory || 0,
         },
-        passed: allPassed,
+        passed: exitCode === 0,
         testResults,
       },
     };
   } catch (e) {
-    console.error("=== JS RUNNER ERROR ===");
-    console.error(e?.message);
-    console.error(e?.response?.data);
-    return errorSubmission(e?.message || "JavaScript runner failed");
+    return errorSubmission(e.message);
   }
 }

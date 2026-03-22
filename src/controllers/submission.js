@@ -5,8 +5,8 @@ import { runPython } from "./runner/runPython.js";
 import { runPhp } from "./runner/runPhp.js";
 // import { runGo } from "./runner/runGo.js";
 // import { runCsharp } from "./runner/runCsharp.js";
-// import { runR } from "./runner/runR.js";
-// import { runRuby } from "./runner/runRuby.js";
+import { runR } from "./runner/runR.js";
+import { runRuby } from "./runner/runRuby.js";
 
 // Judge0-like ID -> language mapping
 const languageMap = {
